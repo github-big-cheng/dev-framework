@@ -1,0 +1,63 @@
+@import "./mixin.scss";
+
+.editable-box{
+    .vxe-table--render-default .vxe-table--header,.vxe-table--body{width: 100%!important;}
+    &.is--maximize{
+        z-index: 1001!important;
+    }
+    .vxe-button{
+        font-size: 12px;
+    }
+    .vxe-button.type--button:not(.is--circle){
+        min-width: 70Px;/*no*/
+        height: 30px;
+        color: $cBlue;
+        .el-icon-aliback{
+            @include fontSize;
+        }
+    }
+    .vxe-table--render-default .vxe-body--column:not(.col--ellipsis), .vxe-table--render-default .vxe-footer--column:not(.col--ellipsis), .vxe-table--render-default .vxe-header--column:not(.col--ellipsis){
+        padding: 5px 0;
+    }
+    .vxe-table--render-default .vxe-body--column.col--ellipsis, .vxe-table--render-default.vxe-editable .vxe-body--column, .vxe-table--render-default .vxe-footer--column.col--ellipsis, .vxe-table--render-default .vxe-header--column.col--ellipsis{
+        height: 36px;
+        padding: 0;
+    }
+    .vxe-table--render-default{
+        @include fontSize;
+    }
+
+    .vxe-input,.vxe-cell .vxe-default-input, .vxe-cell .vxe-default-select, .vxe-cell .vxe-default-textarea, .vxe-table--filter-wrapper .vxe-default-input, .vxe-table--filter-wrapper .vxe-default-select, .vxe-table--filter-wrapper .vxe-default-textarea{
+        height: 26px;
+    }
+    .vxe-pager.is--border:not(.is--background) .vxe-pager--prev-btn, .vxe-pager.is--border:not(.is--background) .vxe-pager--next-btn, .vxe-pager.is--border:not(.is--background) .vxe-pager--num-btn, .vxe-pager.is--border:not(.is--background) .vxe-pager--jump-prev, .vxe-pager.is--border:not(.is--background) .vxe-pager--jump-next, .vxe-pager.is--perfect:not(.is--background) .vxe-pager--prev-btn, .vxe-pager.is--perfect:not(.is--background) .vxe-pager--next-btn, .vxe-pager.is--perfect:not(.is--background) .vxe-pager--num-btn, .vxe-pager.is--perfect:not(.is--background) .vxe-pager--jump-prev, .vxe-pager.is--perfect:not(.is--background) .vxe-pager--jump-next{
+        border:0 none;
+    }
+    .vxe-pager.is--background .vxe-pager--prev-btn, .vxe-pager.is--background .vxe-pager--next-btn, .vxe-pager.is--background .vxe-pager--jump-prev, .vxe-pager.is--background .vxe-pager--num-btn, .vxe-pager.is--background .vxe-pager--jump-next, .vxe-pager.is--perfect .vxe-pager--prev-btn, .vxe-pager.is--perfect .vxe-pager--next-btn, .vxe-pager.is--perfect .vxe-pager--jump-prev, .vxe-pager.is--perfect .vxe-pager--num-btn, .vxe-pager.is--perfect .vxe-pager--jump-next{
+        background-color: #fff;
+    }
+}
+
+.add-position-info{
+    .rule-form {
+        .el-form-item,.el-form-item__content{
+            width: 100%;
+        }
+        .item-role{
+            .el-form-item__content{
+              width: 80%;
+            }
+        }
+    }
+    .vxe-table--render-default{
+        .vxe-header--column.col--ellipsis:not(.col--checkbox) > .vxe-cell{
+            width: 100%;
+        }
+        .vxe-body--column.col--ellipsis:not(.col--checkbox) > .vxe-cell{
+            width: 100%;
+        }
+    }
+    .select-person{
+        width: 100%;
+    }
+}

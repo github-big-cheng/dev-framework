@@ -1,0 +1,323 @@
+{
+  "properties": [
+    {
+      "name": "plugins.druid.enable",
+      "type": "java.lang.Boolean",
+      "description": "是否开启Druid.",
+      "defaultValue": false
+    },
+    {
+      "name": "plugins.druid.url",
+      "type": "java.lang.String",
+      "description": "数据库链接."
+    },
+    {
+      "name": "plugins.druid.username",
+      "type": "java.lang.String",
+      "description": "数据库用户名."
+    },
+    {
+      "name": "plugins.druid.password",
+      "type": "java.lang.String",
+      "description": "数据库密码."
+    },
+    {
+      "name": "plugins.druid.driver-class-name",
+      "type": "java.lang.String",
+      "description": "数据库驱动名称.",
+      "defaultValue": "com.mysql.cj.jdbc.Driver"
+    },
+    {
+      "name": "plugins.druid.initialSize",
+      "type": "java.lang.Integer",
+      "description": "初始化线程池链接数.",
+      "defaultValue": 5
+    },
+    {
+      "name": "plugins.druid.minIdle",
+      "type": "java.lang.Integer",
+      "description": "最小链接数.",
+      "defaultValue": 5
+    },
+    {
+      "name": "plugins.druid.maxActive",
+      "type": "java.lang.Integer",
+      "description": "最大活动数.",
+      "defaultValue": 20
+    },
+    {
+      "name": "plugins.druid.maxWait",
+      "type": "java.lang.Long",
+      "description": "链接获取超时时间.",
+      "defaultValue": 60000
+    },
+    {
+      "name": "plugins.druid.timeBetweenEvictionRunsMillis",
+      "type": "java.lang.Long",
+      "description": "间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒.",
+      "defaultValue": 60000
+    },
+    {
+      "name": "plugins.druid.minEvictableIdleTimeMillis",
+      "type": "java.lang.Long",
+      "description": "一个连接在池中最小生存的时间，单位是毫秒.",
+      "defaultValue": 300000
+    },
+    {
+      "name": "plugins.druid.validationQuery",
+      "type": "java.lang.String",
+      "description": "链接有限性校验语句.",
+      "defaultValue": "SELECT 1"
+    },
+    {
+      "name": "plugins.druid.testWhileIdle",
+      "type": "java.lang.Boolean",
+      "description": "当应用向连接池申请连接，并且testOnBorrow为false时，连接池将会判断连接是否处于空闲状态，如果是，则验证这条连接是否可用.",
+      "defaultValue": true
+    },
+    {
+      "name": "plugins.druid.testOnBorrow",
+      "type": "java.lang.Boolean",
+      "description": "申请链接时是否校验有效性.",
+      "defaultValue": false
+    },
+    {
+      "name": "plugins.druid.testOnReturn",
+      "type": "java.lang.Boolean",
+      "description": "归还链接时是否校验有效性.",
+      "defaultValue": false
+    },
+    {
+      "name": "plugins.druid.poolPreparedStatements",
+      "type": "java.lang.Boolean",
+      "description": "是否打开PSCache.",
+      "defaultValue": false
+    },
+    {
+      "name": "plugins.druid.maxPoolPreparedStatementPerConnectionSize",
+      "type": "java.lang.Integer",
+      "description": "每个链接上PSCache的大小.",
+      "defaultValue": 20
+    },
+    {
+      "name": "plugins.druid.filters",
+      "type": "java.lang.String",
+      "description": "监控统计拦截的filters.",
+      "defaultValue": "wall,slf4j"
+    },
+    {
+      "name": "plugins.druid.mergeSql",
+      "type": "java.lang.Boolean",
+      "description": "是否合并sql.",
+      "defaultValue": true
+    },
+    {
+      "name": "plugins.druid.connectionProperties",
+      "type": "java.lang.String",
+      "description": "合并规则.",
+      "defaultValue": "druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000"
+    },
+    {
+      "name": "plugins.druid.controlEnabled",
+      "type": "java.lang.Boolean",
+      "description": "是否开启后台监控.",
+      "defaultValue": false
+    },
+    {
+      "name": "plugins.druid.controlLoginUsername",
+      "type": "java.lang.String",
+      "description": "后台监控账号.",
+      "defaultValue": "admin"
+    },
+    {
+      "name": "plugins.druid.controlLoginPassword",
+      "type": "java.lang.String",
+      "description": "后台监控密码.",
+      "defaultValue": "dounion"
+    },
+    {
+      "name": "plugins.druid.controlResetEnable",
+      "type": "java.lang.String",
+      "description": "后台监控是否显示重置按钮.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "plugins.pagehelper",
+      "type": "java.lang.String",
+      "description": "分页插件PageHelper.",
+      "defaultValue": "false"
+    },
+
+    {
+      "name": "plugins.kafka.admin.ssl.keystore-location",
+      "type": "org.springframework.core.io.Resource",
+      "description": "Location of the key store file."
+    },
+    {
+      "name": "plugins.kafka.admin.ssl.keystore-password",
+      "type": "java.lang.String",
+      "description": "Store password for the key store file."
+    },
+    {
+      "name": "plugins.kafka.admin.ssl.truststore-location",
+      "type": "org.springframework.core.io.Resource",
+      "description": "Location of the trust store file."
+    },
+    {
+      "name": "plugins.kafka.admin.ssl.truststore-password",
+      "type": "java.lang.String",
+      "description": "Store password for the trust store file."
+    },
+    {
+      "name": "plugins.kafka.consumer.isolation-level",
+      "defaultValue": "read-uncommitted"
+    },
+    {
+      "name": "plugins.kafka.consumer.ssl.keystore-location",
+      "type": "org.springframework.core.io.Resource",
+      "description": "Location of the key store file."
+    },
+    {
+      "name": "plugins.kafka.consumer.ssl.keystore-password",
+      "type": "java.lang.String",
+      "description": "Store password for the key store file."
+    },
+    {
+      "name": "plugins.kafka.consumer.ssl.truststore-location",
+      "type": "org.springframework.core.io.Resource",
+      "description": "Location of the trust store file."
+    },
+    {
+      "name": "plugins.kafka.consumer.ssl.truststore-password",
+      "type": "java.lang.String",
+      "description": "Store password for the trust store file."
+    },
+    {
+      "name": "plugins.kafka.jaas.control-flag",
+      "defaultValue": "required"
+    },
+    {
+      "name": "plugins.kafka.listener.type",
+      "defaultValue": "single"
+    },
+    {
+      "name": "plugins.kafka.producer.ssl.keystore-location",
+      "type": "org.springframework.core.io.Resource",
+      "description": "Location of the key store file."
+    },
+    {
+      "name": "plugins.kafka.producer.ssl.keystore-password",
+      "type": "java.lang.String",
+      "description": "Store password for the key store file."
+    },
+    {
+      "name": "plugins.kafka.producer.ssl.truststore-location",
+      "type": "org.springframework.core.io.Resource",
+      "description": "Location of the trust store file."
+    },
+    {
+      "name": "plugins.kafka.producer.ssl.truststore-password",
+      "type": "java.lang.String",
+      "description": "Store password for the trust store file."
+    },
+    {
+      "name": "plugins.kafka.ssl.keystore-location",
+      "type": "org.springframework.core.io.Resource",
+      "description": "Location of the key store file."
+    },
+    {
+      "name": "plugins.kafka.ssl.keystore-password",
+      "type": "java.lang.String",
+      "description": "Store password for the key store file."
+    },
+    {
+      "name": "plugins.kafka.ssl.truststore-location",
+      "type": "org.springframework.core.io.Resource",
+      "description": "Location of the trust store file."
+    },
+    {
+      "name": "plugins.kafka.consumer.auto-offset-reset",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "plugins.kafka.ssl.truststore-password",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "plugins.kafka.streams.cache-max-bytes-buffering",
+      "type": "java.lang.Integer"
+    }
+  ],
+  "hints": [
+    {
+      "name": "plugins.kafka.consumer.auto-offset-reset",
+      "values": [
+        {
+          "value": "earliest",
+          "description": "Automatically reset the offset to the earliest offset."
+        },
+        {
+          "value": "latest",
+          "description": "Automatically reset the offset to the latest offset."
+        },
+        {
+          "value": "none",
+          "description": "Throw exception to the consumer if no previous offset is found for the consumer's group."
+        },
+        {
+          "value": "exception",
+          "description": "Throw exception to the consumer."
+        }
+      ],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
+    },
+    {
+      "name": "plugins.kafka.consumer.key-deserializer",
+      "providers": [
+        {
+          "name": "handle-as",
+          "parameters": {
+            "target": "org.apache.kafka.common.serialization.Deserializer"
+          }
+        }
+      ]
+    },
+    {
+      "name": "plugins.kafka.consumer.value-deserializer",
+      "providers": [
+        {
+          "name": "handle-as",
+          "parameters": {
+            "target": "org.apache.kafka.common.serialization.Deserializer"
+          }
+        }
+      ]
+    },
+    {
+      "name": "plugins.kafka.producer.key-serializer",
+      "providers": [
+        {
+          "name": "handle-as",
+          "parameters": {
+            "target": "org.apache.kafka.common.serialization.Serializer"
+          }
+        }
+      ]
+    },
+    {
+      "name": "plugins.kafka.producer.value-serializer",
+      "providers": [
+        {
+          "name": "handle-as",
+          "parameters": {
+            "target": "org.apache.kafka.common.serialization.Serializer"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="project/view" desc="应用管理-查看" group="应用管理" groupCode="project" >
+    <send>
+        <item name="id" desc="id" required="true" />
+    </send>
+    <rcv>
+        <item name="id" desc="id" type="Integer"/>
+        <item name="name" desc="名称" />
+        <item name="code" desc="代码" />
+        <item name="orderNo" desc="顺序号" type="Integer"/>
+        <item name="isTool" desc="是否是工具条" type="Integer"/>
+        <item name="isSys" desc="子系统风格" type="Integer"
+              notes="//0和3是ssh(app,wms,dss,pss,pams)框架的：0表示ssh框架的子系统是同一个浏览器打开，3表示ssh框架的子系统是新浏览器打开，
+              //1和4表示ssm框架：1表示ssm框架的子系统是同一个浏览器打开，4表示ssm框架的子系统是新浏览器打开。
+              // 2表示跟系统无关的一些网站，不需要登录的，例如门户网站、三维可视化、虚拟现实等" />
+        <item name="isDefault" desc="默认选中"  type="Integer"/>
+        <item name="outControl" desc="前台始终显示" notes="不收权限控制 1:不受控， 0：受控"  type="Integer"/>
+        <item name="path" desc="路径"/>
+        <item name="keyValue" desc="缓存中的key"/>
+        <item name="isApp" desc="是否应用配置" type="Integer"/>
+        <item name="dataBase" desc="数据库名"/>
+        <item name="isLongRange" desc="是否远程控制" type="Integer"/>
+        <item name="urlId" desc="地址参数"  type="Integer"/>
+        <item name="urlSetId" desc="应用地址配置ID"  type="Integer"/>
+    </rcv>
+</trans>
+

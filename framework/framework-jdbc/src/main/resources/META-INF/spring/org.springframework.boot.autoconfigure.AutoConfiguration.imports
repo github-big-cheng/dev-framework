@@ -1,0 +1,6 @@
+com.wisely.framework.plugins.redis.RedisPlugin
+com.wisely.framework.plugins.datasource.hikari.HikariPlugin
+com.wisely.framework.plugins.datasource.druid.DruidPlugin
+com.wisely.framework.plugins.mybatis.MyBatisPlugin
+com.wisely.framework.plugins.redis.MultiRedisPlugin
+com.wisely.framework.plugins.mq.kafka.KafkaPlugin

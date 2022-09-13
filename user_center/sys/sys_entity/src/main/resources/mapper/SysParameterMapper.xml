@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wisely.sys.mapper.SysParameterMapper">
+
+    <resultMap type="com.wisely.sys.entity.SysParameter" id="BaseResultMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="orgId" column="org_id" jdbcType="INTEGER"/>
+        <result property="orgName" column="org_name" jdbcType="VARCHAR"/>
+        <result property="keies" column="keies" jdbcType="VARCHAR"/>
+        <result property="value" column="value" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="subType" column="sub_type" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="orderNo" column="order_no" jdbcType="INTEGER"/>
+        <result property="opState" column="op_state" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="BaseColumn">
+        t.id,
+        t.org_id,
+        t.org_name,
+        t.keies,
+        t.value,
+        t.description,
+        t.type,
+        t.sub_type,
+        t.remark,
+        t.order_no,
+        t.op_state,
+        t.create_by,
+        t.create_time,
+        t.update_by,
+        t.update_time,
+        t.is_deleted
+    </sql>
+    
+    <!-- 动态字段 -->
+    <sql id="DynamicColumn">
+        <if test="orgId != null"> 
+            org_id, 
+        </if>
+        <if test="orgName != null and orgName != ''"> 
+            org_name, 
+        </if>
+        <if test="keies != null and keies != ''"> 
+            keies, 
+        </if>
+        <if test="value != null and value != ''"> 
+            value, 
+        </if>
+        <if test="description != null and description != ''"> 
+            description, 
+        </if>
+        <if test="type != null and type != ''"> 
+            type, 
+        </if>
+        <if test="subType != null and subType != ''"> 
+            sub_type, 
+        </if>
+        <if test="remark != null and remark != ''"> 
+            remark, 
+        </if>
+        <if test="orderNo != null"> 
+            order_no, 
+        </if>
+        <if test="opState != null"> 
+            op_state, 
+        </if>
+        <if test="createBy != null"> 
+            create_by, 
+        </if>
+        <if test="createTime != null and createTime != ''"> 
+            create_time, 
+        </if>
+        <if test="updateBy != null"> 
+            update_by, 
+        </if>
+        <if test="updateTime != null and updateTime != ''"> 
+            update_time, 
+        </if>
+        <if test="isDeleted != null"> 
+            is_deleted, 
+        </if>
+    </sql>
+    
+    <!-- 动态值 -->
+    <sql id="DynamicValue">
+        <if test="orgId != null">
+            #{orgId},
+        </if>
+        <if test="orgName != null and orgName != ''">
+            #{orgName},
+        </if>
+        <if test="keies != null and keies != ''">
+            #{keies},
+        </if>
+        <if test="value != null and value != ''">
+            #{value},
+        </if>
+        <if test="description != null and description != ''">
+            #{description},
+        </if>
+        <if test="type != null and type != ''">
+            #{type},
+        </if>
+        <if test="subType != null and subType != ''">
+            #{subType},
+        </if>
+        <if test="remark != null and remark != ''">
+            #{remark},
+        </if>
+        <if test="orderNo != null">
+            #{orderNo},
+        </if>
+        <if test="opState != null">
+            #{opState},
+        </if>
+        <if test="createBy != null">
+            #{createBy},
+        </if>
+        <if test="createTime != null and createTime != ''">
+            #{createTime},
+        </if>
+        <if test="updateBy != null">
+            #{updateBy},
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            #{updateTime},
+        </if>
+        <if test="isDeleted != null">
+            #{isDeleted},
+        </if>
+    </sql>
+    
+    <!-- 动态赋值 -->
+    <sql id="DynamicSet">
+        <if test="orgId != null">
+            org_id = #{orgId},
+        </if>
+        <if test="orgName != null">
+            org_name = #{orgName},
+        </if>
+        <if test="keies != null">
+            keies = #{keies},
+        </if>
+        <if test="value != null">
+            value = #{value},
+        </if>
+        <if test="description != null">
+            description = #{description},
+        </if>
+        <if test="type != null">
+            type = #{type},
+        </if>
+        <if test="subType != null">
+            sub_type = #{subType},
+        </if>
+        <if test="remark != null">
+            remark = #{remark},
+        </if>
+        <if test="orderNo != null">
+            order_no = #{orderNo},
+        </if>
+        <if test="opState != null">
+            op_state = #{opState},
+        </if>
+        <if test="createBy != null">
+            create_by = #{createBy},
+        </if>
+        <if test="createTime != null">
+            create_time = #{createTime},
+        </if>
+        <if test="updateBy != null">
+            update_by = #{updateBy},
+        </if>
+        <if test="updateTime != null">
+            update_time = #{updateTime},
+        </if>
+        <if test="isDeleted != null">
+            is_deleted = #{isDeleted},
+        </if>
+    </sql>
+    
+    <!-- 动态条件 -->
+    <sql id="DynamicWhere">
+        <if test="orgId != null">
+            and t.org_id = #{orgId}
+        </if>
+        <if test="orgName != null and orgName != ''">
+            and t.org_name = #{orgName}
+        </if>
+        <if test="keies != null and keies != ''">
+            and t.keies = #{keies}
+        </if>
+        <if test="value != null and value != ''">
+            and t.value = #{value}
+        </if>
+        <if test="description != null and description != ''">
+            and t.description = #{description}
+        </if>
+        <if test="type != null and type != ''">
+            and t.type = #{type}
+        </if>
+        <if test="subType != null and subType != ''">
+            and t.sub_type = #{subType}
+        </if>
+        <if test="remark != null and remark != ''">
+            and t.remark = #{remark}
+        </if>
+        <if test="orderNo != null">
+            and t.order_no = #{orderNo}
+        </if>
+        <if test="opState != null">
+            and t.op_state = #{opState}
+        </if>
+        <if test="createBy != null">
+            and t.create_by = #{createBy}
+        </if>
+        <if test="createTime != null and createTime != ''">
+            and t.create_time = #{createTime}
+        </if>
+        <if test="updateBy != null">
+            and t.update_by = #{updateBy}
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            and t.update_time = #{updateTime}
+        </if>
+        <if test="isDeleted != null">
+            and t.is_deleted = #{isDeleted}
+        </if>
+        <!-- 说明模糊查询 -->
+        <if test="descriptQueryLike != null and descriptQueryLike != ''">
+            and t.descript like concat('%', #{descriptQueryLike}, '%')
+        </if>
+        <!-- key模糊查询 -->
+        <if test="keiesQueryLike != null and keiesQueryLike != ''">
+            and t.keies like concat('%', #{keiesQueryLike}, '%')
+        </if>
+        <if test="orgIdQueryIn != null and orgIdQueryIn != ''">
+            and t.org_id in
+            <foreach collection="orgIdQueryIn.split(',')" separator="," index="" open="(" close=")" item="orgIdQuery">
+                #{orgIdQuery}
+            </foreach>
+        </if>
+        <if test="keiesQueryIn != null and keiesQueryIn != ''">
+            and t.keies in
+            <foreach collection="keiesQueryIn.split(',')" separator="," index="" open="(" close=")" item="ks">
+                #{ks}
+            </foreach>
+        </if>
+    </sql>
+
+    <!--查询单个-->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select <include refid="BaseColumn" />
+        from t_sys_parameter t
+        where id = #{id}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.wisely.sys.entity.SysParameter">
+        insert into t_sys_parameter (
+            org_id,
+            org_name,
+            keies,
+            value,
+            description,
+            type,
+            sub_type,
+            remark,
+            order_no,
+            op_state,
+            create_by,
+            create_time,
+            update_by,
+            update_time,
+            is_deleted
+        ) values (
+            #{orgId},            
+            #{orgName},            
+            #{keies},            
+            #{value},            
+            #{description},            
+            #{type},            
+            #{subType},            
+            #{remark},            
+            #{orderNo},            
+            #{opState},            
+            #{createBy},            
+            #{createTime},            
+            #{updateBy},            
+            #{updateTime},            
+            #{isDeleted}            
+        )
+    </insert>
+    
+    <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.wisely.sys.entity.SysParameter">
+        insert into t_sys_parameter
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <include refid="DynamicColumn" />
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <include refid="DynamicValue" />
+        </trim>
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="updateByPrimaryKey" parameterType="com.wisely.sys.entity.SysParameter">
+        update t_sys_parameter
+        <set>
+            org_id = #{orgId},
+            org_name = #{orgName},
+            keies = #{keies},
+            value = #{value},
+            description = #{description},
+            type = #{type},
+            sub_type = #{subType},
+            remark = #{remark},
+            order_no = #{orderNo},
+            op_state = #{opState},
+            create_by = #{createBy},
+            create_time = #{createTime},
+            update_by = #{updateBy},
+            update_time = #{updateTime},
+            is_deleted = #{isDeleted},
+        </set>
+        WHERE id = #{id}
+    </update>
+    
+    <!-- 通过主键动态修改数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.wisely.sys.entity.SysParameter">
+        update t_sys_parameter
+        <trim prefix="set" suffixOverrides="," >
+            <include refid="DynamicSet" />
+        </trim>
+        where id = #{id}
+    </update>
+    
+    
+    <!-- 根据条件动态修改数据 -->
+    <update id="updateBySelective" parameterType="com.wisely.sys.entity.SysParameter">
+        update t_sys_parameter t
+        <trim prefix="set" suffixOverrides="," >
+            <include refid="DynamicSet" />
+        </trim>
+        <trim prefix="where" prefixOverrides="AND | OR" >
+            <choose>
+                <when test="idQueryIn != null and idQueryIn != ''">
+                    and t.id in
+                    <foreach item="id" collection="idQueryIn.split(',')" separator="," open="(" close=")">
+                        #{id}
+                    </foreach>
+                </when>
+                <!-- 为避免全表更新，至少有一个查询条件 -->
+                <otherwise>
+                   and id = #{id}
+                </otherwise>
+            </choose>
+        </trim>
+    </update>
+    
+
+    <!--通过主键删除-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_sys_parameter
+        where id = #{id}
+    </delete>
+    
+    
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectListBySelective" parameterType="com.wisely.sys.entity.SysParameter" resultMap="BaseResultMap">
+        select <include refid="BaseColumn" />
+        from t_sys_parameter t
+        <trim prefix="where " prefixOverrides="AND | OR" >
+            <include refid="DynamicWhere" />
+        </trim>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                order by ${orderBy}
+            </when>
+            <otherwise>
+                order by t.id
+            </otherwise>
+        </choose>
+    </select>
+
+</mapper>
+

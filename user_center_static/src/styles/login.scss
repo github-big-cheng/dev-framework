@@ -1,0 +1,518 @@
+@import "@/styles/mixin.scss";
+
+    .login-wrapper {
+        position: relative;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background-color: $cWhite;
+        overflow: hidden;
+    }
+
+    .header {
+        position: absolute;
+        top: 0;
+        left: 200px;
+        z-index: 3;
+    }
+
+    .logo {
+        margin-top: 32px;
+        @include fontSize(26px);
+        color: $cWhite;
+        img {
+            height: 100%;
+            margin-right: 13px;
+            vertical-align: middle;
+        }
+    }
+
+    .login-maincon {
+        position: relative;
+        height: 90%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        align-items: center;
+    }
+    // .banner {
+    //     position: relative;
+    //     height: 100%;
+    //     background-repeat: no-repeat;
+    //     background-size: cover;
+    //     align-items: center;
+    //     /deep/.el-carousel__container{
+    //         height: 100%;
+    //     }
+    // }
+    // .el-carousel__item:nth-of-type(1) {
+    //     background-image: url(~@/assets/images/login-bg.jpg);
+    // }
+    // .el-carousel__item:nth-of-type(2) {
+    //     background-image: url(~@/assets/images/login-bg1.jpg);
+    // }
+     
+    // .el-carousel__item:nth-of-type(3) {
+    //     background-image: url(~@/assets/images/login-bg2.jpg);
+    // }
+
+    .login-bg {
+        position: absolute;
+        display: none;
+        left: 15%;
+        height: 100%;
+        overflow: hidden;
+
+        .svg {
+            width: 528px;
+            height: 100%;
+            margin-top: 50px;
+        }
+    }
+
+    .login-background{
+        position: absolute;
+        width: 0;
+        height: 0;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        z-index: -1;
+    }
+
+    .banner-text {
+        position: absolute;
+        top: 40%;
+        left: 290px;
+        transform: translateY(-40%);
+        z-index: 2;
+        color: $cWhite;
+        font-size: 56px;
+        font-weight: 700; 
+        span{
+            margin-left: -5px;
+            background-image:-webkit-linear-gradient(left,#fff 60%,transparent); 
+            -webkit-background-clip:text; 
+            -webkit-text-fill-color:transparent; 
+            &:first-child{
+                margin-left: 0;
+            }
+        }
+    }
+
+    .login-con {
+        position: absolute;
+        right: 200px;
+        top: 50%;
+        z-index: 2;
+        transform: translateY(-50%);
+        width: 340px;
+        min-width: 280Px;/*no*/
+        padding: 56px 45px 56px 45px;
+        text-align: center;
+        background-color: rgba(255, 255, 255, .9);
+        box-shadow: 0px 5px 12px 0px rgba(35, 24, 21, 0.22);
+        @include borderRadius(8px);
+    }
+
+    .scan-login {
+        h3 {
+            @include fontSize(20px);
+            @include fontWeight;
+        }
+
+        p {
+            color: $cGray6;
+            @include fontSize(16px);
+            text-align: center;
+
+            i {
+                margin-right: 10px;
+                color: $cBlue;
+                @include fontSize(20px);
+                vertical-align: middle;
+            }
+        }
+    }
+
+    .dynamic-qrcode {
+        margin: 0 auto;
+        padding: 45px 0 5px;
+        text-align: center;
+
+        .img {
+            position: relative;
+            display: inline-block;
+            @include wh(114px, 114px);
+            margin-bottom: 30px;
+            padding: 10px;
+            background-color: $cWhite;
+
+            img {
+                display: inline-block;
+                @include wh(100%, 100%);
+            }
+        }
+    }
+
+    .qrcode-invalid {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-color: rgba(255, 255, 255, .9);
+
+        p {
+            padding-top: 30px;
+            color: $cGray3;
+            @include fontSize(14px);
+        }
+
+        a {
+            display: inline-block;
+            @include wh(80%, 32px);
+            line-height: 32px;
+            margin-top: 12px;
+            color: $cWhite;
+            @include fontSize(14px);
+            background-color: $cBlue;
+        }
+    }
+
+    .qrcode-success {
+        padding-top: 30px;
+
+        .img-success {
+            width: 60px;
+            display: block;
+            margin: 0 auto;
+
+            img {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        p {
+            margin-top: 10px;
+            @include fontSize(14px);
+
+            &.tip {
+                @include fontSize(16px);
+            }
+        }
+
+        .link {
+            margin-top: 20px;
+            text-align: center;
+            @include links;
+            @include fontSize(14px);
+        }
+    }
+
+    .login-switch {
+        i {
+            position: absolute;
+            right: 2px;
+            top: 2px;
+            color: $cBlue;
+            @include fontSize(40px);
+            cursor: pointer;
+        }
+
+        .el-icon-aliqrcode {
+            clip-path: polygon(200% 200%, 100% 0, 0px 0px);
+        }
+
+        .el-icon-alicomputer {
+            right: 3px;
+            top: 3px;
+        }
+    }
+
+    .login-form {
+        width: 100%;
+       
+
+        .title {
+            @include fontSize(22px);
+            @include fontWeight;
+        }
+
+        .bd {
+            position: relative;
+        }
+        .input-text{
+            padding-left: 25px;
+            background: none;
+            border-bottom: 1px solid #D3D3D3;
+        }
+        /deep/.el-input__inner{
+            min-height: auto;
+            margin-top: -1px;
+            border: 0 none;
+            @include fontSize(16px);
+            background: none;
+        }
+    }
+
+    .tips {
+        @include fontSize(14px);
+        margin-bottom: 10px;
+
+        span {
+            &:first-of-type {
+                margin-right: 16px;
+            }
+        }
+    }
+
+    .title {
+        @include fontSize(26px);
+        margin: 0 auto 30px;
+        @include fontWeight(bold);
+    }
+
+    .show-pwd {
+        position: absolute;
+        right: 10px;
+        top: 7px;
+        @include fontSize(16px);
+        color: #889aa4;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .login-captcha {
+        text-align: center;
+        background-color: $cWhite;
+
+        [class^="el-icon-ali"], [class*=" el-icon-ali"] {
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        .el-button {
+            width: 100%;
+        }
+    }
+
+    /deep/ .el-popover {
+        width: 100% !important;
+    }
+
+    .login-btn {
+        @include flexBox;
+        width: 100%;
+        height: 36px;
+        min-height: 32Px;/*no*/
+        @include fontSize;
+        border-color: #0462EF;
+        background-color: #0462EF;
+
+        &:hover {
+            opacity: .9;
+        }
+
+        &.disabled {
+            background-color: #dee3ea;
+        }
+    }
+
+    .el-form-item {
+        height: 36px;
+        margin-bottom: 20px;
+    }
+
+    /deep/ .el-form-item__error {
+        display: none;
+    }
+
+    .input-text {
+        display: inline-block;
+        width: 100%;
+        height: 36px;
+        min-height: 32Px;/*no*/
+        background-color: #fff;
+
+        [class^="el-icon-ali"], [class*=" el-icon-ali"] {
+            @include fontSize(16px);
+            color: #a0a0a0;
+        }
+    }
+
+    /deep/ .el-form-item__content, /deep/ .el-input__icon {
+        line-height: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include fontSize(18px);
+
+        &.icon-username {
+            @include fontSize(16px);
+        }
+    }
+
+    /deep/ .el-input__inner {
+        height: 36px;
+        min-height: 32Px;/*no*/
+        padding: 0 5px 0 16px;
+        color: $cBlack;
+        @include fontSize(16px);
+        @include borderRadius(0);
+        background: transparent;
+        -webkit-appearance: none;
+    }
+
+    /deep/ .el-input.is-active .el-input__inner, .el-input__inner:focus {
+        border-color: $cBlue;
+    }
+
+    .input-remember {
+        margin: 0 0 15px 0;
+    }
+
+    .error-tip, .warning-tip {
+        position: absolute;
+        top: -28px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 26px;
+        padding: 0 10px;
+        @include fontSize(13px);
+        border: 1px solid #F56C6C;
+        background-color: #ffe6e2;
+        @include borderRadius;
+
+        i {
+            margin-right: 5px;
+            color: #F56C6C;
+        }
+    }
+
+    .warning-tip {
+        border-color: #FA8C16;
+        background-color: #FEF3E7;
+
+        i {
+            color: #FA8C16;
+            @include fontSize(18px);
+        }
+    }
+
+    .auto-login {
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    .login-describe {
+        display: none;
+        color: $cBlack;
+        @include fontSize(14px);
+
+        ul {
+            display: flex;
+            padding: 28px 0 23px;
+        }
+
+        li {
+            position: relative;
+            flex: 1;
+            align-items: center;
+            padding: 0 55px;
+
+            [class^="el-icon-ali"], [class*=" el-icon-ali"] {
+                margin-right: 10px;
+                color: $cBlue;
+                @include fontSize(34px);
+                vertical-align: middle;
+            }
+
+            &::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 50%;
+                width: 1px;
+                height: 48px;
+                transform: translateY(-50%);
+                background-color: #ccc;
+            }
+
+            &:first-child::before {
+                width: 0;
+            }
+        }
+    }
+
+    .footer {
+        padding-top: 20px;
+        p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            color: $cGray9;
+            @include fontSize;
+
+            i {
+                margin-right: 5px;
+                vertical-align: middle;
+                @include fontSize(16px);
+            }
+
+            span {
+                margin-left: 5px;
+            }
+
+            &.safe-text {
+                color: #ff6d55;
+                margin-bottom: 2px;
+            }
+        }
+    }
+
+    // @media screen and (min-width: 1501px) {
+    //     .scan-login {
+    //         h3 {
+    //             @include fontSize(18px);
+    //         }
+
+    //         p {
+    //             @include fontSize;
+    //         }
+    //     }
+    //     .qrcode-success {
+    //         padding-top: 20px;
+    //     }
+    //     .qrcode-invalid {
+    //         p {
+    //             @include fontSize;
+    //         }
+
+    //         a {
+    //             @include fontSize;
+    //         }
+    //     }
+    //     .el-form-item {
+    //         height: 30px;
+    //     }
+    //     .auto-login {
+    //         height: 20px;
+    //     }
+    //     /deep/ .el-input__icon {
+    //         @include fontSize(16px);
+
+    //         &.icon-username {
+    //             @include fontSize(14px);
+    //         }
+    //     }
+    //     .error-tip, .warning-tip {
+    //         top: -26px;
+    //         height: 24px;
+    //         @include fontSize;
+    //     }
+    // }

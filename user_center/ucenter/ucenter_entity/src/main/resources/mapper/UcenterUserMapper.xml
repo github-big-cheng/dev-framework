@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wisely.ucenter.mapper.UcenterUserMapper">
+
+    <resultMap type="com.wisely.ucenter.entity.UcenterUser" id="BaseResultMap">
+        <result property="id" column="ID" jdbcType="INTEGER"/>
+        <result property="orgId" column="ORG_ID" jdbcType="INTEGER"/>
+        <result property="orgName" column="ORG_NAME" jdbcType="VARCHAR"/>
+        <result property="personId" column="PERSON_ID" jdbcType="INTEGER"/>
+        <result property="account" column="ACCOUNT" jdbcType="VARCHAR"/>
+        <result property="password" column="PASSWORD" jdbcType="VARCHAR"/>
+        <result property="salt" column="SALT" jdbcType="VARCHAR"/>
+        <result property="isErrorTime" column="IS_ERROR_TIME" jdbcType="INTEGER"/>
+        <result property="status" column="STATUS" jdbcType="INTEGER"/>
+        <result property="firstLogin" column="FIRST_LOGIN" jdbcType="INTEGER"/>
+        <result property="opState" column="OP_STATE" jdbcType="INTEGER"/>
+        <result property="createBy" column="CREATE_BY" jdbcType="INTEGER"/>
+        <result property="createTime" column="CREATE_TIME" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="UPDATE_BY" jdbcType="INTEGER"/>
+        <result property="updateTime" column="UPDATE_TIME" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="IS_DELETED" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="BaseColumn">
+        T.ID,            
+        T.ORG_ID,            
+        T.ORG_NAME,            
+        T.PERSON_ID,            
+        T.ACCOUNT,            
+        T.PASSWORD,            
+        T.SALT,            
+        T.IS_ERROR_TIME,
+        T.STATUS,
+        T.FIRST_LOGIN,
+        T.OP_STATE,            
+        T.CREATE_BY,            
+        T.CREATE_TIME,            
+        T.UPDATE_BY,            
+        T.UPDATE_TIME,            
+        T.IS_DELETED            
+    </sql>
+
+    <!-- 动态字段 -->
+    <sql id="DynamicColumn">
+        <if test="orgId != null">
+            ORG_ID,
+        </if>
+        <if test="orgName != null and orgName != ''">
+            ORG_NAME,
+        </if>
+        <if test="personId != null">
+            PERSON_ID,
+        </if>
+        <if test="account != null and account != ''">
+            ACCOUNT,
+        </if>
+        <if test="password != null and password != ''">
+            PASSWORD,
+        </if>
+        <if test="salt != null and salt != ''">
+            SALT,
+        </if>
+        <if test="isErrorTime != null">
+            IS_ERROR_TIME,
+        </if>
+        <if test="status != null">
+            STATUS,
+        </if>
+        <if test="firstLogin != null">
+            FIRST_LOGIN,
+        </if>
+        <if test="opState != null">
+            OP_STATE,
+        </if>
+        <if test="createBy != null">
+            CREATE_BY,
+        </if>
+        <if test="createTime != null and createTime != ''">
+            CREATE_TIME,
+        </if>
+        <if test="updateBy != null">
+            UPDATE_BY,
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            UPDATE_TIME,
+        </if>
+        <if test="isDeleted != null">
+            IS_DELETED,
+        </if>
+    </sql>
+
+    <!-- 动态值 -->
+    <sql id="DynamicValue">
+        <if test="orgId != null">
+            #{orgId},
+        </if>
+        <if test="orgName != null and orgName != ''">
+            #{orgName},
+        </if>
+        <if test="personId != null">
+            #{personId},
+        </if>
+        <if test="account != null and account != ''">
+            #{account},
+        </if>
+        <if test="password != null and password != ''">
+            #{password},
+        </if>
+        <if test="salt != null and salt != ''">
+            #{salt},
+        </if>
+        <if test="isErrorTime != null">
+            #{isErrorTime},
+        </if>
+        <if test="status != null">
+            #{status},
+        </if>
+        <if test="firstLogin != null">
+            #{firstLogin},
+        </if>
+        <if test="opState != null">
+            #{opState},
+        </if>
+        <if test="createBy != null">
+            #{createBy},
+        </if>
+        <if test="createTime != null and createTime != ''">
+            #{createTime},
+        </if>
+        <if test="updateBy != null">
+            #{updateBy},
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            #{updateTime},
+        </if>
+        <if test="isDeleted != null">
+            #{isDeleted},
+        </if>
+    </sql>
+
+    <!-- 动态赋值 -->
+    <sql id="DynamicSet">
+        <if test="orgId != null">
+            ORG_ID = #{orgId},
+        </if>
+        <if test="orgName != null">
+            ORG_NAME = #{orgName},
+        </if>
+        <if test="personId != null">
+            PERSON_ID = #{personId},
+        </if>
+        <if test="account != null">
+            ACCOUNT = #{account},
+        </if>
+        <if test="password != null">
+            PASSWORD = #{password},
+        </if>
+        <if test="salt != null">
+            SALT = #{salt},
+        </if>
+        <if test="isErrorTime != null">
+            IS_ERROR_TIME = #{isErrorTime},
+        </if>
+        <if test="status != null">
+            STATUS = #{status},
+        </if>
+        <if test="firstLogin != null">
+            FIRST_LOGIN = #{firstLogin},
+        </if>
+        <if test="opState != null">
+            OP_STATE = #{opState},
+        </if>
+        <if test="createBy != null">
+            CREATE_BY = #{createBy},
+        </if>
+        <if test="createTime != null">
+            CREATE_TIME = #{createTime},
+        </if>
+        <if test="updateBy != null">
+            UPDATE_BY = #{updateBy},
+        </if>
+        <if test="updateTime != null">
+            UPDATE_TIME = #{updateTime},
+        </if>
+        <if test="isDeleted != null">
+            IS_DELETED = #{isDeleted},
+        </if>
+    </sql>
+
+    <!-- 动态条件 -->
+    <sql id="DynamicWhere">
+        <if test="orgId != null">
+            and T.ORG_ID = #{orgId}
+        </if>
+        <if test="orgName != null and orgName != ''">
+            and T.ORG_NAME = #{orgName}
+        </if>
+        <if test="personId != null">
+            and T.PERSON_ID = #{personId}
+        </if>
+        <if test="account != null and account != ''">
+            and T.ACCOUNT = #{account}
+        </if>
+        <if test="password != null and password != ''">
+            and T.PASSWORD = #{password}
+        </if>
+        <if test="salt != null and salt != ''">
+            and T.SALT = #{salt}
+        </if>
+        <if test="isErrorTime != null">
+            and T.IS_ERROR_TIME = #{isErrorTime}
+        </if>
+        <if test="status != null">
+            and T.STATUS = #{status}
+        </if>
+        <if test="firstLogin != null">
+            and T.FIRST_LOGIN = #{firstLogin}
+        </if>
+        <if test="opState != null">
+            and T.OP_STATE = #{opState}
+        </if>
+        <if test="createBy != null">
+            and T.CREATE_BY = #{createBy}
+        </if>
+        <if test="createTime != null and createTime != ''">
+            and T.CREATE_TIME = #{createTime}
+        </if>
+        <if test="updateBy != null">
+            and T.UPDATE_BY = #{updateBy}
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            and T.UPDATE_TIME = #{updateTime}
+        </if>
+        <if test="isDeleted != null">
+            and T.IS_DELETED = #{isDeleted}
+        </if>
+        <if test="personIdQueryIn != null and personIdQueryIn != ''">
+            and T.PERSON_ID IN
+            <foreach collection="personIdQueryIn.split(',')" open="(" close=")" separator="," item="personId" index="">
+                #{personId}
+            </foreach>
+        </if>
+        <if test="accountQueryIn != null and accountQueryIn != ''">
+            and T.ACCOUNT IN
+            <foreach collection="accountQueryIn.split(',')" open="(" close=")" separator="," index="" item="acc">
+                #{acc}
+            </foreach>
+        </if>
+
+        <if test="idQueryIn != null and idQueryIn != ''">
+            and T.ID IN
+            <foreach collection="idQueryIn.split(',')" open="(" close=")" item="uId" separator=",">
+                #{uId}
+            </foreach>
+        </if>
+    </sql>
+
+    <!--查询单个-->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        SELECT
+        <include refid="BaseColumn"/>
+        FROM
+        t_ucenter_user T
+        WHERE
+        ID = #{id}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.wisely.ucenter.entity.UcenterUser">
+        INSERT INTO t_ucenter_user (
+            org_id,
+            org_name,
+            person_id,
+            account,
+            password,
+            salt,
+            is_error_time,
+            status,
+            first_login,
+            op_state,
+            create_by,
+            create_time,
+            update_by,
+            update_time,
+            is_deleted
+        ) VALUES (
+            #{orgId},            
+            #{orgName},            
+            #{personId},            
+            #{account},            
+            #{password},            
+            #{salt},            
+            #{isErrorTime},
+            #{status},
+            #{firstLogin},
+            #{opState},
+            #{createBy},            
+            #{createTime},            
+            #{updateBy},            
+            #{updateTime},            
+            #{isDeleted}            
+        )
+    </insert>
+
+    <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true"
+            parameterType="com.wisely.ucenter.entity.UcenterUser">
+        INSERT INTO
+        t_ucenter_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="DynamicColumn"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="DynamicValue"/>
+        </trim>
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="updateByPrimaryKey" parameterType="com.wisely.ucenter.entity.UcenterUser">
+        UPDATE t_ucenter_user
+        <set>
+            ORG_ID = #{orgId},
+            ORG_NAME = #{orgName},
+            PERSON_ID = #{personId},
+            ACCOUNT = #{account},
+            PASSWORD = #{password},
+            SALT = #{salt},
+            IS_ERROR_TIME = #{isErrorTime},
+            STATUS = #{status},
+            FIRST_LOGIN = #{firstLogin},
+            OP_STATE = #{opState},
+            CREATE_BY = #{createBy},
+            CREATE_TIME = #{createTime},
+            UPDATE_BY = #{updateBy},
+            UPDATE_TIME = #{updateTime},
+            IS_DELETED = #{isDeleted},
+        </set>
+        WHERE
+        ID = #{id}
+    </update>
+
+    <!-- 通过主键动态修改数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.wisely.ucenter.entity.UcenterUser">
+        UPDATE t_ucenter_user
+        <trim prefix="set" suffixOverrides=",">
+            <include refid="DynamicSet"/>
+        </trim>
+        WHERE
+        ID = #{id}
+    </update>
+
+
+    <!-- 根据条件动态修改数据 -->
+    <update id="updateBySelective" parameterType="com.wisely.ucenter.entity.UcenterUser">
+        UPDATE t_ucenter_user T
+        <trim prefix="set" suffixOverrides=",">
+            <include refid="DynamicSet"/>
+        </trim>
+        <trim prefix="where" prefixOverrides="AND | OR">
+            <choose>
+            <when test="idQueryIn != null and idQueryIn != ''">
+                and T.ID IN
+                <foreach collection="idQueryIn.split(',')" separator="," index="" open="(" close=")" item="uId">
+                    #{uId}
+                </foreach>
+            </when>
+                <!-- 为避免全表更新，至少有一个查询条件 -->
+                <otherwise>
+                    and ID = #{id}
+                </otherwise>
+            </choose>
+        </trim>
+    </update>
+
+
+    <!--通过主键删除-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        DELETE FROM 
+            t_ucenter_user
+        WHERE 
+            ID = #{id}
+    </delete>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectListBySelective" parameterType="com.wisely.ucenter.entity.UcenterUser" resultMap="BaseResultMap">
+        SELECT
+        <include refid="BaseColumn"/>
+        FROM
+        t_ucenter_user T
+        <trim prefix="where " prefixOverrides="AND | OR">
+            <include refid="DynamicWhere"/>
+        </trim>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY T.id desc
+            </otherwise>
+        </choose>
+    </select>
+
+</mapper>
+

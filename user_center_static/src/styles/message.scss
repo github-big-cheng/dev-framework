@@ -1,0 +1,60 @@
+.el-message-box__header {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 18px;
+    text-align: left;
+    @include fontSize(14px);
+    @include borderRadius;
+    background: $cGrayf4;
+}
+
+.el-message-box__headerbtn {
+    top: 10px;
+}
+
+.el-message-box__close {
+    color: $cGray9;
+    @include fontSize(20px);
+}
+.el-message-box__btns {
+    padding: 10px 20px;
+    border-top: 1px solid $cGraye;
+
+    .el-button {
+        min-width: 66Px;/*no*/
+        height: 30px;
+        padding: 0 15px;
+        @include fontSize;
+        @include borderRadius;
+        @include bordered($cGraydc);
+    }
+
+    .el-button--primary {
+        border: none;
+    }
+}
+
+// message
+.el-message-box__title {
+    @include fontSize(14px);
+}
+
+.el-message-box__content {
+    min-height: 100Px;/*no*/
+    padding: 30px;
+}
+
+.el-message-box__message p {
+    @include fontSize(14px);
+}
+
+.el-message-box__btns {
+    .el-button {
+        float: right;
+
+        &.el-button--primary {
+            margin-right: 10px;
+        }
+    }
+}

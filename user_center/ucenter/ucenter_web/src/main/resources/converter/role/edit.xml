@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="role/edit" desc="角色管理-编辑" group="角色管理" groupCode="role" >
+    <send>
+        <item name="id" desc="id" type="Integer" required="true"/>
+        <item name="name" desc="名称" required="true"/>
+        <item name="code" desc="代码" required="true"/>
+        <item name="memo" desc="备注"/>
+        <item name="orderNo" desc="顺序号" type="Integer"/>
+    </send>
+    <rcv>
+        <item name="id" desc="id" type="Integer" ignore-key="true"/>
+    </rcv>
+</trans>
+

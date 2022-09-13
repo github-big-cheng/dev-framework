@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="project/list" desc="应用管理-列表" group="应用管理" groupCode="project">
+    <send>
+        <item name="nameQueryLike" desc="菜单名称"/>
+        <item name="pageNo" desc="页码" type="Integer" default="1"/>
+        <item name="pageSize" desc="页容量" type="Integer" default="15"/>
+    </send>
+    <rcv>
+        <item name="total" type="Integer" desc="数量" default="0"/>
+        <item-list name="list" desc="数据列表">
+            <item name="id" desc="id" type="Integer"/>
+            <item name="name" desc="名称"/>
+            <item name="code" desc="代码"/>
+            <item name="orderNo" desc="顺序号" type="Integer"/>
+            <item name="path" desc="路径"/>
+        </item-list>
+    </rcv>
+</trans>
+

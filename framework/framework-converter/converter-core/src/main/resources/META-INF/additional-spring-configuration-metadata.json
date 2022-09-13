@@ -1,0 +1,73 @@
+{
+  "properties": [
+    {
+      "name": "plugins.converter.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.wisely.framework.plugins.converter.ConverterProperties",
+      "description": "是否开启Converter.",
+      "defaultValue": false
+    },
+    {
+      "name": "plugins.converter.define-root-path",
+      "type": "java.lang.String",
+      "sourceType": "com.wisely.framework.plugins.converter.ConverterProperties",
+      "description": "报文定义配置路径.",
+      "defaultValue": "classpath*:/converter"
+    },
+    {
+      "name": "plugins.converter.use-api",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.wisely.framework.plugins.converter.ConverterProperties",
+      "description": "是否开启在线api.",
+      "deprecation": {
+        "reason": "引入converter-static包自动开启."
+      },
+      "defaultValue": false
+    },
+    {
+      "name": "plugins.converter.define-type",
+      "type": "java.lang.String",
+      "sourceType": "com.wisely.framework.plugins.converter.ConverterProperties",
+      "description": "报文定义方式.",
+      "defaultValue": "xml"
+    }
+  ],
+  "hints": [
+    {
+      "name": "plugins.converter.enabled",
+      "values": [
+        {
+          "value": true
+        },
+        {
+          "value": false
+        }
+      ]
+    },
+    {
+      "name": "plugins.converter.use-api",
+      "values": [
+        {
+          "value": true
+        },
+        {
+          "value": false
+        }
+      ]
+    },
+    {
+      "name": "plugins.converter.define-type",
+      "values": [
+        {
+          "value": "yml"
+        },
+        {
+          "value": "xml"
+        },
+        {
+          "value": "proto"
+        }
+      ]
+    }
+  ]
+}

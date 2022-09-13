@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="project/save" desc="应用管理-编辑" group="应用管理" groupCode="project">
+    <send>
+        <item name="id" desc="id" type="Integer" required="true"/>
+        <item name="name" desc="名称" required="true"/>
+        <item name="code" desc="代码" required="true"/>
+        <item name="orderNo" desc="顺序号" type="Integer"/>
+        <item name="isTool" desc="是否是工具条" notes="1-是 0-否" type="Integer"/>
+        <item name="isSys" desc="子系统风格" type="Integer"
+              notes="//0和3是ssh(app,wms,dss,pss,pams)框架的：0表示ssh框架的子系统是同一个浏览器打开，3表示ssh框架的子系统是新浏览器打开，
+              //1和4表示ssm框架：1表示ssm框架的子系统是同一个浏览器打开，4表示ssm框架的子系统是新浏览器打开。
+              // 2表示跟系统无关的一些网站，不需要登录的，例如门户网站、三维可视化、虚拟现实等" />
+        <item name="isDefault" desc="默认选中" notes="1-是 0-否" scope="0,1" type="Integer"/>
+        <item name="outControl" desc="前台始终显示" notes="不受权限控制 1-不受控 0-受控" scope="0,1" type="Integer"/>
+        <item name="path" desc="路径"/>
+        <item name="keyValue" desc="缓存中的key"/>
+        <item name="isApp" desc="是否是应用配置" notes="1-是 0-否" scope="0,1" type="Integer"/>
+        <item name="dataBase" desc="数据库名"/>
+        <item name="isLongRange" desc="是否远程控制" notes="1-是 0-否" scope="0,1" type="Integer"/>
+        <item name="urlSetId" desc="应用地址配置ID" notes="下拉列表 /urlSet/list/combox"  type="Integer"/>
+    </send>
+    <rcv>
+        <item name="id" desc="id" type="Integer" ignore-key="true"/>
+    </rcv>
+</trans>
+

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="person/resetpwd" desc="人员信息-重置密码" groupCode="person" group="人员管理">
+    <send>
+        <item name="account" desc="账号" required="true"/>
+    </send>
+    <rcv>
+    </rcv>
+</trans>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="ucenterPosition/delete" desc="职位管理-删除" group="职位管理" groupCode="ucenterPosition">
+    <send>
+        <item name="ids" desc="ids" required="true"/>
+    </send>
+    <rcv>
+    </rcv>
+</trans>
+

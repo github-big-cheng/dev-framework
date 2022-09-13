@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="personOrg/edit" desc="部门/人员修改" group="部门调整" groupCode="personOrg">
+    <send>
+        <item name="personId" desc="人员ID" type="Integer" required="true"/>
+        <item name="deptId" desc="部门Id" type="Integer" required="true"/>
+        <item name="orderNo" desc="顺序号" type="Integer" required="true"/>
+    </send>
+    <rcv>
+    </rcv>
+</trans>
+

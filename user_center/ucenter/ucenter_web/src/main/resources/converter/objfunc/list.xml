@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="objFunc/list" desc="列表" group="权限管理" groupCode="objFunc">
+    <send>
+        <item name="projectId" desc="应用ID"/>
+        <item name="objType" desc="类型" required="true"
+              notes="部门10079-10 职位10079-20 、角色10079-30、人员 10079-40"
+              scope="10079-10,10079-20,10079-30,10079-40"/>
+        <item name="objId" desc="对象ID" required="true"/>
+    </send>
+    <rcv>
+        <item-tree name="list" desc="list" treeKey="subFunction" real-type="List" ignore-key="true">
+            <item name="id" desc="id"/>
+            <item name="name" desc="菜单名称"/>
+            <item name="code" desc="代码"/>
+            <item name="parentId" desc="父级菜单" type="Integer"/>
+            <item name="projectId" desc="应用ID" type="Integer"/>
+            <item name="imgPath" desc="图标路径"/>
+            <item name="orderNo" desc="排序号" type="Integer"/>
+            <item name="type" type="Integer" desc="类型" notes="1-菜单 2-子菜单 3-tab页签 4-按钮"/>
+            <item name="isSelect" type="Integer" desc="是否被选中"/>
+        </item-tree>
+    </rcv>
+</trans>

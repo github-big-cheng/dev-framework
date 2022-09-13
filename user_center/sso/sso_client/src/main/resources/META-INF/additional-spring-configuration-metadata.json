@@ -1,0 +1,82 @@
+{
+  "properties": [
+    {
+      "name": "plugins.filter.sso.enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": false,
+      "description": "是否开启登录认证."
+    },
+    {
+      "name": "plugins.filter.sso.urlPatterns",
+      "type": "java.lang.String",
+      "defaultValue": "/*",
+      "description": "请求过滤路径."
+    },
+    {
+      "name": "plugins.filter.sso.mode",
+      "type": "java.lang.String",
+      "defaultValue": "local",
+      "description": "认证模式."
+    },
+    {
+      "name": "plugins.filter.sso.checkLoginUrl",
+      "type": "java.lang.String",
+      "defaultValue": "",
+      "description": "远程认证时的验证地址."
+    },
+    {
+      "name": "plugins.filter.sso.redirectUrl",
+      "type": "java.lang.String",
+      "defaultValue": "认证地址.",
+      "description": "远程认证时的验证地址,如：login.html."
+    },
+    {
+      "name": "plugins.filter.sso.order",
+      "type": "java.lang.Integer",
+      "defaultValue": 1,
+      "description": "过滤器优先级."
+    },
+    {
+      "name": "plugins.filter.sso.expiredTime",
+      "type": "java.lang.Integer",
+      "defaultValue": 60000,
+      "description": "过期时间."
+    },
+    {
+      "name": "plugins.filter.sso.initParameters.excludes",
+      "type": "java.lang.String",
+      "defaultValue": "",
+      "description": "登录认证排除接口."
+    },
+    {
+      "name": "plugins.filter.sso.initParameters.excludedAuth",
+      "type": "java.lang.String",
+      "defaultValue": "",
+      "description": "权限认证排除接口."
+    }
+  ],
+  "hints": [
+    {
+      "name": "plugins.filter.sso.enabled",
+      "values": [
+        {
+          "value": true
+        },
+        {
+          "value": false
+        }
+      ]
+    },
+    {
+      "name": "plugins.filter.sso.mode",
+      "values": [
+        {
+          "value": "local"
+        },
+        {
+          "value": "remote"
+        }
+      ]
+    }
+  ]
+}

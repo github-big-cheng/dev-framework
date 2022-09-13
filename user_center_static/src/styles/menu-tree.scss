@@ -1,0 +1,636 @@
+@import "@/styles/mixin.scss";
+
+/deep/.dv-menu-tree {
+  height: calc(100% - 34px);
+  overflow: auto;
+
+  .tree-header {
+    color: #333;
+  }
+
+  .menu-tree-box {
+    position: relative;
+    overflow: hidden;
+
+    .node-label {
+      position: relative;
+      width: 260px;
+      display: flex;
+      align-items: center;
+
+      .link {
+        font-size: 12px;
+        background: #67c23a;
+        color: #fff;
+        margin-left: 10px;
+      }
+    }
+
+    .custom-tree-node {
+      display: flex;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 20px;
+      align-items: center;
+      font-size: 12px;
+      color: #000;
+
+      &.span_3 {
+        .node-label {
+          width: 185Px;
+        }
+      }
+
+      &.span_1.custom-tree-node-expand-1 {
+        >.node-label {
+          width: 232Px;
+        }
+      }
+    }
+
+    .el-tree-node {
+      position: relative;
+      padding-left: 16Px; // 缩进量
+    }
+
+    .el-tree-node__children {
+      padding-left: 16Px; // 缩进量
+
+      .el-tree-node__expand-icon {
+        left: 18Px;
+      }
+    }
+
+    .el-tree-node__content {
+      // padding-left: 0 !important;
+      background: none !important;
+      height: fit-content;
+      min-height: 36Px;
+
+      >.el-checkbox {
+        height: 100%;
+        border-top: 1px solid #e5e5e5;
+      }
+    }
+
+    .el-tree-node__expand-icon {
+      position: absolute;
+      left: 45Px;
+      z-index: 9;
+      border-radius: 50%;
+    }
+
+    .is-leaf {
+      z-index: -1;
+    }
+
+    .t-icon {
+      font-size: 16px;
+      margin-right: 5px;
+      position: relative;
+      left: -1px;
+      z-index: 9;
+      color: #999;
+      flex-shrink: 0;
+    }
+
+    .el-tree-node {
+      position: relative;
+      padding-left: 49Px;
+      z-index: 1;
+    }
+
+    .el-checkbox {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      line-height: 36px;
+      box-sizing: border-box;
+      padding-left: 17px;
+      margin-right: 0 !important;
+      background: #fff;
+    }
+
+    .handle-menu {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 10px 0 0 0;
+      z-index: 9;
+      text-align: center;
+      padding-left: 10Px;
+      min-height: 36px;
+
+      .el-checkbox {
+        margin-left: 10px;
+        position: unset;
+        border: none;
+        line-height: 1;
+        padding: 0 0 10px 0;
+        margin-right: 10px !important;
+        background-color: unset !important;
+      }
+
+      .el-checkbox__input.is-checked+.el-checkbox__label {
+        color: #333;
+      }
+    }
+
+    .is-checked {
+      background: rgba(218, 238, 253, 1) !important;
+    }
+
+    .el-tree-node__children {
+      padding-left: 0; // 缩进量
+      border-top: 1px solid #000;
+      overflow: inherit !important;
+
+      .el-tree-node {
+        padding-left: 6Px;
+      }
+    }
+
+    .handle-button {
+      // position: absolute;
+      right: 0;
+      z-index: 9;
+      width: 85px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .el-tree-node {
+      position: relative;
+    }
+
+    // 竖线
+    .el-tree-node.is-expanded::before {
+      content: "";
+      position: absolute;
+      left: -2px;
+      top: 36px;
+      z-index: 9;
+      height: 1px;
+      width: 100%;
+      // border-top: 1px solid #e5e5e5;
+    }
+
+    // 当前层最后一个节点的竖线高度固定
+    .el-tree-node:last-child::before {
+      height: 27px; // 可以自己调节到合适数值
+    }
+
+    // 横线
+    .el-tree-node::after {
+      content: "";
+      width: 14px;
+      height: 20px;
+      position: absolute;
+      left: -1px;
+      top: 17px;
+      border-width: 1px;
+      // border-top: 1px dashed #52627C;
+      z-index: 9;
+    }
+
+    // 去掉最顶层的虚线，放最下面样式才不会被上面的覆盖了
+    &>.el-tree-node::after {
+      border-top: none;
+    }
+
+    &>.el-tree-node::before {
+      border-left: none;
+    }
+
+    // 展开关闭的icon
+    .el-tree-node__expand-icon {
+      font-size: 16px;
+
+      // 叶子节点（无子节点）
+      &.is-leaf {
+        color: transparent;
+        // display: none; // 也可以去掉
+      }
+    }
+    .custom-tree-node .node-label{
+       .el-checkbox__input{
+        display: none;
+      }
+      .treelist-layer1,.treelist-layer2,.treelist-layer3{
+        .el-checkbox__input{
+          display: none;
+        }
+      }
+    }
+    .treelist-layer1 {
+      left: -49Px;
+    }
+
+    .treelist-layer2 {
+      left: -55Px;
+    }
+
+    .treelist-layer3 {
+      left: -93Px;
+    }
+  }
+}
+
+/deep/ .el-tree-node__expand-icon.is-leaf {
+  // width: 40px;
+  padding: 0;
+}
+
+/deep/ .el-loading-spinner {
+  top: 90px;
+
+  i {
+    color: #999;
+  }
+}
+
+/deep/ .el-loading-text {
+  color: #999;
+  font-size: 13px;
+}
+
+/deep/ .app-container {
+  display: none;
+}
+
+.tree-box {
+  height: 100%;
+}
+
+.asideormain {
+  .aside-con {
+    padding-left: 3px;
+
+    .el-tabs {
+      display: flex;
+      flex-flow: column;
+      height: 100%;
+    }
+
+    /deep/ .el-tabs__header {
+      padding: 10Px 8Px 0 5Px;
+    }
+
+    /deep/.el-tabs__content {
+      overflow: auto;
+    }
+  }
+
+  .asidewrap {
+    height: 100%;
+    border: 0 none;
+  }
+
+  /deep/ .el-tabs__header {
+    margin: 0;
+    padding: 0 0 10px 0;
+
+    .is-active {
+      background: #fff;
+      color: #118af7;
+    }
+
+    .el-tabs__active-bar {
+      display: none;
+    }
+  }
+
+  /deep/ .el-tabs__item {
+    font-size: 12px;
+    margin-right: 2px;
+    color: #666;
+    padding-left: 15Px;
+    padding-right: 15Px;
+    border-radius: 3px 3px 0 0;
+    border: 1px solid #e8e8e8;
+    background: #fafafa;
+
+    &:nth-child(2) {
+      padding-left: 15Px;
+    }
+
+    &:last-child {
+      padding-right: 15Px;
+    }
+  }
+}
+
+.tree-wrapper {
+  height: calc(100% - 400px);
+}
+
+.menu-tree {
+  // height: calc(100vh - 275Px);
+}
+
+.tree-header {
+  position: relative;
+  display: flex;
+  flex: 1;
+  width: 100%;
+  height: 34px;
+  line-height: 34px;
+  font-size: 12px;
+  background: #f4f4f4;
+  // border: 1px solid #eee;
+  border-bottom-color: #d9e2eb;
+
+  .t-left {
+    flex-grow: 0;
+    width: 47Px;
+    text-align: center;
+
+    .el-checkbox {
+      background: none !important;
+    }
+  }
+
+  .t-center {
+    flex-grow: 0;
+    width: 270Px;
+    text-align: center;
+  }
+
+  .t-center2 {
+    flex-grow: 2;
+    text-align: center;
+  }
+
+  .t-right {
+    width: 85px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+  }
+}
+
+.sline1,
+.sline2,
+.sline3 {
+  position: absolute;
+  z-index: 11;
+  display: block;
+  height: 100%;
+  border-left: 1px solid #e5e5e5;
+}
+
+.sline1 {
+  left: 48Px;
+}
+
+.sline2 {
+  left: 318Px;
+}
+
+.tabs-tree-box {
+  width: 278px;
+  padding: 0 !important;
+  border: 1px solid #e5e5e5;
+}
+
+.tab-tree {
+  overflow: auto;
+
+  .search-ipt {
+    width: calc(100% - 14px);
+    margin: 10px 7px 0 5px;
+    overflow: hidden;
+
+    /deep/.el-input-group__append {
+      padding: 0;
+      position: absolute;
+      right: 12px;
+      display: flex;
+      top: 0;
+      width: 0;
+      border: none;
+      align-items: center;
+      height: 100%;
+
+      i {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.t-icon {
+  color: #999;
+  font-size: 14px;
+  margin-right: 6px;
+}
+
+/deep/ .tree-box .el-tree-node__content {
+  min-height: 28Px;
+  height: 28px;
+
+  &>.el-icon-caret-right {
+    padding: 0 2px;
+  }
+
+  &.custom-tree-node {
+    padding: 0 4px 0 0;
+  }
+}
+
+.access-table {
+  flex:1;
+  height: calc(100% - 100px);
+  position: relative;
+  border: 1px solid #e5e5e5;
+}
+
+.left-line {
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  background: #eee;
+  left: 50px;
+  z-index: 9;
+  top: 0;
+}
+
+.center-line {
+  right: 400px;
+  left: auto;
+}
+
+.right-line {
+  right: 85px;
+  left: auto;
+}
+
+/deep/ .custom-tree-node {
+  padding-right: 0;
+}
+
+.operation-btn {
+  padding-left: 0;
+}
+
+
+
+/deep/ .tree-box .el-tree-node__content {
+  height: 28px;
+}
+
+.tree-header {
+  height: 34px;
+  line-height: 34px;
+}
+
+.tuser-avatar {
+  width: 36px;
+  height: 36px;
+  margin-right: 10px;
+  border-radius: 100%;
+}
+
+.s-list {
+  margin-top: 8px;
+
+  .s-item {
+    width: 100%;
+    height: 48px;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 7px 0 0 10px;
+    position: relative;
+
+    .el-icon-alipitchon {
+      position: absolute;
+      right: 0;
+      top: 0;
+      font-size: 21px;
+      color: $cBlue;
+    }
+
+    &.is-selected {
+      background: rgba(17, 138, 247, 0.06);
+    }
+  }
+
+  .item-user {
+    float: left;
+  }
+
+  .default-avatar {
+    display: flex;
+    @include wh(36px, 36px);
+    margin-right: 10px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    background-color: $cGraye5;
+
+    &::before {
+      font-size: 20px;
+      color: $cWhite;
+    }
+  }
+
+  .tuser-avatar {
+    @include wh(36px, 36px);
+    margin-right: 10px;
+    border-radius: 100%;
+  }
+
+  .i-name {
+    @include fontSize;
+    font-weight: bold;
+    color: $cGray3;
+    margin-bottom: 3px;
+    padding-top: 2px;
+  }
+
+  .i-dept {
+    @include fontSize;
+    font-weight: 400;
+    color: $cGray9;
+  }
+
+  .item-desc {
+    line-height: 34px;
+  }
+
+  .noRenderP {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+  }
+
+  .renderPerson {
+    .item-user {
+      @include wh(36px, 36px);
+      margin-left: 10px;
+      text-align: center;
+      line-height: 36px;
+      float: left;
+
+      i {
+        font-size: 30px;
+        color: $cGraye;
+      }
+    }
+
+    .item-desc {
+      box-sizing: border-box;
+      padding-left: 57px;
+    }
+  }
+}
+
+@media screen and (min-width: 1501px) {
+  .asideormain {
+    /deep/ .el-tabs__item {
+      height: 30px;
+      line-height: 30px;
+    }
+  }
+  .tree-header .t-center {
+    width: 330px;
+  }
+
+  .sline2 {
+    left: 370px;
+  }
+
+  /deep/.dv-menu-tree {
+    .menu-tree-box {
+      .treelist-layer2 {
+        left: -61px;
+      }
+
+      .custom-tree-node {
+        &.span_3 {
+          .node-label {
+            width: 227px;
+          }
+        }
+
+        &.span_1.custom-tree-node-expand-1 {
+          >.node-label {
+            width: 292px;
+          }
+        }
+      }
+
+      .el-tree-node__children {
+        .el-tree-node {
+          padding-left: 16px;
+        }
+
+        .el-tree-node__expand-icon {
+          left: 30px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="sysColumnConfig/reset" desc="还原默认配置" group="自定义界面配置" groupCode="sysColumnConfig">
+    <send>
+        <item name="code" desc="界面code" notes="ex:ucenter_person_list" required="true"/>
+    </send>
+    <rcv>
+    </rcv>
+</trans>

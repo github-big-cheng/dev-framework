@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="role/delete" desc="角色管理-删除" group="角色管理" groupCode="role" >
+    <send>
+        <item name="idQueryIn" desc="ids" required="true"/>
+    </send>
+    <rcv>
+    </rcv>
+</trans>
+

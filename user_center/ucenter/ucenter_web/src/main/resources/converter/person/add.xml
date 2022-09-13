@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="person/add" desc="人员信息-新增" groupCode="person" group="人员管理">
+    <send>
+        <item name="name" desc="姓名" required="true"/>
+        <item name="account" desc="人员账号"/>
+
+        <item name="jobNo" desc="代码"/>
+        <item name="idNo" desc="身份证号码"/>
+        <item name="mobile" desc="手机"/>
+
+        <item name="sex" desc="性别" scope="10004-10,10004-20"
+              notes="10004-10:男 10004-20:女"/>
+        <item name="marriage" desc="婚姻状况" scope="10005-10,10005-20"
+              notes="TYPE=10001-10005,10005-10:已婚 10005-20:未婚"/>
+        <item name="birthday" desc="出生日期"/>
+        <item name="nation" desc="民族"/>
+        <item name="telephone" desc="电话"/>
+        <item name="email" desc="email"/>
+        <item name="memo" desc="备注"/>
+
+        <item-map name="info" desc="人员信息">
+            <item name="zipcode" desc="邮编"/>
+            <item name="homeProvince" desc="籍贯省份" notes="TYPE=10001-10033"/>
+            <item name="homeCity" desc="籍贯城市" notes="TYPE=10001-10034"/>
+            <item name="homeCounty" desc="籍贯县" notes="TYPE=10001-10035"/>
+            <item name="address" desc="家庭住址"/>
+            <item name="political" desc="政治面貌"/>
+            <item name="joinPartyDate" desc="入党日期"/>
+            <item name="imeiNo" desc="IMEI号码"/>
+            <item name="imsiNo" desc="IMSI号码"/>
+            <item name="education" desc="学历" notes="TYPE=10001-10006"/>
+            <item name="degree" desc="学位"/>
+            <item name="graduateTime" desc="毕业时间"/>
+            <item name="graduateSchool" desc="毕业院校"/>
+            <item name="major" desc="专业"/>
+            <item name="beginWorkTime" desc="参加工作时间"/>
+            <item name="workTime" desc="入职时间"/>
+            <item name="resignationTime" desc="离职时间"/>
+            <item name="resignationReason" desc="离职原因"/>
+        </item-map>
+
+        <item name="roleIds" desc="角色ids"/>
+        <item-json name="personImg" desc="人员头像json串" real-type="Map">
+            <item name="fileSize" desc="文件大小"/>
+            <item name="filePath" desc="文件路径"/>
+            <item name="fileName" desc="文件名称"/>
+            <item name="fileType" desc="文件类型"/>
+        </item-json>
+
+        <item-json name="ucenterPersonOrgs" desc="用户部门信息json串" real-type="List">
+            <item name="deptId" desc="部门ID" required="true" type="Integer"/>
+            <item name="isMain" desc="是否主部门" scope="0,1" type="Integer"/>
+            <item name="isMainPerson" desc="是否主要人员" scope="0,1" type="Integer"/>
+            <item name="posId" desc="职位" type="Integer"/>
+            <item name="posLevel" desc="职级" notes="TYPE=10001-10080"/>
+        </item-json>
+    </send>
+    <rcv>
+        <item name="id" desc="id" type="Integer" ignore-key="true"/>
+    </rcv>
+</trans>

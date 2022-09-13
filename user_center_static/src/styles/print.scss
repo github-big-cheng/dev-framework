@@ -1,0 +1,117 @@
+@import "./mixin.scss";
+.print-file {
+    margin: 20px auto;
+    h2 {
+        color: #000;
+        font-size: 20px;
+        font-weight: 700;
+        padding-bottom: 15px;
+        text-align: center;
+    }
+}
+
+.print-table {
+    width: 760px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-collapse: collapse;
+
+    th,
+    td {
+        font-size: 12px;
+        border: 1px solid #000;
+        overflow: hidden;
+
+        .cell {
+            padding: 2px 10px;
+            min-height: 26Px;/*no*/
+            line-height: 26Px;
+            &.tleft {
+                text-align: left;
+            }
+        }
+    }
+
+    th{
+        font-weight: normal;
+        background-color: $cGrayfa;
+    }
+
+    th .cell,
+    td.tcenter .cell {
+        justify-content: center;
+    }
+
+    td.pd0 {
+        padding: 0;
+    }
+
+    .tit {
+        text-align: left;
+        display: block;
+    }
+
+    .p-time {
+        text-align: right;
+    }
+
+    .opinion-content {
+        display: flex;
+        width: 100%;
+    }
+
+    .opinion-con {
+        flex: 1;
+    }
+    /deep/.upfile-item {
+        min-width: 300px;
+        max-width: 560px;
+    }
+}
+.center {
+    text-align: center !important;
+}
+/deep/ .file-icon i {
+    margin-right: 4px;
+    font-size: 16px;
+    vertical-align: middle;
+}
+
+.inner-table {
+    width: calc(100% + 1px);
+    margin-left: -1px;
+    margin-top: -1px;
+
+    td,
+    th {
+        border-bottom: 0 none;
+        border-right: 0 none;
+    }
+}
+
+/deep/.el-dialog__body {
+    height: 100% !important;
+}
+.start {
+    justify-content: start !important;
+    position: relative;
+}
+.check-right {
+    position: absolute;
+    right: 26%;
+}
+.height60 {
+    height: 60px !important;
+}
+
+@media screen and (min-width : 1501px) {
+    .print-table {
+        th,
+        td {
+            .cell {
+                padding:4px 10px;
+                line-height: 30px;
+            }
+        }
+    }
+}

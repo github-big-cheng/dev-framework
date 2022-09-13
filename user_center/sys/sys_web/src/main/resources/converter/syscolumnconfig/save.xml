@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="sysColumnConfig/save" desc="用户页面配置保存" group="自定义界面配置" groupCode="sysColumnConfig">
+    <send>
+        <item-json name="records" desc="用户自定义的界面配置" required="true" real-type="List">
+            <item name="code" desc="页面代码" notes="ex:ucenter_person_list" required="true"/>
+            <item name="name" desc="页面名称" required="true"/>
+            <item name="colKey" desc="字段key" required="true"/>
+            <item name="colName" desc="字段名称" required="true"/>
+            <item name="orderNo" desc="排序号" required="true"/>
+        </item-json>
+    </send>
+    <rcv>
+    </rcv>
+</trans>

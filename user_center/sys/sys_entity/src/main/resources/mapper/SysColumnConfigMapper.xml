@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wisely.sys.mapper.SysColumnConfigMapper">
+
+    <resultMap type="com.wisely.sys.entity.SysColumnConfig" id="BaseResultMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="code" column="code" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="colKey" column="col_key" jdbcType="VARCHAR"/>
+        <result property="colName" column="col_name" jdbcType="VARCHAR"/>
+        <result property="colWidth" column="col_width" jdbcType="OTHER"/>
+        <result property="height" column="height" jdbcType="OTHER"/>
+        <result property="isSelected" column="is_selected" jdbcType="INTEGER"/>
+        <result property="orderNo" column="order_no" jdbcType="INTEGER"/>
+        <result property="opState" column="op_state" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="BaseColumn">
+        t.id,
+        t.user_id,
+        t.code,
+        t.name,
+        t.col_key,
+        t.col_name,
+        t.col_width,
+        t.height,
+        t.is_selected,
+        t.order_no,
+        t.op_state,
+        t.create_by,
+        t.create_time,
+        t.update_by,
+        t.update_time,
+        t.is_deleted
+    </sql>
+
+    <!-- 动态字段 -->
+    <sql id="DynamicColumn">
+        <if test="userId != null">
+            user_id,
+        </if>
+        <if test="code != null and code != ''">
+            code,
+        </if>
+        <if test="name != null and name != ''">
+            name,
+        </if>
+        <if test="colKey != null and colKey != ''">
+            col_key,
+        </if>
+        <if test="colName != null and colName != ''">
+            col_name,
+        </if>
+        <if test="colWidth != null">
+            col_width,
+        </if>
+        <if test="height != null">
+            height,
+        </if>
+        <if test="isSelected != null">
+            is_selected,
+        </if>
+        <if test="orderNo != null">
+            order_no,
+        </if>
+        <if test="opState != null">
+            op_state,
+        </if>
+        <if test="createBy != null">
+            create_by,
+        </if>
+        <if test="createTime != null and createTime != ''">
+            create_time,
+        </if>
+        <if test="updateBy != null">
+            update_by,
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            update_time,
+        </if>
+        <if test="isDeleted != null">
+            is_deleted,
+        </if>
+    </sql>
+
+    <!-- 动态值 -->
+    <sql id="DynamicValue">
+        <if test="userId != null">
+            #{userId},
+        </if>
+        <if test="code != null and code != ''">
+            #{code},
+        </if>
+        <if test="name != null and name != ''">
+            #{name},
+        </if>
+        <if test="colKey != null and colKey != ''">
+            #{colKey},
+        </if>
+        <if test="colName != null and colName != ''">
+            #{colName},
+        </if>
+        <if test="colWidth != null">
+            #{colWidth},
+        </if>
+        <if test="height != null">
+            #{height},
+        </if>
+        <if test="isSelected != null">
+            #{isSelected},
+        </if>
+        <if test="orderNo != null">
+            #{orderNo},
+        </if>
+        <if test="opState != null">
+            #{opState},
+        </if>
+        <if test="createBy != null">
+            #{createBy},
+        </if>
+        <if test="createTime != null and createTime != ''">
+            #{createTime},
+        </if>
+        <if test="updateBy != null">
+            #{updateBy},
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            #{updateTime},
+        </if>
+        <if test="isDeleted != null">
+            #{isDeleted},
+        </if>
+    </sql>
+
+    <!-- 动态赋值 -->
+    <sql id="DynamicSet">
+        <if test="userId != null">
+            user_id = #{userId},
+        </if>
+        <if test="code != null">
+            code = #{code},
+        </if>
+        <if test="name != null">
+            name = #{name},
+        </if>
+        <if test="colKey != null">
+            col_key = #{colKey},
+        </if>
+        <if test="colName != null">
+            col_name = #{colName},
+        </if>
+        <if test="colWidth != null">
+            col_width = #{colWidth},
+        </if>
+        <if test="height != null">
+            height = #{height},
+        </if>
+        <if test="isSelected != null">
+            is_selected = #{isSelected},
+        </if>
+        <if test="orderNo != null">
+            order_no = #{orderNo},
+        </if>
+        <if test="opState != null">
+            op_state = #{opState},
+        </if>
+        <if test="createBy != null">
+            create_by = #{createBy},
+        </if>
+        <if test="createTime != null">
+            create_time = #{createTime},
+        </if>
+        <if test="updateBy != null">
+            update_by = #{updateBy},
+        </if>
+        <if test="updateTime != null">
+            update_time = #{updateTime},
+        </if>
+        <if test="isDeleted != null">
+            is_deleted = #{isDeleted},
+        </if>
+    </sql>
+
+    <!-- 动态条件 -->
+    <sql id="DynamicWhere">
+        <if test="userId != null">
+            and t.user_id = #{userId}
+        </if>
+        <if test="code != null and code != ''">
+            and t.code = #{code}
+        </if>
+        <if test="name != null and name != ''">
+            and t.name = #{name}
+        </if>
+        <if test="colKey != null and colKey != ''">
+            and t.col_key = #{colKey}
+        </if>
+        <if test="colName != null and colName != ''">
+            and t.col_name = #{colName}
+        </if>
+        <if test="colWidth != null">
+            and t.col_width = #{colWidth}
+        </if>
+        <if test="height != null">
+            and t.height = #{height}
+        </if>
+        <if test="isSelected != null">
+            and t.is_selected = #{isSelected}
+        </if>
+        <if test="orderNo != null">
+            and t.order_no = #{orderNo}
+        </if>
+        <if test="opState != null">
+            and t.op_state = #{opState}
+        </if>
+        <if test="createBy != null">
+            and t.create_by = #{createBy}
+        </if>
+        <if test="createTime != null and createTime != ''">
+            and t.create_time = #{createTime}
+        </if>
+        <if test="updateBy != null">
+            and t.update_by = #{updateBy}
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            and t.update_time = #{updateTime}
+        </if>
+        <if test="isDeleted != null">
+            and t.is_deleted = #{isDeleted}
+        </if>
+    </sql>
+
+    <!--查询单个-->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select <include refid="BaseColumn"/>
+        from t_sys_column_config t
+        where id = #{id}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true"
+            parameterType="com.wisely.sys.entity.SysColumnConfig">
+        insert into t_sys_column_config (
+            user_id,
+            code,
+            name,
+            col_key,
+            col_name,
+            col_width,
+            height,
+            is_selected,
+            order_no,
+            op_state,
+            create_by,
+            create_time,
+            update_by,
+            update_time,
+            is_deleted
+        ) values (
+            #{userId},
+            #{code},
+            #{name},
+            #{colKey},
+            #{colName},
+            #{colWidth},
+            #{height},
+            #{isSelected},
+            #{orderNo},
+            #{opState},
+            #{createBy},
+            #{createTime},
+            #{updateBy},
+            #{updateTime},
+            #{isDeleted}
+        )
+    </insert>
+
+    <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true"
+            parameterType="com.wisely.sys.entity.SysColumnConfig">
+        insert into t_sys_column_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="DynamicColumn"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="DynamicValue"/>
+        </trim>
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="updateByPrimaryKey" parameterType="com.wisely.sys.entity.SysColumnConfig">
+        update t_sys_column_config
+        <set>
+            user_id = #{userId},
+            code = #{code},
+            name = #{name},
+            col_key = #{colKey},
+            col_name = #{colName},
+            col_width = #{colWidth},
+            height = #{height},
+            is_selected = #{isSelected},
+            order_no = #{orderNo},
+            op_state = #{opState},
+            create_by = #{createBy},
+            create_time = #{createTime},
+            update_by = #{updateBy},
+            update_time = #{updateTime},
+            is_deleted = #{isDeleted},
+        </set>
+        where id = #{id}
+    </update>
+
+    <!-- 通过主键动态修改数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.wisely.sys.entity.SysColumnConfig">
+        update t_sys_column_config
+        <trim prefix="set" suffixOverrides=",">
+            <include refid="DynamicSet"/>
+        </trim>
+        where id = #{id}
+    </update>
+
+
+    <!-- 根据条件动态修改数据 -->
+    <update id="updateBySelective" parameterType="com.wisely.sys.entity.SysColumnConfig">
+        update t_sys_column_config T
+        <trim prefix="set" suffixOverrides=",">
+            <include refid="DynamicSet"/>
+        </trim>
+        <trim prefix="where" prefixOverrides="AND | OR">
+            <choose>
+                <!-- 为避免全表更新，至少有一个查询条件 -->
+                <otherwise>
+                    and id = #{id}
+                </otherwise>
+            </choose>
+        </trim>
+    </update>
+
+
+    <!--通过主键删除-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_sys_column_config
+        where ID = #{id}
+    </delete>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectListBySelective" parameterType="com.wisely.sys.entity.SysColumnConfig"
+            resultMap="BaseResultMap">
+        select <include refid="BaseColumn"/>
+        from t_sys_column_config t
+        <trim prefix="where " prefixOverrides="AND | OR">
+            <include refid="DynamicWhere"/>
+        </trim>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                order by ${orderBy}
+            </when>
+            <otherwise>
+                order by t.order_no, t.id
+            </otherwise>
+        </choose>
+    </select>
+
+
+    <!-- 根据USER_ID CODE 删除数据 -->
+    <delete id="deleteByUserIdAndCode" parameterType="com.wisely.sys.entity.SysColumnConfig">
+        delete from t_sys_serial_no
+        where user_id = #{userId}
+          and code = #{code}
+    </delete>
+
+</mapper>

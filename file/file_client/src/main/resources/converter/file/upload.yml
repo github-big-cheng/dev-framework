@@ -1,0 +1,33 @@
+name: file/upload
+desc: 文件上传
+group: file
+send:
+  - name: groupName
+    desc: 业务分组
+
+  - name: file
+    type: FileList
+    desc: 附件列表
+rcv:
+  - name:
+    desc: 已上传附件信息
+    type: List
+    children:
+      - name: fileName
+        desc: 文件名称
+
+      - name: fileDir
+        desc: 文件路径
+
+      - name: filePath
+        desc: 文件相对路径
+
+      - name: fileRealPath
+        desc: 实际文件路径
+
+      - name: fileSize
+        desc: 文件大小（字节）
+        type: Integer
+
+      - name: fileType
+        desc: 文件类型

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanPeriod="1 seconds">
+    <!--变量配置-->
+    <Property name="LOG_PATTERN" value="%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+    <property name="FILE_PATH" value="/home/apps/logs"/>
+    <property name="FILE_NAME" value="gateway_web"/>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!--
+    discriminator鉴别器，设置运行时动态属性,siftingAppender根据这个属性来输出日志到不同文件
+    这个会打印出所有的info及以上级别的信息
+     -->
+    <appender name="siftLog" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <discriminator>
+            <key>deviceId</key>
+            <defaultValue>system</defaultValue>
+        </discriminator>
+        <sift>
+            <!--这个会打印出所有的info及以下级别的信息-->
+            <appender name="FILE-${deviceId}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <append>true</append>
+                <encoder charset="UTF-8">
+                    <pattern>${LOG_PATTERN}</pattern>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                    <!--定义文件滚动时的文件名的格式-->
+                    <fileNamePattern>${FILE_PATH}/${FILE_NAME}/${deviceId}/%d{yyyyMMdd}/%i--info.log</fileNamePattern>
+                    <maxFileSize>500MB</maxFileSize>
+                    <maxHistory>60</maxHistory>
+                    <totalSizeCap>20GB</totalSizeCap>
+                </rollingPolicy>
+                <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                    <level>INFO</level>
+                </filter>
+            </appender>
+        </sift>
+    </appender>
+
+    <!--这个会打印出所有的info及以下级别的信息-->
+    <appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${FILE_PATH}/${FILE_NAME}/info.log</file>
+        <append>true</append>
+        <encoder charset="UTF-8">
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--定义文件滚动时的文件名的格式-->
+            <fileNamePattern>${FILE_PATH}/${FILE_NAME}/%d{yyyyMMdd}/%i--info.log</fileNamePattern>
+            <maxFileSize>500MB</maxFileSize>
+            <maxHistory>60</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>info</level>
+        </filter>
+    </appender>
+
+    <!--这个会打印出所有的error及以下级别的信息-->
+    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${FILE_PATH}/${FILE_NAME}/error.log</file>
+        <append>true</append>
+        <encoder charset="UTF-8">
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--定义文件滚动时的文件名的格式-->
+            <fileNamePattern>${FILE_PATH}/${FILE_NAME}/%d{yyyyMMdd}/%i--error.log</fileNamePattern>
+            <maxFileSize>500MB</maxFileSize>
+            <maxHistory>60</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>error</level>
+        </filter>
+    </appender>
+
+    <logger name="com.wisely" level="DEBUG" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <!-- 日志级别排序为： TRACE < DEBUG < INFO < WARN < ERROR -->
+    <!-- 日志输出级别 -->
+    <root level="INFO">
+        <appender-ref ref="console"/>
+        <!--        <appender-ref ref="siftLog"/>--> <!-- 需要时打开 -->
+        <!--        <appender-ref ref="info"/>-->
+        <!--        <appender-ref ref="error"/>-->
+    </root>
+</configuration>

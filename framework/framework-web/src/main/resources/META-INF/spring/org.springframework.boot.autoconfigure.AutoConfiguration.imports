@@ -1,0 +1,5 @@
+com.wisely.framework.plugins.filter.FrameworkFilterPlugin
+com.wisely.framework.plugins.exception.ExceptionPlugin
+com.wisely.framework.plugins.token.TokenPlugin
+com.wisely.framework.plugins.i18n.I18nPlugin
+com.wisely.framework.plugins.net.NetPlugin

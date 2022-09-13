@@ -1,0 +1,144 @@
+$cBlue: var(--test, #118af7);
+$cBlue1: #17bce5;
+$cBlue2: #4B97A7;
+$cOrange: #fa8c16;
+$cOrange1: #FF6B49;
+$cTangerine: #FF6B49;
+$cGreen: #67c23a;
+$cPurple: #CC2CE9;
+$cRed: #FF3E3C;
+$cBlack: #000;
+$cGray: #dcdfe6;
+$cGray3:#333;
+$cGray6: #666;
+$cGray9: #999;
+$cGrayc: #ccc;
+$cGrayd: #ddd;
+$cGraye: #eee;
+$cGraye4: #e4e4e4;
+$cGraye5: #e5e5e5;
+$cGrayf1: #f1f1f1;
+$cGrayf4: #f4f4f4;
+$cGrayf5: #f5f5f5;
+$cGrayfa: #fafafa;
+$cGraye: #eee;
+$cGraye2: #e2e2e2;
+$cGraydc: #dcdfe6;
+$cWhite: #fff;
+/* 宽高 */
+@mixin fontSize($size:12px) {
+  font-size: $size;
+}
+@mixin fontWeight($width: normal) {
+  font-weight:$width;
+}
+@mixin float($dire: left) {
+  float: $dire;
+}
+@mixin wh($width, $height) {
+  width: $width;
+  height: $height;
+}
+@mixin links {
+  a {
+    color: $cBlue;
+    &:hover{
+      opacity: .9;
+    }
+  }
+}
+@mixin bordered($color: #dcdfe6, $width: 1px, $style: solid) {
+  border: $width $style $color;
+}
+@mixin borderRadius($radius: 3px) {
+  border-radius: $radius;
+}
+@mixin boxSizing($size: border-box) {
+  box-sizing: $size;
+}
+@mixin boxShadows($shadow...) {
+  box-shadow: $shadow;
+}
+@mixin flex {
+  display: flex;
+}
+@mixin flexBox($dirj: center, $dira: center) {
+  display: flex;
+  align-items: $dira;
+  justify-content: $dirj;
+}
+@mixin flexBoxAlign($dir: center) {
+  display: flex;
+  align-items: $dir;
+}
+@mixin flexBoxJustify($dir: center) {
+  display: flex;
+  justify-content: $dir;
+}
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+} 
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin scrollBar {
+  &::-webkit-scrollbar-track-piece {
+    background: #d3dce6;
+  }
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #99a9bf;
+    border-radius: 20px;
+  }
+}
+
+@mixin relative {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+@mixin absolute( $top: inherit, $right: inherit, $bottom: inherit, $left: inherit, $type:absolute){
+  position: $type;
+  top:$top;
+  right:$right;
+  bottom:$bottom;
+  left: $left;
+}
+// triangle
+@mixin triangle($direction, $size, $borderColor ) {
+  content:"";
+  height: 0;
+  width: 0;
+
+  @if $direction == top {
+    border-bottom:$size solid $borderColor;
+    border-left:$size dashed transparent;
+    border-right:$size dashed transparent;
+  } 
+  @else if $direction == right {
+    border-left:$size solid $borderColor;
+    border-top:$size dashed transparent;
+    border-bottom:$size dashed transparent;
+  } 
+  @else if $direction == bottom {
+    border-top:$size solid $borderColor;
+    border-left:$size dashed transparent;
+    border-right:$size dashed transparent;
+  } 
+  @else if $direction == left {
+    border-right:$size solid $borderColor;
+    border-top:$size dashed transparent;
+    border-bottom:$size dashed transparent;
+  }
+}

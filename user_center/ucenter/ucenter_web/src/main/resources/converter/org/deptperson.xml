@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="org/deptperson" desc="部门人员树" group="部门管理" groupCode="org">
+    <send>
+        <item name="compTypeQueryIn" desc="类型" notes="10027-10:部门, 10027-20:公司"/>
+
+    </send>
+    <rcv>
+        <item-tree name="list" desc="list" ignore-key="true" treeKey="children" real-type="List">
+            <item name="id" desc="id" type="Integer"/>
+            <item name="code" desc="代码"/>
+            <item name="cname" desc="名称"/>
+            <item name="sname" desc="简称"/>
+            <item name="pathIds" desc="路径" notes="ROOT_ID-10001-10002…"/>
+            <item name="orderNo" desc="顺序号" type="Integer"/>
+            <item name="parentId" desc="上级部门" type="Integer"/>
+            <item name="parentValue" desc="上级部门名称" mapper="ORG_HASH" target="parentId"/>
+
+            <!-- 人员信息 -->
+            <item-list name="listPerson" desc="人员列表">
+                <item name="id" desc="人员id" type="Integer"/>
+                <item name="orgId" desc="机构id" type="Integer"/>
+                <item name="orgName" desc="机构名称"/>
+                <item name="deptId" desc="部门id" type="Integer"/>
+                <item name="deptName" desc="部门名称" target="deptId" mapper="ORG_HASH"/>
+                <item name="name" desc="姓名"/>
+                <item name="posId" desc="职务" type="Integer"/>
+                <item name="posName" desc="职务" target="posId" mapper="POS_HASH"/>
+                <item name="posLevel" desc="职级"/>
+                <item name="posLevelName" desc="职级" target="posLevel" mapper="CODE_HASH"/>
+                <item name="orderNo" desc="顺序号" type="Integer"/>
+            </item-list>
+
+        </item-tree>
+    </rcv>
+</trans>

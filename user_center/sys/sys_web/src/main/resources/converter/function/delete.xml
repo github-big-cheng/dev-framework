@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="function/delete" desc="菜单管理-删除" group="菜单管理" groupCode="function">
+    <send>
+        <item name="idQueryIn" desc="菜单ID"/>
+    </send>
+    <rcv>
+    </rcv>
+</trans>
+

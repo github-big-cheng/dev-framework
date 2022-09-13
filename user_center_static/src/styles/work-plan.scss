@@ -1,0 +1,218 @@
+@import "./mixin.scss";
+
+.date-header {
+    display: flex;
+    padding: 10px 10px 15px;
+    justify-content: space-between;
+    align-items: flex-end;
+    background-color: #f4f4f4;
+    em {
+        font-style: inherit;
+        font-size: 28px;
+    }
+}
+
+.show-date {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    font: 14px Source Han Sans CN;
+    color: #333;
+
+    
+
+    .date {
+        span{
+            display: inline-block;
+            line-height: 26px;
+            margin-right: 2px;
+            padding: 0 10px;
+            border: 1px solid $cGrayc;
+        }
+    }
+
+    p {
+        position: relative;
+        width: 35px;
+        span {
+            position: absolute;
+            color: #666;
+            cursor: pointer;
+
+            &:hover {
+                color: #999;
+            }
+        }
+    }
+    .pre-month {
+        left: 0;
+    }
+
+    .next-month {
+        right: 0;
+    }
+}
+
+.date-content {
+    padding-top: 10px;
+    background-color: $cWhite;
+}
+.week-header {
+    color: #666;
+    font-size: 12px;
+    text-align: center;
+    line-height: 28px;
+
+    div {
+        margin: 0;
+        padding: 0;
+        width: 14.2%;
+        display: inline-block;
+    }
+}
+
+.every-day {
+    display: inline-block;
+    line-height: 26px;
+    width: 14.2%;
+    margin-top: 2px;
+    text-align: center;
+    border: 1px solid transparent;
+    &:hover {
+        border: 1px solid rgb(35, 137, 206);
+    }
+    a{
+        display: block;
+    }
+}
+
+.other-day {
+    color: $cGrayc;
+}
+
+.now-day {
+    background: rgb(35, 137, 206);
+}
+
+.active-day a {
+    display: block;
+    color: $cWhite;
+    background: $cBlue;
+}
+
+.haveWork {
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        width: 3px;
+        height: 3px;
+        background: #f00;
+        border-radius: 100%;
+    }
+}
+
+.week-end {
+    color: #b91a1a;
+
+    &.other-day {
+        color: rgba(185, 26, 26, 0.4);
+    }
+}
+
+.work-list {
+    max-height: 90px;
+    margin: 10px 20px 0;
+    overflow: auto;
+
+    li {
+        position: relative;
+        display: flex;
+        height: 30px;
+        line-height: 30px;
+        border-bottom: 1px solid $cGraye;
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: calc(100% + 1px);
+            background: #ff3c0f;
+        }
+
+        &:first-child {
+            border-top: 1px solid $cGraye;
+        }
+
+        &:nth-child(2n)::before {
+            background-color: #fa8c16;
+        }
+
+        &:nth-child(3n)::before {
+            background-color: #67c23a;
+        }
+    }
+    &.height-auto{
+        height: auto;
+    }
+
+    .date {
+        white-space: nowrap;
+        padding: 0 10px;
+        background: rgba(191, 191, 191, 0.1);
+    }
+
+    .title {
+        padding: 0 30px 0 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .close {
+        position: absolute;
+        right: 10px;
+        top: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 14px;
+        height: 14px;
+        background-color: $cGrayc;
+        border-radius: 100%;
+
+        &:hover{
+            background-color: $cBlue;
+        }
+
+        i {
+            color: $cWhite;
+            font-size: 14px;
+            transform: scale(0.4);
+        }
+    }
+}
+
+.plan-add {
+    margin: 10px 20px 0;
+    overflow: auto;
+    text-align: center;
+    a {
+        display: block;
+        height: 26px;
+        line-height: 26px;
+        border: 1px solid $cGrayc;
+        &:hover {
+            color: $cBlue;
+        }
+        i {
+            margin-right: 10px;
+        }
+    }
+}

@@ -1,0 +1,26 @@
+{
+  "com.dounion.dosys.entity.SysColumnConfig":[
+    {
+      "key":"orderNoAsc",
+      "column":"ORDER_NO",
+      "alias":"T"
+    },
+    {
+      "key":"orderNoDesc",
+      "column":"ORDER_NO",
+      "alias":"T",
+      "asc":false
+    },
+    {
+      "key":"idAsc",
+      "column":"ID",
+      "alias":"T"
+    },
+    {
+      "key":"idDesc",
+      "column":"ID",
+      "alias":"T",
+      "asc":false
+    }
+  ]
+}

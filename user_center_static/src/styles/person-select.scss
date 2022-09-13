@@ -1,0 +1,110 @@
+.search-ipt {
+    width: calc(100% - 14px);
+    margin: 10px 7px 0;
+    overflow: hidden;
+    /deep/.el-input-group__append {
+        padding: 0;
+        position: absolute;
+        right: 22px;
+        // width: 0.2rem;
+        display: flex;
+        top: 5px;
+        background: $cWhite;
+        border: none;
+        align-items: center;
+        .el-button {
+            cursor: default;
+            i {
+                @include fontSize;
+            }
+        }
+    }
+    /deep/.el-input--suffix .el-input__inner{
+        padding-right: 45px;
+    }
+    /deep/.el-input__suffix {
+        position: absolute;
+        z-index:10000;
+        right: 22px;
+        transform: translateX(0) !important;
+        display: flex;
+        align-items: center;
+    }
+    
+}
+.s-list {
+    margin-top:8px;
+    .s-item {
+        width: 100%;
+        height: 48px;
+        cursor: pointer;
+        box-sizing: border-box;
+        padding: 7px 0 0 10px;
+        position: relative;
+        .el-icon-alipitchon {
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 21px;
+            color: $cBlue;
+        }
+        &.is-selected {
+            background: rgba(17, 138, 247, 0.06);
+        }
+    }
+    .item-user {
+        float: left;
+    }
+    .default-avatar {
+        display: flex;
+        @include wh(36px, 36px);
+        margin-right: 10px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+        background-color: $cGraye5;
+        &::before {
+            font-size: 20px;
+            color: $cWhite;
+        }
+    }
+    .tuser-avatar {
+        @include wh(36px, 36px);
+        margin-right: 10px;
+        border-radius: 100%;
+    }
+    .i-name {
+        @include fontSize;
+        font-weight: bold;
+        color: $cGray3;
+        margin-bottom: 3px;
+        padding-top: 2px;
+    }
+    .i-dept {
+        @include fontSize;
+        font-weight: 400;
+        color: $cGray9;
+    }
+    .noRenderP {
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+    }
+    .renderPerson {
+        .item-user {
+            @include wh(36px, 36px);
+            margin-left: 11px;
+            text-align: center;
+            line-height: 36px;
+            float: left;
+            i {
+                font-size: 30px;
+                color: $cGraye;
+            }
+        }
+        .item-desc {
+            box-sizing: border-box;
+            padding-left: 57px;
+        }
+    }
+}

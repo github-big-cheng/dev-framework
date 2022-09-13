@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="org/deptposition" desc="部门职位树" group="部门管理" groupCode="org">
+    <send>
+        <item name="compTypeQueryIn" desc="类型" notes="10027-10:部门, 10027-20:公司"/>
+    </send>
+    <rcv>
+        <item-tree name="list" desc="list" ignore-key="true" treeKey="children" real-type="List">
+            <item name="id" desc="id" type="Integer"/>
+            <item name="code" desc="代码"/>
+            <item name="cname" desc="名称"/>
+            <item name="sname" desc="简称"/>
+            <item name="pathIds" desc="路径" notes="ROOT_ID-10001-10002…"/>
+            <item name="orderNo" desc="顺序号" type="Integer"/>
+            <item name="parentId" desc="上级部门" type="Integer"/>
+            <item name="parentValue" desc="上级部门名称" mapper="ORG_HASH" target="parentId"/>
+
+            <!-- 职位信息 -->
+            <item-list name="positions" desc="职位列表">
+                <item name="id" desc="人员id" type="Integer"/>
+                <item name="code" desc="职位代码" type="Integer"/>
+                <item name="name" desc="职位名称"/>
+            </item-list>
+
+        </item-tree>
+    </rcv>
+</trans>

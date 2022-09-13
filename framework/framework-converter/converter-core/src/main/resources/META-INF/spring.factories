@@ -1,0 +1,14 @@
+com.wisely.framework.handler.data.DefaultDataConverter=\
+    com.wisely.framework.handler.data.impl.DefaultValueConverterImpl,\
+    com.wisely.framework.handler.data.impl.MapperConverterImpl,\
+    com.wisely.framework.handler.data.impl.IntegerConverterImpl,\
+    com.wisely.framework.handler.data.impl.LongConverterImpl,\
+    com.wisely.framework.handler.data.impl.StringConverterImpl,\
+    com.wisely.framework.handler.data.impl.BooleanConverterImpl,\
+    com.wisely.framework.handler.data.impl.DateStringConverterImpl,\
+    com.wisely.framework.handler.data.impl.DecimalConverterImpl,\
+    com.wisely.framework.handler.data.impl.DecimalStringConverterImpl,\
+    com.wisely.framework.handler.data.impl.MapConverterImpl,\
+    com.wisely.framework.handler.data.impl.ListConverterImpl,\
+    com.wisely.framework.handler.data.impl.JsonStringConverterImpl,\
+    com.wisely.framework.handler.data.impl.TreeConverterImpl

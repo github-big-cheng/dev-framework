@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="ucenterPosition/list" desc="职位管理-列表" group="职位管理" groupCode="ucenterPosition">
+    <send>
+        <item name="pageNo" desc="页码" default="1" type="Integer"/>
+        <item name="pageSize" desc="每页大小" default="15" type="Integer"/>
+        <item name="nameOrCodeQueryLike" desc="名称、代码模糊查询" />
+        <item name="type" desc="职务类型" />
+        <item name="nameQueryLike" desc="名称模糊查询" />
+        <item name="codeQueryLike" desc="代码模糊查询" />
+    </send>
+    <rcv>
+        <item name="total" type="Integer" desc="数据总量" default="0"/>
+        <item-list name="list" desc="list">
+            <item name="id" desc="id" type="Integer"/>
+            <item name="orgId" desc="机构ID 为系统后续多机构新增字段" type="Integer"/>
+            <item name="orgName" desc="机构名称"/>
+            <item name="name" desc="名称"/>
+            <item name="code" desc="代码"/>
+            <item name="type" desc="类型"/>
+            <item name="typeName" desc="类型名称" target="type" mapper="CODE_HASH"/>
+            <item name="memo" desc="描述"/>
+            <item name="createBy" desc="录入人"/>
+            <item name="createTime" desc="录入时间"/>
+            <item name="createByName" desc="录入人姓名" mapper="USER_PERSON_NAME_HASH" target="createBy"/>
+        </item-list>
+    </rcv>
+</trans>
+

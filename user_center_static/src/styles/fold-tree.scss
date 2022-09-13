@@ -1,0 +1,75 @@
+@import "@/styles/mixin.scss";
+.tree-box {
+    height: 100%;
+    overflow: auto;
+}
+.t-icon {
+    padding: 0;
+    margin-right: 5px;
+    font-size: 16px;
+}
+.custom-tree-node {
+    flex: 1;
+    display: flex; //这里的display属性不用修改（使树节点末尾的按钮右对齐）
+    align-items: center;
+    box-sizing: border-box;
+    font-size: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%; //宽度必须是这个，不能使用px或者min-width或者min-width等，因为外层使用了el-card包裹是可以拉动的，换言之树节点的宽度随时可变
+    .tree-label {
+        display: inline-block; //block一样
+        overflow: hidden;
+        white-space: nowrap;
+        width: 100%;
+        text-overflow: ellipsis;
+    }
+    .default-avatar {
+        display: flex;
+        width: 22Px;/*no*/
+        height: 22Px;/*no*/
+        margin-right: 10px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+        background-color: #e5e5e5;
+        font-size: 1px;
+        &::before {
+            color: #fff;
+        }
+    }
+}
+/deep/.el-tree{
+    color: $cGray3;
+}
+/deep/.el-tree-node__content {
+    height: 28px;
+    min-height: 28Px;/*no*/
+    color: $cGray3;
+    overflow: hidden;
+    .t-icon {
+        color: #999;
+    }
+}
+
+/deep/.el-tree--highlight-current
+    .el-tree-node.is-current
+    > .el-tree-node__content {
+    background: rgba(17, 138, 247, 0.1);
+}
+
+.tuser-avatar {
+    width: 22Px;/*no*/
+    height: 22Px;/*no*/
+    margin-right: 10px;
+    border-radius: 100%;
+    vertical-align: middle;
+}
+
+@media screen and (min-width: 1501px) {
+    .tuser-avatar, .custom-tree-node .default-avatar {
+        width: 20px;
+        height: 20px;
+    }
+}

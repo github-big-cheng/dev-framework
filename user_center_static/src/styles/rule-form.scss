@@ -1,0 +1,623 @@
+@import '@/styles/mixin.scss';
+
+/deep/.el-input__suffix {
+    right: 3px;
+    overflow: hidden;
+}
+
+.lineBlock {
+    display: inline-block;
+    line-height: 30Px; /*no*/
+}
+.formitem-unit{
+    .el-input{
+        width: auto;
+    }
+}
+.el-date-editor.el-input, .el-date-editor.el-input__inner{
+    width: auto;
+}
+/deep/.rule-form {
+    @include boxSizing;
+
+    .is-error .vue-treeselect__control,
+    .is-error .vue-treeselect__control:hover {
+        border-color: #f56c6c !important;
+    }
+
+    .form-text {
+        display: flex;
+        align-items: center;
+        height: 30px;
+        min-height: 30Px; /*no*/
+    }
+
+    &.row-col1 {
+        .el-form-item {
+            width: 99%;
+        }
+
+        .el-form-item__content {
+            width: calc(100% - 166px);
+        }
+    }
+
+    &.row-col2 {
+        width: 906px;
+        min-width: 740Px; /*no*/
+    }
+
+    &.form-lable12 {
+        .el-form-item__label {
+            width: 151px;
+        }
+
+        .item-remark .el-textarea__inner {
+            width: 647px;
+        }
+    }
+
+    .el-range-editor {
+        .el-range-input {
+            vertical-align: top;
+        }
+
+        &.el-input__inner {
+            padding: 0 10px;
+        }
+
+        // .el-range__icon,
+        // .el-range__close-icon {
+        //   line-height: 28px;
+        // }
+        .el-range-separator {
+            vertical-align: top;
+        }
+    }
+
+    .el-textarea .el-input__count {
+        bottom: 1px;
+        line-height: 2;
+    }
+
+    .el-select__input {
+        height: 28px;
+    }
+
+    .el-tooltip__popper[x-placement^='right'] {
+        background: #f56c6c !important;
+    }
+
+    .unit {
+        margin-left: 10px;
+        line-height: 30px;
+    }
+
+    .no-autofill-pwd {
+        .el-input__inner {
+            font-size: 16px;
+            -webkit-text-security: disc !important;
+        }
+    }
+
+    .el-radio__inner {
+        min-width: 14Px; /*no*/
+        min-height: 14Px; /*no*/
+    }
+
+    .el-radio {
+        //   margin-right: 30px !important;
+        .el-radio__label {
+            //     line-height: 14px;
+            //     vertical-align: middle;
+            padding-left: 5px;
+        }
+
+        .el-radio__input {
+            //     vertical-align: middle;
+            &.is-checked .el-radio__inner {
+                background-color: #fff;
+                //       &:after {
+                //         @include wh(6px, 6px);
+                //         background: $cBlue;
+                //       }
+            }
+            &.is-checked + .el-radio__label {
+                color: $cGray3;
+            }
+        }
+    }
+
+    .el-input__inner {
+        width: 200px;
+        min-width: 182Px; /*no*/
+    }
+
+    .input-day {
+        width: auto;
+
+        .el-input__inner {
+            width: 80px;
+            min-width: 80Px; /*no*/
+        }
+    }
+
+    .input-datetimes {
+        width: 300px;
+    }
+
+    .el-date-editor {
+        &.el-date-editor--daterange {
+            width: 240px;
+            min-width: 200Px; /*no*/
+        }
+    }
+
+    .el-form-item {
+        margin-bottom: 10px;
+
+        &.linefeed {
+            .el-form-item__label {
+                line-height: 1.2;
+            }
+        }
+        &.btn-inline {
+            .el-form-item__content {
+                width: fit-content;
+                min-width: fit-content;
+                min-height: 0.27rem;
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+
+    .el-form-item__label {
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+        color: $cGray6;
+        @include fontWeight;
+        line-height: 30Px; /*no*/
+        width: 146px;
+        min-width: 130Px; /*no*/
+        padding-right: 10px;
+        vertical-align: top;
+    }
+
+    .el-button:not(.search-btn) {
+        height: 28px;
+        min-height: 30Px; /*no*/
+        padding: 0 10px;
+        vertical-align: top;
+        @include fontSize;
+        @include borderRadius;
+        margin-left: 10px;
+
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+
+    .el-button--primary {
+        border: none;
+    }
+
+    .el-textarea__inner {
+        @include fontSize;
+        color: $cGray3;
+        height: 70px;
+        min-height: 70Px !important; /*no*/
+        padding: 5px 8px;
+    }
+
+    .resizeNone {
+        .el-textarea__inner {
+            //el_input中的隐藏属性
+            resize: none; //主要是这个样式
+        }
+    }
+
+    .el-form-item__content {
+        display: inline-block;
+        vertical-align: middle;
+        min-height: 30Px; /*no*/
+        line-height: 13px;
+        @include fontSize;
+        @include boxSizing;
+        width: 286px;
+        min-width: 230Px; /*no*/
+        position: relative;
+    }
+
+    .unit-text {
+        margin-left: 5px;
+    }
+
+    .note {
+        position: absolute;
+        top: 0;
+        color: $cGray9;
+    }
+
+    .single {
+        width: 100%;
+        margin-right: 0;
+
+        // .lineBlock {
+        //     width: 647px;
+        // }
+        .el-form-item__content {
+            width: 80%;
+            // .el-input__inner {
+            //     width: 100%;
+            // }
+        }
+    }
+
+    .xline {
+        @include wh(100%, 1px);
+        margin-right: 0;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #e5e5e5;
+
+        .el-form-item__content {
+            width: 100%;
+        }
+    }
+
+    .item-remark {
+        //争对文本域使用：如内容，备注
+        .el-textarea__inner {
+            width: 642px;
+            min-width: 550Px; /*no*/
+        }
+        &.remark-3 .el-textarea__inner{
+            height: 140px;
+            min-height:150Px!important; /*no*/
+        }
+    }
+
+    .input-w360 {
+        //一般给标题，部门那种需要比普通input宽，宽一些而定义的
+        .el-input__inner,
+        .el-textarea {
+            min-width: 341Px; /*no*/
+            width: 360px;
+        }
+    }
+
+    .input-w612 {
+        .select-person,
+        .el-input__inner {
+            width: 642px;
+            min-width: 550Px; /*no*/
+        }
+    }
+
+    .item-company {
+        .el-input__inner {
+            width: 360px;
+        }
+    }
+
+    .el-cascader {
+        line-height: 30px;
+    }
+
+    .item-address {
+        .el-dropdown,
+        .el-input__inner {
+            width: 644px;
+            min-width: 570Px; /*no*/
+        }
+
+        .el-textarea__inner {
+            @include wh(644px, 30px);
+        }
+    }
+
+    .input-tips {
+        float: left;
+        color: #999;
+        @include fontSize;
+    }
+
+    .input-dept {
+        .el-form-item__content {
+            width: 300px;
+        }
+    }
+
+    .input-unit {
+        .el-form-item__content {
+            width: 100%;
+        }
+    }
+
+    .input-dates {
+        .el-form-item__content {
+            width: 100%;
+        }
+    }
+
+    .input-datetimes {
+        .el-form-item__content {
+            width: 100%;
+        }
+    }
+
+    // checkbox
+    .el-checkbox-group {
+        .el-checkbox {
+            vertical-align: middle;
+        }
+    }
+
+    .dv-chekbox {
+        padding-top: 2px;
+    }
+
+    .i-err .el-input__inner,
+    .i-err .el-textarea__inner,
+    .el-date-editor--datetimerange.i-err {
+        border-color: #ff3e3c !important;
+    }
+
+    .el-row {
+        margin: 0 !important;
+    }
+
+    .col-hg {
+        .el-form-item__content {
+            width: 100%;
+        }
+
+        .el-select {
+            width: 100%;
+
+            &.input-w2 {
+                width: 350px;
+            }
+        }
+
+        .el-input {
+            width: 100%;
+        }
+
+        .el-input__inner {
+            width: 100%;
+        }
+
+        .input-day {
+            width: 60px;
+            float: none;
+        }
+    }
+
+    .upload-btn {
+        display: flex;
+        align-items: center;
+        padding: 0 11px;
+        color: $cBlue;
+        line-height: 1.6;
+
+        .icon-upload {
+            position: relative;
+            top: 1px;
+            margin-right: 3px;
+            @include fontSize(16px);
+            vertical-align: middle;
+        }
+
+        span {
+            vertical-align: middle;
+        }
+    }
+}
+
+.lable-f6{
+    /deep/.rule-form{
+        .el-form-item__label{
+            min-width: 90Px;/*no*/
+            width: 90px;
+        }
+    }
+}
+
+/deep/.el-switch__core {
+    width: 40px !important;
+    min-width: 40Px !important; /*no*/
+    min-height: 18Px; /*no*/
+}
+
+/deep/.el-form-item__error {
+    display: none;
+}
+
+/deep/.input-after {
+    width: 100%;
+
+    .select-person {
+        display: inline-block;
+    }
+
+    .el-input {
+        width: auto;
+    }
+
+    .unit-text {
+        margin-left: 10px;
+    }
+}
+
+/deep/.reminder-box {
+    margin-top: -5px;
+
+    .input-day {
+        margin: 0 5px;
+    }
+
+    .remind-checkbox {
+        display: inline-block;
+        margin-left: 10px;
+        vertical-align: middle;
+    }
+}
+
+//treeselect
+/deep/.vue-treeselect--disabled {
+    .vue-treeselect__control-arrow-container::after {
+        border-top-color: #f5f7fa;
+    }
+
+    .vue-treeselect__control {
+        cursor: not-allowed;
+        border-color: #e4e7ed;
+        background-color: #f5f7fa;
+
+        .vue-treeselect__single-value {
+            color: #c0c4cc;
+        }
+    }
+}
+
+/deep/.vue-treeselect {
+    width: 200px;
+}
+
+/deep/.vue-treeselect__control {
+    height: 30px;
+    @include borderRadius;
+}
+
+/deep/.vue-treeselect__control-arrow-container {
+    position: relative;
+
+    svg {
+        display: none;
+    }
+
+    &::before,
+    &::after {
+        position: absolute;
+        top: 12px;
+        content: '';
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+    }
+
+    &::before {
+        left: 7px;
+        border-top: 5px solid $cGray9;
+    }
+
+    &::after {
+        top: 11px;
+        left: 8px;
+        border-left-width: 5px;
+        border-right-width: 5px;
+        border-top: 5px solid #fff;
+    }
+}
+
+/deep/.vue-treeselect__placeholder,
+/deep/.vue-treeselect__single-value {
+    line-height: 28px;
+}
+
+/deep/.vue-treeselect__option {
+    color: #333;
+}
+
+/deep/.vue-treeselect__x-container {
+    position: relative;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
+    @include flexBox;
+    width: 13px;
+    height: 13px;
+    border-radius: 100%;
+    border: 1px solid #999;
+
+    &::before {
+        content: '';
+        width: 1px;
+        height: 6px;
+        position: absolute;
+        left: 50%;
+        background-color: #999;
+        transform: rotate(-45deg);
+    }
+
+    &::after {
+        position: absolute;
+        left: 50%;
+        content: '';
+        width: 1px;
+        height: 6px;
+        background-color: #999;
+        transform: rotate(45deg);
+    }
+
+    svg {
+        display: none;
+    }
+}
+/deep/.auto-col {
+    .el-form-item {
+        min-width: 377px;
+        width: 431px;
+    }
+    .input-w612 {
+        min-width: 761px;
+        width: 872px;
+    }
+    .el-form-item__label {
+        width: 100px;
+        min-width: 100Px; /*no*/
+    }
+    .single {
+        width: 100%;
+    }
+}
+.piece-info{
+    padding: 0 15px;
+}
+
+@media screen and (min-width: 1501px) {
+    .lineBlock,
+    /deep/.rule-form .el-form-item__label {
+        line-height: 28px;
+    }
+
+    /deep/.rule-form {
+        &.row-col1 {
+            .el-form-item__content {
+                width: calc(100% - 146px);
+            }
+        }
+
+        // &.row-col2 {
+        //     width: 100%;
+        // }
+        .el-select__input {
+            height: 30px;
+        }
+    }
+
+    /deep/.vue-treeselect__control-arrow-container {
+        &::before {
+            left: 0px;
+        }
+
+        &::after {
+            top: 11px;
+            left: 0px;
+        }
+    }
+}

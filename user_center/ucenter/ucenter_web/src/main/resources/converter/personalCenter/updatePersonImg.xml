@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="personalCenter/updatePersonImg" desc="人员头像修改" groupCode="personalCenter" group="个人中心">
+    <send>
+        <item name="osType" desc="操作系統类型" notes=" 不传默认PC,手机传ANDROID"/>
+        <item-json name="personImg" desc="头像信息" required="true" real-type="Map">
+            <item name="fileSize" desc="头像大小" type="Integer"/>
+            <item name="filePath" desc="头像路径"/>
+            <item name="fileName" desc="文件名称"/>
+            <item name="fileType" desc="扩展名"/>
+        </item-json>
+    </send>
+    <rcv>
+    </rcv>
+</trans>

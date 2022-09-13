@@ -1,0 +1,7 @@
+DROP DATABASE IF EXISTS `sys`;
+
+CREATE DATABASE `sys` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+CREATE USER 'sys'@'%' IDENTIFIED BY 'secdt@3.14';
+
+GRANT ALL ON `sys`.* TO 'sys'@'%';

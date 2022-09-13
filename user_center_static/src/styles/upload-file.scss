@@ -1,0 +1,296 @@
+@import "./mixin.scss";
+
+.flex-box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  .upload-btn {
+    margin-left: 0;
+  }
+
+  .clear-btn {
+    margin-left: 10px;
+  }
+
+  /deep/[class^="el-icon-ali"],
+  [class*=" el-icon-ali"] {
+    font-size: 16px;
+
+    &.el-icon-aliback {
+      @include fontSize;
+      transform: scale(0.75);
+      display: inline-block;
+
+      &:before {
+        transform: scale(0.6);
+      }
+    }
+  }
+
+  .el-button {
+    height: 30px;
+    line-height: 28px;
+    padding: 0 15px;
+  }
+}
+
+/deep/.el-upload {
+  vertical-align: top;
+}
+/deep/.el-upload-list {
+  display: none;
+}
+
+.el-button {
+  margin-left: 0;
+}
+
+// .up-load-files {
+//     // width: fit-content;
+// }
+.upfile-list {
+  // margin-top: 6px;
+  // width: fit-content;
+  /deep/[class^="el-icon-ali"],
+  [class*=" el-icon-ali"] {
+    cursor: pointer;
+  }
+
+  &.readonly {
+    max-width: 800px;
+    margin-top: 0;
+
+    .upfile-item {
+      border: none;
+      padding-left: 0;
+
+      &:hover {
+        background: initial;
+        .file-size {
+          display: inline-block;
+        }
+      }
+
+      &*,
+      * {
+        height: fit-content;
+        line-height: 22px;
+      }
+      &:first-child{
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+.upfile-item {
+  position: relative;
+  display: flex;
+  min-width: 550Px;/*no*/
+  max-width: 650px;
+  margin-top: 6px;
+  padding: 0 10px;
+  color: $cGray3;
+  @include fontSize;
+  overflow: hidden;
+  border: 1px dashed #dcdfe6;
+  @include borderRadius;
+
+  .progress-box {
+    width: 100%;
+    height: 1px;
+    background: #ebeef5;
+    border-radius: 2px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    .progress {
+      height: 1px;
+      background: #007df1;
+    }
+  }
+
+  .upfile-item-left {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .upfile-item-right {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    margin-left: 10px;
+  }
+
+  .upfile-item-right,
+  .file-icon,
+  .icon-modify-box,
+  .icon-links,
+  .file-size {
+    flex-shrink: 0;
+  }
+
+  .icon-modify-box {
+    margin-left: 10px;
+
+    .icon-submit {
+      margin-left: 10px;
+    }
+  }
+
+  .upfile-item-right .el-icon-close.close,
+  .icon-modify-box,
+  .el-icon-alifiledown {
+    display: none;
+  }
+
+  &:hover {
+    .icon-modify-box,
+    .el-icon-alifiledown,
+    .icon-submit,
+    .el-icon-close.close {
+      display: initial;
+    }
+
+    .file-size {
+      display: none;
+    }
+  }
+
+  &.file-curr {
+    background: #ecf6fe;
+
+    /deep/.el-input__inner {
+      border: none;
+      border-radius: 0;
+      padding: 0 4px;
+      border-left: 1px solid #9ad2ff;
+      border-right: 1px solid #9ad2ff;
+    }
+  }
+
+  &:hover {
+    background-color: #f5f7fa;
+  }
+}
+
+.file-icon {
+  line-height: 20px;
+
+  i {
+    margin-right: 8px;
+    @include fontSize(14px);
+  }
+}
+
+._icon-close {
+  font-size: 16px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.file-text {
+  width: 100% !important;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  &.readonly {
+    width: fit-content !important;
+    padding-right: 10px;
+    color: $cGray3;
+    @include fontSize;
+  }
+
+  .file-text-link {
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  /deep/.el-input__inner {
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    height: 22px;
+    padding: 0;
+    border: 0 none;
+    background-color: unset;
+  }
+}
+
+.file-size {
+  color: $cGray9;
+  padding: 0;
+}
+
+.icon-links {
+  line-height: 28px;
+
+  i {
+    margin-left: 8px;
+    font-size: 16px;
+    color: rgba(17, 138, 247, 1);
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+.drag-icon {
+  cursor: move;
+
+  [class^="el-icon-ali"],
+  [class*=" el-icon-ali"] {
+    cursor: move;
+  }
+}
+
+.view-handle {
+  color: rgba(17, 138, 247, 1);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  .file-download {
+    padding-right: 10px;
+  }
+}
+
+// file
+.el-icon-aliexcel {
+  color: #207245;
+}
+
+.el-icon-aliword {
+  color: #4c83e5;
+}
+
+.el-icon-alipdf {
+  color: #ff3f3f;
+}
+
+.el-icon-aliother {
+  color: $cGrayc;
+}
+
+.el-icon-alippt {
+  color: #d24625;
+}
+
+.el-icon-alipic {
+  color: #ff861a;
+}

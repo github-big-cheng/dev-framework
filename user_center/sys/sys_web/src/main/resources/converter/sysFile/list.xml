@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="sysFile/list" desc="分页" group="系统文件" groupCode="sysFile">
+    <send>
+        <item name="sourceType" desc="业务类型" required="true"/>
+        <item name="sourceId" desc="业务ID" required="true"/>
+        <item name="subType" desc="子类型"/>
+    </send>
+    <rcv>
+        <item-list name="list" desc="list" ignore-key="true">
+            <!-- 基本信息 -->
+            <item name="id" desc="id" type="Integer"/>
+            <item name="orgId" desc="机构ID" type="Integer"/>
+            <item name="orgName" desc="机构名称"/>
+            <item name="type" desc="所属应用"/>
+            <item name="sourceType" desc="业务类型"/>
+            <item name="sourceId" desc="业务ID"/>
+            <item name="personId" desc="上传人" type="Integer"/>
+            <item name="uploadTime" desc="上传时间" type="DateString" fromPattern="yyyy-MM-dd HH:mm:ss"/>
+            <!-- 文件信息 -->
+            <item name="fileSize" desc="文件大小(字节)" type="Integer" target="attachSize"/>
+            <item name="filePath" desc="文件路径" target="url"/>
+            <item name="fileName" desc="文件名称" target="filename"/>
+            <item name="fileType" desc="文件扩展名" target="extension"/>
+            <item name="libraryType" desc="资源库类型" target="fileType"/>
+            <item name="realName" desc="实际文件名称"/>
+            <!-- 扩展信息 -->
+            <item name="filename1" desc="文件名称1"/>
+            <item name="filename2" desc="文件名称2"/>
+            <item name="filename3" desc="文件名称3"/>
+            <item name="filename4" desc="文件名称4"/>
+            <item name="filename5" desc="文件名称5"/>
+        </item-list>
+    </rcv>
+</trans>

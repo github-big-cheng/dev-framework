@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="project/delete" desc="应用管理-删除" group="应用管理" groupCode="project">
+    <send>
+        <item name="idQueryIn" desc="菜单ID" required="true"/>
+    </send>
+    <rcv>
+
+    </rcv>
+</trans>
+

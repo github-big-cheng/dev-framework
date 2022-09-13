@@ -1,0 +1,105 @@
+@import "@/styles/mixin.scss";
+/deep/ .search-wrap {
+    width: 583px;
+    margin-left: 30px;
+    padding-top: 15px;
+    padding-bottom: 7px;
+
+    input::-webkit-input-placeholder {
+        font-size: 16px;
+        color: #666;
+    }
+
+    .el-input__inner {
+        height: 46px;
+        padding-left: 49px;
+        line-height: 46px;
+        font-size: 16px;
+        border-color: #118af7;
+    }
+
+    .el-input__prefix {
+        left: 17px;
+    }
+    .el-icon-circle-close {
+        height: 46px;
+        line-height: 46px;
+        font-size: 24px;
+    }
+    .icon-search {
+        color: #999;
+        font-size: 18px;
+    }
+
+    .el-input-group__append {
+        color: $cWhite;
+        border-radius: 0;
+        border-color: #118af7;
+        background-color: #118af7;
+
+        .el-button {
+            width: 85px;
+            font-size: 16px;
+        }
+    }
+}
+
+.flowname-list {
+    width: 90%;
+    padding: 20px 15px 0;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    li {
+        
+        width: 30%;
+        padding: 15px;
+        font-size: 14px;
+        &:nth-child(3n + 0) span {
+            background: #118af7;
+        }
+
+        &:nth-child(2n + 0) span {
+            background: #fa8c16;
+        }
+    }
+    a {
+        @include flexBoxAlign;
+        &:hover {
+            color: #118af7;
+        }
+    }
+
+    span {
+        @include flexBox;
+        @include wh(50px, 50px);
+        font-size: 20px;
+        margin: 0 20px 0 0;
+        vertical-align: middle;
+        border-radius: 8px;
+        background: #08cbb2;
+        text-align: center;
+    }
+    .flow-icon{
+        color: #fff;
+        i{font-size: 24px;}
+    }
+    .svg-icon {
+        width: 40px;
+        fill: $cWhite;
+    }
+}
+.nodata-tips {
+    padding-top: 150px;
+    color: #999;
+    font-size: 12px;
+    text-align: center;
+
+    .svg-icon {
+        height: 50px;
+    }
+
+    p {
+        margin: 6px 0 0 -10px;
+    }
+}

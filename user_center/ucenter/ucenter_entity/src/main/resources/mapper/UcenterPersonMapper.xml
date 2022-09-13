@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wisely.ucenter.mapper.UcenterPersonMapper">
+
+    <resultMap type="com.wisely.ucenter.entity.UcenterPerson" id="BaseResultMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="orgId" column="org_id" jdbcType="INTEGER"/>
+        <result property="orgName" column="org_name" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="idNo" column="id_no" jdbcType="VARCHAR"/>
+        <result property="jobNo" column="job_no" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="VARCHAR"/>
+        <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+        <result property="telephone" column="telephone" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="marriage" column="marriage" jdbcType="VARCHAR"/>
+        <result property="birthday" column="birthday" jdbcType="VARCHAR"/>
+        <result property="nation" column="nation" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="orderNo" column="order_no" jdbcType="INTEGER"/>
+        <result property="memo" column="memo" jdbcType="VARCHAR"/>
+        <result property="opState" column="op_state" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="BaseColumn">
+        t.id,
+        t.org_id,
+        t.org_name,
+        t.name,
+        t.id_no,
+        t.job_no,
+        t.sex,
+        t.mobile,
+        t.telephone,
+        t.email,
+        t.marriage,
+        t.birthday,
+        t.nation,
+        t.status,
+        t.order_no,
+        t.memo,
+        t.op_state,
+        t.create_by,
+        t.create_time,
+        t.update_by,
+        t.update_time,
+        t.is_deleted
+    </sql>
+
+    <!-- 动态字段 -->
+    <sql id="DynamicColumn">
+        <if test="orgId != null">
+            org_id,
+        </if>
+        <if test="orgName != null and orgName != ''">
+            org_name,
+        </if>
+        <if test="name != null and name != ''">
+            name,
+        </if>
+        <if test="idNo != null and idNo != ''">
+            id_no,
+        </if>
+        <if test="jobNo != null and jobNo != ''">
+            job_no,
+        </if>
+        <if test="sex != null and sex != ''">
+            sex,
+        </if>
+        <if test="mobile != null and mobile != ''">
+            mobile,
+        </if>
+        <if test="telephone != null and telephone != ''">
+            telephone,
+        </if>
+        <if test="email != null and email != ''">
+            email,
+        </if>
+        <if test="marriage != null and marriage != ''">
+            marriage,
+        </if>
+        <if test="birthday != null and birthday != ''">
+            birthday,
+        </if>
+        <if test="nation != null and nation != ''">
+            nation,
+        </if>
+        <if test="status != null and status != ''">
+            status,
+        </if>
+        <if test="orderNo != null">
+            order_no,
+        </if>
+        <if test="memo != null and memo != ''">
+            memo,
+        </if>
+        <if test="opState != null">
+            op_state,
+        </if>
+        <if test="createBy != null">
+            create_by,
+        </if>
+        <if test="createTime != null and createTime != ''">
+            create_time,
+        </if>
+        <if test="updateBy != null">
+            update_by,
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            update_time,
+        </if>
+        <if test="isDeleted != null">
+            is_deleted,
+        </if>
+    </sql>
+
+    <!-- 动态值 -->
+    <sql id="DynamicValue">
+        <if test="orgId != null">
+            #{orgId},
+        </if>
+        <if test="orgName != null and orgName != ''">
+            #{orgName},
+        </if>
+        <if test="name != null and name != ''">
+            #{name},
+        </if>
+        <if test="idNo != null and idNo != ''">
+            #{idNo},
+        </if>
+        <if test="jobNo != null and jobNo != ''">
+            #{jobNo},
+        </if>
+        <if test="sex != null and sex != ''">
+            #{sex},
+        </if>
+        <if test="mobile != null and mobile != ''">
+            #{mobile},
+        </if>
+        <if test="telephone != null and telephone != ''">
+            #{telephone},
+        </if>
+        <if test="email != null and email != ''">
+            #{email},
+        </if>
+        <if test="marriage != null and marriage != ''">
+            #{marriage},
+        </if>
+        <if test="birthday != null and birthday != ''">
+            #{birthday},
+        </if>
+        <if test="nation != null and nation != ''">
+            #{nation},
+        </if>
+        <if test="status != null and status != ''">
+            #{status},
+        </if>
+        <if test="orderNo != null">
+            #{orderNo},
+        </if>
+        <if test="memo != null and memo != ''">
+            #{memo},
+        </if>
+        <if test="opState != null">
+            #{opState},
+        </if>
+        <if test="createBy != null">
+            #{createBy},
+        </if>
+        <if test="createTime != null and createTime != ''">
+            #{createTime},
+        </if>
+        <if test="updateBy != null">
+            #{updateBy},
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            #{updateTime},
+        </if>
+        <if test="isDeleted != null">
+            #{isDeleted},
+        </if>
+    </sql>
+
+    <!-- 动态赋值 -->
+    <sql id="DynamicSet">
+        <if test="orgId != null">
+            org_id = #{orgId},
+        </if>
+        <if test="orgName != null">
+            org_name = #{orgName},
+        </if>
+        <if test="name != null">
+            name = #{name},
+        </if>
+        <if test="idNo != null">
+            id_no = #{idNo},
+        </if>
+        <if test="jobNo != null">
+            job_no = #{jobNo},
+        </if>
+        <if test="sex != null">
+            sex = #{sex},
+        </if>
+        <if test="mobile != null">
+            mobile = #{mobile},
+        </if>
+        <if test="telephone != null">
+            telephone = #{telephone},
+        </if>
+        <if test="email != null">
+            email = #{email},
+        </if>
+        <if test="marriage != null">
+            marriage = #{marriage},
+        </if>
+        <if test="birthday != null">
+            birthday = #{birthday},
+        </if>
+        <if test="nation != null">
+            nation = #{nation},
+        </if>
+        <if test="status != null">
+            status = #{status},
+        </if>
+        <if test="orderNo != null">
+            order_no = #{orderNo},
+        </if>
+        <if test="memo != null">
+            memo = #{memo},
+        </if>
+        <if test="opState != null">
+            op_state = #{opState},
+        </if>
+        <if test="createBy != null">
+            create_by = #{createBy},
+        </if>
+        <if test="createTime != null">
+            create_time = #{createTime},
+        </if>
+        <if test="updateBy != null">
+            update_by = #{updateBy},
+        </if>
+        <if test="updateTime != null">
+            update_time = #{updateTime},
+        </if>
+        <if test="isDeleted != null">
+            is_deleted = #{isDeleted},
+        </if>
+    </sql>
+
+    <!-- 动态条件 -->
+    <sql id="DynamicWhere">
+        <if test="id != null">
+            and t.id = #{id}
+        </if>
+        <if test="orgId != null">
+            and t.org_id = #{orgId}
+        </if>
+        <if test="orgName != null and orgName != ''">
+            and t.org_name = #{orgName}
+        </if>
+        <if test="name != null and name != ''">
+            and t.name = #{name}
+        </if>
+        <if test="idNo != null and idNo != ''">
+            and t.id_no = #{idNo}
+        </if>
+        <if test="jobNo != null and jobNo != ''">
+            and t.job_no = #{jobNo}
+        </if>
+        <if test="sex != null and sex != ''">
+            and t.sex = #{sex}
+        </if>
+        <if test="mobile != null and mobile != ''">
+            and t.mobile = #{mobile}
+        </if>
+        <if test="telephone != null and telephone != ''">
+            and t.telephone = #{telephone}
+        </if>
+        <if test="email != null and email != ''">
+            and t.email = #{email}
+        </if>
+        <if test="marriage != null and marriage != ''">
+            and t.marriage = #{marriage}
+        </if>
+        <if test="birthday != null and birthday != ''">
+            and t.birthday = #{birthday}
+        </if>
+        <if test="nation != null and nation != ''">
+            and t.nation = #{nation}
+        </if>
+        <if test="status != null and status != ''">
+            and t.status = #{status}
+        </if>
+        <if test="orderNo != null">
+            and t.order_no = #{orderNo}
+        </if>
+        <if test="memo != null and memo != ''">
+            and t.memo = #{memo}
+        </if>
+        <if test="opState != null">
+            and t.op_state = #{opState}
+        </if>
+        <if test="createBy != null">
+            and t.create_by = #{createBy}
+        </if>
+        <if test="createTime != null and createTime != ''">
+            and t.create_time = #{createTime}
+        </if>
+        <if test="updateBy != null">
+            and t.update_by = #{updateBy}
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            and t.update_time = #{updateTime}
+        </if>
+        <if test="isDeleted != null">
+            and t.is_deleted = #{isDeleted}
+        </if>
+
+        <if test="nameQueryLike != null and nameQueryLike != ''">
+            and t.name like concat ('%',#{nameQueryLike},'%')
+        </if>
+        <if test="deptIdQuery != null">
+            and exists (
+                select 1 from t_ucenter_person_org t3
+                where t3.person_id = T.ID
+                and t3.is_deleted = 0
+                and t3.dept_id in #{deptIdQuery}
+            )
+        </if>
+        <if test="deptIdQueryIn != null and deptIdQueryIn != ''">
+            and exists (
+                select 1 from t_ucenter_person_org t3
+                where t3.person_id = t.id
+                  and t3.is_deleted = 0
+                  and t3.dept_id IN
+                <foreach collection="deptIdQueryIn.split(',')" separator="," index="" open="(" close=")" item="deptIdQuery">
+                    #{deptIdQuery}
+                </foreach>
+            )
+        </if>
+        <if test="roleIdQuery != null and roleIdQuery != ''">
+            and exists (
+                select 1 from t_ucenter_person_role t4
+                where t4.person_id = t.id
+                  and t4.is_deleted = 0
+                  and t4.role_id = #{roleIdQuery}
+            )
+        </if>
+        <if test="nameOrAccountQueryLike != null and nameOrAccountQueryLike != ''">
+            and (
+                t.name like concat ('%',#{nameOrAccountQueryLike},'%')
+                or exists (
+                    select 1 from t_ucenter_user t5
+                    where t5.person_id = t.id
+                      and t5.is_deleted = 0
+                      and t5.account like concat ('%',#{nameOrAccountQueryLike},'%')
+                )
+            )
+        </if>
+        <if test="orgIdQueryIn != null and orgIdQueryIn != ''">
+            and t.org_id in
+            <foreach collection="orgIdQueryIn.split(',')" separator="," index="" open="(" close=")" item="orgIdQuery">
+                #{orgIdQuery}
+            </foreach>
+        </if>
+    </sql>
+
+    <!--查询单个-->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select <include refid="BaseColumn" />
+        from t_ucenter_person t
+        where id = #{id}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.wisely.ucenter.entity.UcenterPerson">
+        insert into t_ucenter_person  (
+            org_id,
+            org_name,
+            name,
+            id_no,
+            job_no,
+            sex,
+            mobile,
+            telephone,
+            email,
+            marriage,
+            birthday,
+            nation,
+            status,
+            order_no,
+            memo,
+            op_state,
+            create_by,
+            create_time,
+            update_by,
+            update_time,
+            is_deleted
+        )  values  (
+            #{orgId},
+            #{orgName},
+            #{name},
+            #{idNo},
+            #{jobNo},
+            #{sex},
+            #{mobile},
+            #{telephone},
+            #{email},
+            #{marriage},
+            #{birthday},
+            #{nation},
+            #{status},
+            #{orderNo},
+            #{memo},
+            #{opState},
+            #{createBy},
+            #{createTime},
+            #{updateBy},
+            #{updateTime},
+            #{isDeleted}
+        )
+    </insert>
+
+    <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.wisely.ucenter.entity.UcenterPerson">
+        insert into  t_ucenter_person
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <include refid="DynamicColumn" />
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <include refid="DynamicValue" />
+        </trim>
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="updateByPrimaryKey" parameterType="com.wisely.ucenter.entity.UcenterPerson">
+        update t_ucenter_person
+        <set>
+            org_id = #{orgId},
+            org_name = #{orgName},
+            name = #{name},
+            id_no = #{idNo},
+            job_no = #{jobNo},
+            sex = #{sex},
+            mobile = #{mobile},
+            telephone = #{telephone},
+            email = #{email},
+            marriage = #{marriage},
+            birthday = #{birthday},
+            nation = #{nation},
+            status = #{status},
+            order_no = #{orderNo},
+            memo = #{memo},
+            op_state = #{opState},
+            create_by = #{createBy},
+            create_time = #{createTime},
+            update_by = #{updateBy},
+            update_time = #{updateTime},
+            is_deleted = #{isDeleted},
+        </set>
+        where id = #{id}
+    </update>
+
+    <!-- 通过主键动态修改数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.wisely.ucenter.entity.UcenterPerson">
+        update t_ucenter_person
+        <trim prefix="set" suffixOverrides="," >
+            <include refid="DynamicSet" />
+        </trim>
+        where id = #{id}
+    </update>
+
+
+    <!-- 根据条件动态修改数据 -->
+    <update id="updateBySelective" parameterType="com.wisely.ucenter.entity.UcenterPerson">
+        update t_ucenter_person t
+        <trim prefix="set" suffixOverrides="," >
+            <include refid="DynamicSet" />
+        </trim>
+        <trim prefix="where" prefixOverrides="AND | OR" >
+            <choose>
+                <when test="idQueryIn != null and idQueryIn != ''">
+                    <foreach collection="idQueryIn.split(',')" item="iq" open="(" close=")" separator=",">
+                        #{iq}
+                    </foreach>
+                </when>
+                <!-- 为避免全表更新，至少有一个查询条件 -->
+                <otherwise>
+                    and id = #{id}
+                </otherwise>
+            </choose>
+        </trim>
+    </update>
+
+
+    <!--通过主键删除-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_ucenter_person
+        where id = #{id}
+    </delete>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectListBySelective" parameterType="com.wisely.ucenter.entity.UcenterPerson" resultMap="BaseResultMap">
+        select <include refid="BaseColumn" />
+        from t_ucenter_person t
+        <trim prefix="where " prefixOverrides="AND | OR" >
+            <include refid="DynamicWhere" />
+        </trim>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                order by ${orderBy}
+            </when>
+            <otherwise>
+                order by ifnull(t.order_no, 999999), t.id
+            </otherwise>
+        </choose>
+    </select>
+
+
+
+    <resultMap id="BaseExtendedResultMap" type="com.wisely.ucenter.entity.UcenterPerson" extends="BaseResultMap">
+        <result property="userId" column="USER_ID" jdbcType="INTEGER"/>
+        <result property="account" column="ACCOUNT" jdbcType="VARCHAR"/>
+        <result property="accountStatus" column="ACCOUNT_STATUS" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectExtendedListBySelective" resultMap="BaseExtendedResultMap">
+        select
+            tuu.id user_id,
+            tuu.account,
+            tuu.status as account_status,
+        <include refid="BaseColumn"/>
+        from t_ucenter_person t
+            left join t_ucenter_user as tuu on tuu.person_id = t.id and tuu.is_deleted = 0
+        <trim prefix="where " prefixOverrides="AND | OR">
+            <include refid="DynamicWhere"/>
+        </trim>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                order by ${orderBy}
+            </when>
+            <otherwise>
+                order by ifnull(t.order_no, 999999), t.id
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="loadPersonBySelective" parameterType="com.wisely.framework.entity.Model"
+            resultType="com.wisely.framework.entity.Model">
+        select
+            t.id as person_id,
+            t.name,
+        <if test="orgIdQueryIn != null and orgIdQueryIn != ''">
+            dp.dept_id as org_id,
+            org.cname as org_name,
+            dp.order_no,
+        </if>
+        <if test="roleCodeQueryIn != null and roleCodeQueryIn != ''">
+            role.code as role_code,
+            role.name as role_name,
+        </if>
+            tuu.account
+        from t_ucenter_person t
+        <if test="orgIdQueryIn != null and orgIdQueryIn != ''">
+            inner join t_ucenter_person_org dp on dp.is_deleted = 0 and dp.person_id = t.id
+              and dp.dept_id in
+            <foreach collection="orgIdQueryIn.split(',')" item="oId" index="" separator="," open="(" close=")">
+                #{oId}
+            </foreach>
+            inner join t_ucenter_org org on org.is_deleted = 0 and org.id = dp.dept_id
+            <if test="orgType != null and orgType != ''">
+                org.type = #{orgType}
+            </if>
+        </if>
+        <if test="roleCodeQueryIn != null and roleCodeQueryIn != ''">
+            inner join t_ucenter_person_role pr on t.id = pr.person_id and pr.is_deleted = 0
+            inner join t_ucenter_role role on role.id = pr.role_id and role.is_deleted = 0
+              and role.code in
+            <foreach collection="roleCodeQueryIn.split(',')" item="rCode" index="" separator="," open="(" close=")">
+                #{rCode}
+            </foreach>
+        </if>
+            inner join t_ucenter_user tuu on tuu.person_id = t.id and tuu.is_deleted = 0
+        where t.is_deleted = 0
+        order by ifnull(t.order_no, 999999), t.id
+    </select>
+
+</mapper>

@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wisely.ucenter.mapper.UcenterOrgMapper">
+
+    <resultMap type="com.wisely.ucenter.entity.UcenterOrg" id="BaseResultMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="orgId" column="org_id" jdbcType="INTEGER"/>
+        <result property="orgName" column="org_name" jdbcType="VARCHAR"/>
+        <result property="code" column="code" jdbcType="VARCHAR"/>
+        <result property="cname" column="cname" jdbcType="VARCHAR"/>
+        <result property="ename" column="ename" jdbcType="VARCHAR"/>
+        <result property="sname" column="SNAME" jdbcType="VARCHAR"/>
+        <result property="linker" column="linker" jdbcType="VARCHAR"/>
+        <result property="linkId" column="link_id" jdbcType="INTEGER"/>
+        <result property="linkerMobilePhone" column="linker_mobile_phone" jdbcType="VARCHAR"/>
+        <result property="telephone" column="telephone" jdbcType="VARCHAR"/>
+        <result property="fax" column="fax" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="pathIds" column="path_ids" jdbcType="VARCHAR"/>
+        <result property="pathNames" column="path_names" jdbcType="VARCHAR"/>
+        <result property="orderNo" column="order_no" jdbcType="INTEGER"/>
+        <result property="compType" column="comp_type" jdbcType="VARCHAR"/>
+        <result property="memo" column="memo" jdbcType="VARCHAR"/>
+        <result property="opState" column="op_state" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="BaseColumn">
+        t.id,
+        t.org_id,
+        t.org_name,
+        t.code,
+        t.cname,
+        t.ename,
+        t.sname,
+        t.linker,
+        t.link_id,
+        t.linker_mobile_phone,
+        t.telephone,
+        t.fax,
+        t.parent_id,
+        t.path_ids,
+        t.path_names,
+        t.order_no,
+        t.comp_type,
+        t.memo,
+        t.op_state,
+        t.create_by,
+        t.create_time,
+        t.update_by,
+        t.update_time,
+        t.is_deleted
+    </sql>
+
+    <!-- 动态字段 -->
+    <sql id="DynamicColumn">
+        <if test="orgId != null">
+            org_id,
+        </if>
+        <if test="orgName != null and orgName != ''">
+            org_name,
+        </if>
+        <if test="code != null and code != ''">
+            code,
+        </if>
+        <if test="cname != null and cname != ''">
+            cname,
+        </if>
+        <if test="ename != null and ename != ''">
+            ename,
+        </if>
+        <if test="sname != null and sname != ''">
+            sname,
+        </if>
+        <if test="linker != null and linker != ''">
+            linker,
+        </if>
+        <if test="linkId != null">
+            link_id,
+        </if>
+        <if test="linkerMobilePhone != null and linkerMobilePhone != ''">
+            linker_mobile_phone,
+        </if>
+        <if test="telephone != null and telephone != ''">
+            telephone,
+        </if>
+        <if test="fax != null and fax != ''">
+            fax,
+        </if>
+        <if test="pathIds != null and pathIds != ''">
+            path_ids,
+        </if>
+        <if test="pathNames != null and pathNames != ''">
+            path_names,
+        </if>
+        <if test="orderNo != null">
+            order_no,
+        </if>
+        <if test="parentId != null">
+            parent_id,
+        </if>
+        <if test="compType != null and compType != ''">
+            comp_type,
+        </if>
+        <if test="memo != null and memo != ''">
+            memo,
+        </if>
+        <if test="opState != null">
+            op_state,
+        </if>
+        <if test="createBy != null">
+            create_by,
+        </if>
+        <if test="createTime != null and createTime != ''">
+            create_time,
+        </if>
+        <if test="updateBy != null">
+            update_by,
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            update_time,
+        </if>
+        <if test="isDeleted != null">
+            is_deleted,
+        </if>
+    </sql>
+
+    <!-- 动态值 -->
+    <sql id="DynamicValue">
+        <if test="orgId != null">
+            #{orgId},
+        </if>
+        <if test="orgName != null and orgName != ''">
+            #{orgName},
+        </if>
+        <if test="code != null and code != ''">
+            #{code},
+        </if>
+        <if test="cname != null and cname != ''">
+            #{cname},
+        </if>
+        <if test="ename != null and ename != ''">
+            #{ename},
+        </if>
+        <if test="sname != null and sname != ''">
+            #{sname},
+        </if>
+        <if test="linker != null and linker != ''">
+            #{linker},
+        </if>
+        <if test="linkId != null">
+            #{linkId},
+        </if>
+        <if test="linkerMobilePhone != null and linkerMobilePhone != ''">
+            #{linkerMobilePhone},
+        </if>
+        <if test="telephone != null and telephone != ''">
+            #{telephone},
+        </if>
+        <if test="fax != null and fax != ''">
+            #{fax},
+        </if>
+        <if test="pathIds != null and pathIds != ''">
+            #{pathIds},
+        </if>
+        <if test="pathNames != null and pathNames != ''">
+            #{pathNames},
+        </if>
+        <if test="orderNo != null">
+            #{orderNo},
+        </if>
+        <if test="parentId != null">
+            #{parentId},
+        </if>
+        <if test="compType != null and compType != ''">
+            #{compType},
+        </if>
+        <if test="memo != null and memo != ''">
+            #{memo},
+        </if>
+        <if test="opState != null">
+            #{opState},
+        </if>
+        <if test="createBy != null">
+            #{createBy},
+        </if>
+        <if test="createTime != null and createTime != ''">
+            #{createTime},
+        </if>
+        <if test="updateBy != null">
+            #{updateBy},
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            #{updateTime},
+        </if>
+        <if test="isDeleted != null">
+            #{isDeleted},
+        </if>
+    </sql>
+
+    <!-- 动态赋值 -->
+    <sql id="DynamicSet">
+        <if test="orgId != null">
+            org_id = #{orgId},
+        </if>
+        <if test="orgName != null">
+            org_name = #{orgName},
+        </if>
+        <if test="code != null">
+            code = #{code},
+        </if>
+        <if test="cname != null">
+            cname = #{cname},
+        </if>
+        <if test="ename != null">
+            ename = #{ename},
+        </if>
+        <if test="sname != null">
+            sname = #{sname},
+        </if>
+        <if test="linker != null">
+            linker = #{linker},
+        </if>
+        <if test="linkId != null">
+            link_id = #{linkId},
+        </if>
+        <if test="linkerMobilePhone != null">
+            linker_mobile_phone = #{linkerMobilePhone},
+        </if>
+        <if test="telephone != null">
+            telephone = #{telephone},
+        </if>
+        <if test="fax != null">
+            fax = #{fax},
+        </if>
+        <if test="pathIds != null">
+            path_ids = #{pathIds},
+        </if>
+        <if test="pathNames != null">
+            path_names = #{pathNames},
+        </if>
+        <if test="orderNo != null">
+            order_no = #{orderNo},
+        </if>
+        <if test="parentId != null">
+            parent_id = #{parentId},
+        </if>
+        <if test="compType != null">
+            comp_type = #{compType},
+        </if>
+        <if test="memo != null">
+            memo = #{memo},
+        </if>
+        <if test="opState != null">
+            op_state = #{opState},
+        </if>
+        <if test="createBy != null">
+            create_by = #{createBy},
+        </if>
+        <if test="createTime != null">
+            create_time = #{createTime},
+        </if>
+        <if test="updateBy != null">
+            update_by = #{updateBy},
+        </if>
+        <if test="updateTime != null">
+            update_time = #{updateTime},
+        </if>
+        <if test="isDeleted != null">
+            is_deleted = #{isDeleted},
+        </if>
+    </sql>
+
+    <!-- 动态条件 -->
+    <sql id="DynamicWhere">
+        <if test="id != null">
+            and t.id = #{id}
+        </if>
+        <if test="code != null and code != ''">
+            and t.code = #{code}
+        </if>
+        <if test="cname != null and cname != ''">
+            and t.cname = #{cname}
+        </if>
+        <if test="ename != null and ename != ''">
+            and t.ename = #{ename}
+        </if>
+        <if test="sname != null and sname != ''">
+            and t.sname = #{sname}
+        </if>
+        <if test="linker != null and linker != ''">
+            and t.linker = #{linker}
+        </if>
+        <if test="linkId != null">
+            and t.link_id = #{linkId}
+        </if>
+        <if test="linkerMobilePhone != null and linkerMobilePhone != ''">
+            and t.linker_mobile_phone = #{linkerMobilePhone}
+        </if>
+        <if test="telephone != null and telephone != ''">
+            and t.telephone = #{telephone}
+        </if>
+        <if test="fax != null and fax != ''">
+            and t.fax = #{fax}
+        </if>
+        <if test="pathIds != null and pathIds != ''">
+            and t.path_ids = #{pathIds}
+        </if>
+        <if test="pathNames != null and pathNames != ''">
+            and t.path_names = #{pathNames}
+        </if>
+        <if test="orderNo != null">
+            and t.order_no = #{orderNo}
+        </if>
+        <if test="parentId != null">
+            and t.parent_id = #{parentId}
+        </if>
+        <if test="compType != null and compType != ''">
+            and t.comp_type = #{compType}
+        </if>
+        <if test="memo != null and memo != ''">
+            and t.memo = #{memo}
+        </if>
+        <if test="opState != null">
+            and t.op_state = #{opState}
+        </if>
+        <if test="createBy != null">
+            and t.create_by = #{createBy}
+        </if>
+        <if test="createTime != null and createTime != ''">
+            and t.create_time = #{createTime}
+        </if>
+        <if test="updateBy != null">
+            and t.update_by = #{updateBy}
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            and t.update_time = #{updateTime}
+        </if>
+        <if test="isDeleted != null">
+            and t.is_deleted = #{isDeleted}
+        </if>
+        <if test="orgId != null">
+            and t.org_id = #{orgId}
+        </if>
+        <if test="orgName != null and orgName != ''">
+            and t.org_name = #{orgName}
+        </if>
+        <if test="pathIdsQueryLike != null and pathIdsQueryLike != ''">
+            and t.path_ids like concat ('%',#{pathIdsQueryLike},'%')
+        </if>
+        <if test="idQueryIn != null and idQueryIn != ''">
+            and t.id in
+            <foreach collection="idQueryIn.split(',')" item="idQuery" index="" separator="," open="(" close=")">
+                #{idQuery}
+            </foreach>
+        </if>
+        <if test="cNameOrCodeOrSnameOrLinkerQueryLike != null and cNameOrCodeOrSnameOrLinkerQueryLike != ''">
+            and (
+                t.cname like concat ('%',#{cNameOrCodeOrSnameOrLinkerQueryLike},'%') or
+                t.code like concat ('%',#{cNameOrCodeOrSnameOrLinkerQueryLike},'%') or
+                t.sname like concat ('%',#{cNameOrCodeOrSnameOrLinkerQueryLike},'%') or
+                t.linker like concat ('%',#{cNameOrCodeOrSnameOrLinkerQueryLike},'%')
+            )
+        </if>
+        <if test="parentIdQueryIn != null and parentIdQueryIn != ''">
+            and t.parent_id in
+            <foreach collection="parentIdQueryIn.split(',')" separator="," index="" open="(" close=")"
+                     item="parentIdQuery">
+                #{parentIdQuery}
+            </foreach>
+        </if>
+        <if test="idOrOrgIdQueryIn != null and idOrOrgIdQueryIn != ''">
+            AND (
+                t.id in
+                <foreach collection="idOrOrgIdQueryIn.split(',')" item="ioq" open="(" close=")" separator=",">
+                    #{ioq}
+                </foreach>
+                or t.org_id in
+                <foreach collection="idOrOrgIdQueryIn.split(',')" item="ioq" open="(" close=")" separator=",">
+                    #{ioq}
+                </foreach>
+            )
+        </if>
+        <if test="cnameQueryLike != null and cnameQueryLike != ''">
+            and t.cname like concat ('%',#{cnameQueryLike},'%')
+        </if>
+        <if test="compTypeQueryIn != null and compTypeQueryIn != ''">
+            and t.comp_type in
+            <foreach collection="compTypeQueryIn.split(',')" separator="," item="ct" open="(" close=")">
+                #{ct}
+            </foreach>
+        </if>
+    </sql>
+
+    <!--查询单个-->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select <include refid="BaseColumn"/>
+        from t_ucenter_org T
+        where ID = #{id}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.wisely.ucenter.entity.UcenterOrg">
+        insert into t_ucenter_org (
+            code,
+            cname,
+            ename,
+            sname,
+            linker,
+            link_id,
+            linker_mobile_phone,
+            telephone,
+            fax,
+            path_ids,
+            path_names,
+            order_no,
+            parent_id,
+            comp_type,
+            memo,
+            op_state,
+            create_by,
+            create_time,
+            update_by,
+            update_time,
+            is_deleted,
+            org_id,
+            org_name
+        ) values (
+            #{code},
+            #{cname},
+            #{ename},
+            #{sname},
+            #{linker},
+            #{linkId},
+            #{linkerMobilePhone},
+            #{telephone},
+            #{fax},
+            #{pathIds},
+            #{pathNames},
+            #{orderNo},
+            #{parentId},
+            #{compType},
+            #{memo},
+            #{opState},
+            #{createBy},
+            #{createTime},
+            #{updateBy},
+            #{updateTime},
+            #{isDeleted},
+            #{orgId},
+            #{orgName}
+        )
+    </insert>
+
+    <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true"
+            parameterType="com.wisely.ucenter.entity.UcenterOrg">
+        insert into t_ucenter_org
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="DynamicColumn"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="DynamicValue"/>
+        </trim>
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="updateByPrimaryKey" parameterType="com.wisely.ucenter.entity.UcenterOrg">
+        update t_ucenter_org
+        <set>
+            code = #{code},
+            cname = #{cname},
+            ename = #{ename},
+            sname = #{sname},
+            linker = #{linker},
+            link_id = #{linkId},
+            linker_mobile_phone = #{linkerMobilePhone},
+            telephone = #{telephone},
+            fax = #{fax},
+            path_ids = #{pathIds},
+            path_names = #{pathNames},
+            order_no = #{orderNo},
+            parent_iD = #{parentId},
+            comp_typE = #{compType},
+            memo = #{memo},
+            op_state = #{opState},
+            create_by = #{createBy},
+            create_time = #{createTime},
+            update_by = #{updateBy},
+            update_time = #{updateTime},
+            is_deleted = #{isDeleted},
+            org_id = #{orgId},
+            org_name = #{orgName},
+        </set>
+        where id = #{id}
+    </update>
+
+    <!-- 通过主键动态修改数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.wisely.ucenter.entity.UcenterOrg">
+        update t_ucenter_org
+        <trim prefix="set" suffixOverrides=",">
+            <include refid="DynamicSet"/>
+        </trim>
+        where id = #{id}
+    </update>
+
+
+    <!-- 根据条件动态修改数据 -->
+    <update id="updateBySelective" parameterType="com.wisely.ucenter.entity.UcenterOrg">
+        update t_ucenter_org t
+        <trim prefix="set" suffixOverrides=",">
+            <include refid="DynamicSet"/>
+        </trim>
+        <trim prefix="where" prefixOverrides="AND | OR">
+            <choose>
+                <when test="idQueryIn != null and idQueryIn != ''">
+                    and t.id in
+                    <foreach collection="idQueryIn.split(',')" item="idQuery" index="" separator="," open="(" close=")">
+                        #{idQuery}
+                    </foreach>
+                </when>
+                <!-- 为避免全表更新，至少有一个查询条件 -->
+                <otherwise>
+                    and t.id = #{id}
+                </otherwise>
+            </choose>
+        </trim>
+    </update>
+
+
+    <!--通过主键删除-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_ucenter_org
+        where id = #{id}
+    </delete>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectListBySelective" parameterType="com.wisely.ucenter.entity.UcenterOrg" resultMap="BaseResultMap">
+        select <include refid="BaseColumn"/>
+        from t_ucenter_org t
+        <trim prefix="where " prefixOverrides="AND | OR">
+            <include refid="DynamicWhere"/>
+        </trim>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                order by ${orderBy}
+            </when>
+            <otherwise>
+                order by t.order_no, t.id
+            </otherwise>
+        </choose>
+    </select>
+
+</mapper>

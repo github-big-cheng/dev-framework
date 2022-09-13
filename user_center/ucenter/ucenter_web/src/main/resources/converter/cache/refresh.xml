@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="ucenterCache/refresh" desc="缓存刷新" group="缓存" groupCode="cache" >
+    <send>
+        <item name="type" desc="类别" scope="user,org,person,position,accountPerson"/>
+    </send>
+    <rcv>
+    </rcv>
+</trans>
+

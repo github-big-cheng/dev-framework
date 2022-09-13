@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="code/combox" desc="系统代码-下拉框" group="代码管理" groupCode="code">
+    <send>
+        <item name="type" desc="类别"/>
+        <item name="typeQueryIsNull" desc="顶级类别"/>
+        <item name="codeQueryLike" desc="代码模糊查询"/>
+        <item name="nameQueryLike" desc="名称模糊查询"/>
+        <item name="codeOrNameQueryLike" desc="代码或者名称查询"/>
+        <item name="pathValueQueryLike" desc="pathValue模糊查询"/>
+        <item name="typeQueryNotInCpcc" desc="省市县过滤"/>
+        <item name="typeQueryNotInRoot" desc="类型过滤"/>
+    </send>
+    <rcv>
+        <item-list ignore-key="true" desc="list" name="list">
+            <item name="value" desc="代码值"/>
+            <item name="pathValue" desc="PATH"/>
+            <item name="code" desc="代码"/>
+            <item name="name" desc="名称"/>
+            <item name="sname" desc="简称"/>
+            <item name="ename" desc="英文名称"/>
+            <item name="orderNo" desc="排序字段" type="Integer"/>
+            <item name="type" desc="类别"/>
+            <item name="typeValue" desc="类别名称" mapper="CODE_HASH" target="type"/>
+            <item name="parent" desc="父级"/>
+            <item name="parentValue" desc="父级" mapper="CODE_HASH" target="parent"/>
+            <item name="isSys" desc="系统/用户" notes="1-系统 0-用户" type="Integer"/>
+            <item name="createBy" type="Integer" desc="创建人 T_UCENTER_USER"/>
+            <item name="createByValue" desc="创建人姓名" mapper="USER_PERSON_NAME_HASH" target="createBy"/>
+            <item name="createTime" desc="创建时间 "/>
+            <item name="updateBy" type="Integer" desc="修改人"/>
+            <item name="updateByValue" desc="修改人姓名" mapper="USER_PERSON_NAME_HASH" target="updateBy"/>
+            <item name="updateTime" desc="修改时间 "/>
+        </item-list>
+    </rcv>
+</trans>
+

@@ -1,0 +1,34 @@
+@import "./mixin.scss";
+
+.page404{
+    .svg-404{
+        width: 160px;
+        margin: 0 auto;
+        padding-top: 60px;
+    }
+    .svg-icon {
+        width: 1em;
+        height: 1em;
+        vertical-align: -15px;
+        overflow: hidden;
+        font-size:18px;
+    }
+    p{
+        line-height: 50px;
+        color: $cGray6;
+        font-size: 20px;
+        text-align: center;
+    }
+}
+.btn-bar{
+    padding-top: 20px;
+    text-align: center;
+    .el-button{
+        min-width: 82Px;/*no*/
+        padding: 0 10px;
+        height: 30px;
+        line-height: 30px;
+        margin-left: 16px;
+        font-size: 12px;
+    }
+}

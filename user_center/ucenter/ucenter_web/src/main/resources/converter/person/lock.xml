@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="person/lock" desc="人员信息-锁定" groupCode="person" group="人员管理">
+    <send>
+        <item name="accounts" desc="多个账号,逗号分隔" required="true"/>
+    </send>
+    <rcv>
+    </rcv>
+</trans>

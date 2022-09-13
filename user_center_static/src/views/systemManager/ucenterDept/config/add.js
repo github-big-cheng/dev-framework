@@ -1,0 +1,110 @@
+export const formConfigs = [
+    {
+        type: "slot",
+        label: "名称",
+        prop: "cname",
+        value: "",
+        rules: {
+            require: true,
+        },
+        slotName: "rName",
+        class: "single input-w360",
+    },
+    {
+        type: "select",
+        label: "机构类型",
+        prop: "compType",
+        url:"getUcenterCodeCombox",
+        params:{type:'10001-10027'},
+        rules: {
+            require: true,
+        },
+    },
+    {
+        type: "slot",
+        label: "代码",
+        prop: "code",
+        value: "",
+        slotName: "rCode",
+        rules: {
+            require: true,
+        },
+    },
+    {
+        type: "input",
+        label: "简称",
+        prop: "sname",
+        value: "",
+    },
+    {
+        type: "input",
+        label: "英文名称",
+        prop: "ename",
+        value: "",
+    },
+    {
+        type: "selectCom",
+        label: "联系人",
+        title: "联系人",
+        prop: "linkId",
+        prop2: "linker",
+        value: "",
+        names: "",
+        tabList: ["deptPerson"],
+        class:"single"
+    },
+    {
+        type: "input",
+        label: "电话",
+        prop: "telephone",
+        value: "",
+        checkType: "telephone",
+    },
+    {
+        type: "input",
+        label: "传真",
+        prop: "fax",
+        value: "",
+        checkType: "fax",
+    },
+    {
+        type: "input",
+        label: "顺序号",
+        prop: "orderNo",
+        value: "",
+    },
+    {
+        type: "selectCom",
+        label: "上级部门",
+        prop: "parentId",
+        prop2: "parentValue",
+        value: "",
+        names: "",
+        title: "上级部门",
+        tabList: ["dept"],
+        class: "single input-w360",
+    },
+    {
+        type: "input",
+        typeName: "textarea",
+        label: "备注",
+        prop: "memo",
+        value: "",
+        class: "single item-remark",
+        maxlength: "100",
+        placeholder: "",
+    },
+];
+export const formBtns = [
+    {
+        btnLoading: false,
+        btnText: "取消",
+        handlerType: "cancelClick",
+    },
+    {
+        type: "primary",
+        btnLoading: false,
+        btnText: "保存",
+        handlerType: "submitForm",
+    },
+];

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="function/save" desc="菜单管理-保存" group="菜单管理" groupCode="function" >
+    <send>
+        <item name="name" desc="菜单名称" required="true" />
+        <item name="action" desc="请求地址" />
+        <item name="code" desc="代码" />
+        <item name="parentId" desc="父级菜单" type="Integer"/>
+        <item name="projectId" desc="应用ID" type="Integer"/>
+        <item name="imgPath" desc="图标路径" />
+        <item name="orderNo" desc="排序号" type="Integer"/>
+        <item name="type" type="Integer" desc="类型" notes="1-菜单 2-子菜单 3-tab页签 4-按钮" scope="1,2,3,4" required="true" />
+    </send>
+    <rcv>
+        <item name="id" desc="菜单ID" type="Integer" />
+    </rcv>
+</trans>
+

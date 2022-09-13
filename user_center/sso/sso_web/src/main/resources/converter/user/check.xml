@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="user/check" desc="登录验证" group="登录" groupCode="user">
+    <send>
+        <item name="osType" desc="操作系統类型" notes="不传默认PC,手机传ANDROID" default="PC"/>
+    </send>
+    <rcv>
+    </rcv>
+</trans>

@@ -1,0 +1,242 @@
+@import "./mixin.scss";
+.table-list {
+    margin: 5px 20px 0;
+
+    /deep/ .el-table__empty-text {
+        padding: 0.4rem 0 0;
+    }
+}
+/deep/.table-list .el-table td .cell {
+    height: 23px;
+}
+.home-wrap {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #f4f4f4;
+}
+
+.hm-row{
+    margin-top: 10px;
+    margin-left: -12px!important;
+    .el-col-12{
+        padding-right: 0!important;
+        padding-left: 10px!important;
+    }
+}
+
+.hm-mode {
+    position: relative;
+    height: 215px;
+    min-height: 210Px;/*no*/
+    background: #fff;
+    /*挡住日历overflow: hidden;*/
+    .el-col {
+        height: 100%;
+        border-right: 10px solid #f4f4f4;
+        border-bottom: 10px solid #f4f4f4;
+
+        &.hm-calendar {
+            border: none;
+        }
+    }
+    /deep/.el-tabs__header{
+        margin-bottom: 10px;
+    }
+    .title-box{
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        margin-top: 0;
+    }
+    .title-text{
+        @include fontSize(14px);
+    }
+    .el-tabs {
+        height: calc(100% - 33px);
+        padding: 10px;
+    }
+    /deep/.el-tabs__nav{
+        float: right;
+    }
+    /deep/ .el-tabs__content {
+        height: calc(100% - 46px);
+    }
+    /deep/.el-tabs__item{
+        padding: 0;
+    }
+}
+
+.hd-link {
+    float: right;
+    margin-top: -20px;
+}
+
+/deep/ .el-tabs__content {
+    overflow: inherit;
+}
+
+.more {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    color: #999;
+    @include fontSize;
+
+    &:hover {
+        color: $cBlue;
+    }
+
+    i {
+        @include fontSize;
+    }
+}
+
+.hm-cooperate,.hm-task,.hm-info,.hm-dynamic-info{
+    .title-box{
+        position: inherit;
+        left: 0;
+        top: 0;
+        min-height: 30Px;/*no*/
+        margin: 0 10px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+        border-bottom: 1px solid #dfe4ed;
+    }
+}
+
+.label-span{
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+
+    .btn-bell-badge {
+        width: 26px;
+        height: 18px;
+        margin-left: 5px;
+        line-height: 18px;
+        border-radius: 15px;
+        background: #f56c6c;
+
+        .num {
+            display: block;
+            width: 100%;
+            text-align: center;
+            @include fontSize;
+            color: #fff;
+        }
+    }
+    .tip-badge{
+        right: 1px;
+    }
+}
+
+.tip-badge,
+/deep/ .el-badge {
+    position: absolute;
+    top: 0;
+    right: -20px;
+}
+
+.con-list {
+    padding: 0 20px 0 20px;
+
+    li {
+        @include flexBoxAlign;
+        position: relative;
+        height: 26px;
+        min-height: 26Px;/*no*/
+        padding-left: 10px;
+        overflow: hidden;
+        &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            margin-top: -2px;
+            @include wh(5px, 5px);
+            @include borderRadius(100%);
+            background-color: $cGray9;
+        }
+        span{
+            justify-content: flex-end;
+        }
+        a {
+            flex: 1;
+            margin-right: 30px;
+            padding-left: 5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        &:hover {
+            color: $cBlue;
+            &::before{
+                background-color: $cBlue;
+            }
+        }
+    }
+
+    .item-unread {
+        font-weight: 700;
+
+        &::before {
+            background: #FF3C0F;
+        }
+    }
+
+    .date {
+        float: right;
+        color: #999;
+    }
+}
+.unread-ul li{
+    font-weight: 700;
+
+    &::before {
+        background: #FF3C0F;
+    }
+}
+.hm-sider{
+    display: flex;
+    flex-flow: column;
+}
+.hm-calendar{
+    margin-left: 10px;
+    margin-top: 10px;
+    overflow: hidden;
+    height: 440px;
+    min-height: 428Px;/*no*/
+    /deep/.work-plan{
+        margin-right: 10px;
+    }
+}
+.hm-dynamic-info{
+    display: flex;
+    flex-flow: column;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.dynamic-info{
+    flex: 1;
+    padding: 10px;
+    overflow: auto;
+    a:hover{
+        color: $cBlue;
+    }
+    /deep/.el-timeline-item__timestamp,/deep/.el-timeline-item__content{
+        @include fontSize;
+    }
+    /deep/.el-timeline li:first-child > .el-timeline-item__node{
+        background: #f60;
+    }
+}
+
+@media screen and (min-width: 1501px) {
+    .hm-cooperate,.hm-task,.hm-info,.hm-dynamic-info{
+        .title-box{
+            padding-bottom: 3Px;
+        }
+    }
+}

@@ -1,0 +1,188 @@
+{
+  "properties": [
+    {
+      "name": "plugins.exception.enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": true,
+      "description": "是否开启异常捕获,默认开启,暂无法设置."
+    },
+    {
+      "name": "plugins.filter.framework.enable",
+      "type": "java.lang.Boolean",
+      "defaultValue": true,
+      "description": "是否开启框架过滤器."
+    },
+    {
+      "name": "plugins.i18n.enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": false,
+      "description": "是否开启国际化."
+    },
+    {
+      "name": "plugins.i18n.localeKey",
+      "type": "java.lang.String",
+      "defaultValue": "lang",
+      "description": "国际化key,如:lang=zh-CN."
+    },
+    {
+      "name": "plugins.i18n.locale",
+      "type": "java.lang.String",
+      "defaultValue": "zh_CN",
+      "description": "本地化,如:lang=zh-CN."
+    },
+    {
+      "name": "plugins.i18n.encoding",
+      "type": "java.lang.String",
+      "defaultValue": "UTF-8",
+      "description": "编码格式."
+    },
+    {
+      "name": "plugins.i18n.baseNames",
+      "type": "java.lang.String",
+      "defaultValue": "classpath*:i18n/messages",
+      "description": "message目录."
+    },
+    {
+      "name": "plugins.net.enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": false,
+      "description": "是否开启通讯工具."
+    },
+    {
+      "name": "plugins.net.use-pool",
+      "type": "java.lang.Boolean",
+      "defaultValue": false,
+      "description": "是否使用连接池."
+    },
+    {
+      "name": "plugins.net.max-total",
+      "type": "java.lang.Integer",
+      "defaultValue": 400,
+      "description": "最大连接数,同一时间最大并发数."
+    },
+    {
+      "name": "plugins.net.default-maxPer-route",
+      "type": "java.lang.Integer",
+      "defaultValue": 200,
+      "description": "单域名最大并发数,在依赖的外部系统数量较少时,可以配置和maxTotal一致."
+    },
+    {
+      "name": "plugins.net.connect-timeout",
+      "type": "java.lang.Integer",
+      "defaultValue": 20000,
+      "description": "连接超时时间(单位ms)."
+    },
+    {
+      "name": "plugins.net.read-timeout",
+      "type": "java.lang.Integer",
+      "defaultValue": 65000,
+      "description": "握手成功后,socket通信超时时间(单位ms)."
+    },
+    {
+      "name": "plugins.net.connect-request-timeout",
+      "type": "java.lang.Integer",
+      "defaultValue": 3000,
+      "description": "从连接池获取连接的超时时间,一般设置为较短 单位ms."
+    },
+    {
+      "name": "plugins.token.enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": false,
+      "description": "是否使用连接池."
+    },
+    {
+      "name": "plugins.token.model",
+      "type": "java.lang.String",
+      "defaultValue": "localLock",
+      "description": "token存储方式."
+    },
+    {
+      "name": "plugins.token.token-key",
+      "type": "java.lang.String",
+      "defaultValue": "_token",
+      "description": "token存储时使用的key."
+    },
+    {
+      "name": "plugins.token.expired-time",
+      "type": "java.lang.Integer",
+      "defaultValue": 300,
+      "description": "token有效期,单位秒."
+    }
+  ],
+  "hints": [
+    {
+      "name": "plugins.exception.enabled",
+      "values": [
+        {
+          "value": true
+        }
+      ]
+    },
+    {
+      "name": "plugins.filter.framework.enable",
+      "values": [
+        {
+          "value": true
+        },
+        {
+          "value": false
+        }
+      ]
+    },
+    {
+      "name": "plugins.i18n.enabled",
+      "values": [
+        {
+          "value": true
+        },
+        {
+          "value": false
+        }
+      ]
+    },
+    {
+      "name": "plugins.net.enabled",
+      "values": [
+        {
+          "value": true
+        },
+        {
+          "value": false
+        }
+      ]
+    },
+    {
+      "name": "plugins.net.use-pool",
+      "values": [
+        {
+          "value": true
+        },
+        {
+          "value": false
+        }
+      ]
+    },
+    {
+      "name": "plugins.token.enabled",
+      "values": [
+        {
+          "value": true
+        },
+        {
+          "value": false
+        }
+      ]
+    },
+    {
+      "name": "plugins.token.model",
+      "values": [
+        {
+          "value": "localLock"
+        },
+        {
+          "value": "redisLock"
+        }
+      ]
+    }
+  ]
+}

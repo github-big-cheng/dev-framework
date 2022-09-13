@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([["chunk-2d2375a2"],{fb6f:function(n,t,e){"use strict";e.r(t);e("b775");var u={name:"home",data:()=>({})},a=e("2877"),s=Object(a.a)(u,(function(){return(0,this._self._c)("div",[this._v("首页")])}),[],!1,null,null,null);t.default=s.exports}}]);

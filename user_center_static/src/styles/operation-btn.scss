@@ -1,0 +1,68 @@
+@import "./mixin.scss";
+
+.operation-btn {
+    display: flex;
+    height: 40Px;/*no*/
+    padding: 0 18Px 10px 18Px;
+
+    /deep/.el-button {
+        @include flexBox;
+        color: $cBlue;
+        padding: 0 12px;
+        min-width: 48Px;/*no*/
+
+        i {
+            @include fontSize(16px);
+
+            &.el-icon-alitrash {
+                @include fontSize(14px);
+            }
+
+            &.el-icon-alirecovered,
+            &.el-icon-aliback,
+            &.el-icon-aliopen,
+            &.el-icon-alimove,
+            &.el-icon-alirefresh {
+                @include fontSize;
+            }
+
+            &.el-icon-alisending {
+                @include fontSize(18px);
+            }
+        }
+    }
+
+    .split-button {
+        margin: 0 10px;
+        vertical-align: top;
+
+        .el-dropdown__caret-button {
+            min-width: 30Px;/*no*/
+            padding: 0;
+
+            &.el-button--default::before {
+                background: #dcdfe6;
+            }
+        }
+
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+}
+
+.no-operatbtn {
+    padding-bottom: 10px;
+}
+
+.operat-empty {
+    min-height: 0;
+    padding-bottom: 0;
+}
+
+@media screen and (min-width:1501px) {
+    .operation-btn {
+        height: 40px;
+        padding: 0 12px 10px 12px;
+    }
+}

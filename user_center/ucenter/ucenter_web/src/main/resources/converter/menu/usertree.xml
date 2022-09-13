@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="menu/usertree" desc="用户菜单" group="菜单管理" groupCode="menu">
+    <send>
+    </send>
+    <rcv>
+        <item-list name="list" desc="list" ignore-key="true">
+
+            <item name="id" desc="id" type="Integer"/>
+            <item name="name" desc="名称"/>
+            <item name="code" desc="代码"/>
+            <item name="orderNo" desc="顺序号" type="Integer"/>
+
+            <!-- 菜单 -->
+            <item-tree name="subFunction" desc="菜单列表" ignore-key="true" treeKey="subFunction" real-type="List">
+                <item name="id" desc="id" />
+                <item name="name" desc="菜单名称" />
+                <item name="action" desc="请求地址" />
+                <item name="code" desc="代码" />
+                <item name="parentId" desc="父级菜单" type="Integer"/>
+                <item name="projectId" desc="应用ID" type="Integer"/>
+                <item name="imgPath" desc="图标路径" />
+                <item name="orderNo" desc="排序号" type="Integer"/>
+                <item name="type" desc="类型" notes="1-菜单 2-子菜单 3-tab页签 4-按钮" />
+            </item-tree>
+        </item-list>
+    </rcv>
+</trans>
+

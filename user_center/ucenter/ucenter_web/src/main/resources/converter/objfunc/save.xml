@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="objFunc/save" desc="保存" group="权限管理" groupCode="objFunc">
+    <send>
+        <item name="objType" desc="类型" scope="10079-10,10079-20,10079-30,10079-40"
+              notes="部门10079-10 职位10079-20 、角色10079-30、人员 10079-40 "/>
+        <item name="objId" desc="参数" notes="用户ID 角色ID 部门ID" type="Integer"/>
+        <item name="funcIds" desc="权限ID(逗号分割)"/>
+        <item name="projectId" desc="应用ID"/>
+    </send>
+    <rcv>
+    </rcv>
+</trans>
+

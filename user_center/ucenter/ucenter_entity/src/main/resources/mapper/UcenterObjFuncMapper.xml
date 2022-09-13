@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wisely.ucenter.mapper.UcenterObjFuncMapper">
+
+    <resultMap type="com.wisely.ucenter.entity.UcenterObjFunc" id="BaseResultMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="orgId" column="org_id" jdbcType="INTEGER"/>
+        <result property="orgName" column="org_name" jdbcType="VARCHAR"/>
+        <result property="objType" column="obj_type" jdbcType="VARCHAR"/>
+        <result property="objId" column="obj_id" jdbcType="INTEGER"/>
+        <result property="funcId" column="func_id" jdbcType="INTEGER"/>
+        <result property="opState" column="op_state" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="BaseColumn">
+        t.id,
+        t.org_id,
+        t.org_name,
+        t.obj_type,
+        t.obj_id,
+        t.func_id,
+        t.op_state,
+        t.create_by,
+        t.create_time,
+        t.update_by,
+        t.update_time,
+        t.is_deleted
+    </sql>
+
+    <!-- 动态字段 -->
+    <sql id="DynamicColumn">
+        <if test="orgId != null">
+            org_id,
+        </if>
+        <if test="orgName != null and orgName != ''">
+            org_name,
+        </if>
+        <if test="objType != null and objType != ''">
+            obj_type,
+        </if>
+        <if test="objId != null">
+            obj_id,
+        </if>
+        <if test="funcId != null">
+            func_id,
+        </if>
+        <if test="opState != null">
+            op_state,
+        </if>
+        <if test="createBy != null">
+            create_by,
+        </if>
+        <if test="createTime != null and createTime != ''">
+            create_time,
+        </if>
+        <if test="updateBy != null">
+            update_by,
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            update_time,
+        </if>
+        <if test="isDeleted != null">
+            is_deleted,
+        </if>
+    </sql>
+
+    <!-- 动态值 -->
+    <sql id="DynamicValue">
+        <if test="orgId != null">
+            #{orgId},
+        </if>
+        <if test="orgName != null and orgName != ''">
+            #{orgName},
+        </if>
+        <if test="objType != null and objType != ''">
+            #{objType},
+        </if>
+        <if test="objId != null">
+            #{objId},
+        </if>
+        <if test="funcId != null">
+            #{funcId},
+        </if>
+        <if test="opState != null">
+            #{opState},
+        </if>
+        <if test="createBy != null">
+            #{createBy},
+        </if>
+        <if test="createTime != null and createTime != ''">
+            #{createTime},
+        </if>
+        <if test="updateBy != null">
+            #{updateBy},
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            #{updateTime},
+        </if>
+        <if test="isDeleted != null">
+            #{isDeleted},
+        </if>
+    </sql>
+
+    <!-- 动态赋值 -->
+    <sql id="DynamicSet">
+        <if test="orgId != null">
+            org_id = #{orgId},
+        </if>
+        <if test="orgName != null">
+            org_name = #{orgName},
+        </if>
+        <if test="objType != null">
+            obj_type = #{objType},
+        </if>
+        <if test="objId != null">
+            obj_id = #{objId},
+        </if>
+        <if test="funcId != null">
+            func_id = #{funcId},
+        </if>
+        <if test="opState != null">
+            op_state = #{opState},
+        </if>
+        <if test="createBy != null">
+            create_by = #{createBy},
+        </if>
+        <if test="createTime != null">
+            create_time = #{createTime},
+        </if>
+        <if test="updateBy != null">
+            update_by = #{updateBy},
+        </if>
+        <if test="updateTime != null">
+            update_time = #{updateTime},
+        </if>
+        <if test="isDeleted != null">
+            is_deleted = #{isDeleted},
+        </if>
+    </sql>
+
+    <!-- 动态条件 -->
+    <sql id="DynamicWhere">
+        <if test="orgId != null">
+            and t.org_id = #{orgId}
+        </if>
+        <if test="orgName != null and orgName != ''">
+            and t.org_name = #{orgName}
+        </if>
+        <if test="objType != null and objType != ''">
+            and t.obj_type = #{objType}
+        </if>
+        <if test="objId != null">
+            and t.obj_id = #{objId}
+        </if>
+        <if test="funcId != null">
+            and t.func_id = #{funcId}
+        </if>
+        <if test="opState != null">
+            and t.op_state = #{opState}
+        </if>
+        <if test="createBy != null">
+            and t.create_by = #{createBy}
+        </if>
+        <if test="createTime != null and createTime != ''">
+            and t.create_time = #{createTime}
+        </if>
+        <if test="updateBy != null">
+            and t.update_by = #{updateBy}
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            and t.update_time = #{updateTime}
+        </if>
+        <if test="isDeleted != null">
+            and t.is_deleted = #{isDeleted}
+        </if>
+        <if test="funcIdQueryIn != null and funcIdQueryIn != ''">
+            and t.func_id in
+            <foreach collection="funcIdQueryIn.split(',')" open="(" separator="," close=")" index="" item="funcIdQuery">
+                #{funcIdQuery}
+            </foreach>
+        </if>
+    </sql>
+
+    <!--查询单个-->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select <include refid="BaseColumn"/>
+        from t_ucenter_obj_func t
+        where ID = #{id}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true"
+            parameterType="com.wisely.ucenter.entity.UcenterObjFunc">
+        insert into t_ucenter_obj_func(
+            org_id,
+            org_name,
+            obj_type,
+            obj_id,
+            func_id,
+            op_state,
+            create_by,
+            create_time,
+            update_by,
+            update_time,
+            is_deleted
+        ) values (
+             #{orgId},
+             #{orgName},
+             #{objType},
+             #{objId},
+             #{funcId},
+             #{opState},
+             #{createBy},
+             #{createTime},
+             #{updateBy},
+             #{updateTime},
+             #{isDeleted}
+        )
+    </insert>
+
+    <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true"
+            parameterType="com.wisely.ucenter.entity.UcenterObjFunc">
+        insert into t_ucenter_obj_func
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="DynamicColumn"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="DynamicValue"/>
+        </trim>
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="updateByPrimaryKey" parameterType="com.wisely.ucenter.entity.UcenterObjFunc">
+        update t_ucenter_obj_func
+        <set>
+            org_id = #{orgId},
+            org_name = #{orgName},
+            obj_type = #{objType},
+            obj_id = #{objId},
+            func_id = #{funcId},
+            op_state = #{opState},
+            create_by = #{createBy},
+            create_time = #{createTime},
+            update_by = #{updateBy},
+            update_time = #{updateTime},
+            is_deleted = #{isDeleted},
+        </set>
+        where ID = #{id}
+    </update>
+
+    <!-- 通过主键动态修改数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.wisely.ucenter.entity.UcenterObjFunc">
+        update t_ucenter_obj_func
+        <trim prefix="set" suffixOverrides=",">
+            <include refid="DynamicSet"/>
+        </trim>
+        where ID = #{id}
+    </update>
+
+
+    <!-- 根据条件动态修改数据 -->
+    <update id="updateBySelective" parameterType="com.wisely.ucenter.entity.UcenterObjFunc">
+        update t_ucenter_obj_func t
+        <trim prefix="set" suffixOverrides=",">
+            <include refid="DynamicSet"/>
+        </trim>
+        <trim prefix="where" prefixOverrides="AND | OR">
+            <choose>
+                <!-- 为避免全表更新，至少有一个查询条件 -->
+                <otherwise>
+                    and id = #{id}
+                </otherwise>
+            </choose>
+        </trim>
+    </update>
+
+
+    <!--通过主键删除-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_ucenter_obj_func 
+        where id = #{id}
+    </delete>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectListBySelective" parameterType="com.wisely.ucenter.entity.UcenterObjFunc"
+            resultMap="BaseResultMap">
+        select <include refid="BaseColumn"/>
+        from t_ucenter_obj_func t
+        <trim prefix="where " prefixOverrides="AND | OR">
+            <include refid="DynamicWhere"/>
+        </trim>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                order by ${orderBy}
+            </when>
+            <otherwise>
+                order by t.id desc
+            </otherwise>
+        </choose>
+    </select>
+
+
+    <!-- 根据条件动态修改数据 -->
+    <update id="deleteBySelective" parameterType="com.wisely.ucenter.entity.UcenterObjFunc">
+        delete from t_ucenter_obj_func t
+        <trim prefix="where " prefixOverrides="AND | OR">
+            <include refid="DynamicWhere"/>
+        </trim>
+    </update>
+
+    <!-- 根据人员获取菜单权限 -->
+    <select id="selectFuncIdsByPersonId" parameterType="com.wisely.framework.entity.Model" resultType="java.lang.Integer">
+        select func_id
+        from t_ucenter_obj_func
+        where is_deleted = 0
+          and obj_id = #{personId}
+          and obj_type = '10079-40'
+
+        union
+        select func_id
+        from t_ucenter_obj_func tuof
+            inner join t_ucenter_person_role tupr on tuof.obj_id = tupr.role_id
+              and tupr.person_id = #{personId}
+              and tupr.is_deleted = 0
+        where tuof.obj_type = '10079-30'
+          and tuof.is_deleted = 0
+
+        union
+        select func_id
+        from t_ucenter_obj_func tuof
+            inner join t_ucenter_person_org tupo on tuof.obj_id = tupo.dept_id
+              and tupo.person_id = #{personId}
+              and tupo.is_deleted = 0
+        where tuof.obj_type = '10079-10'
+          and tuof.is_deleted = 0
+    </select>
+
+</mapper>
+

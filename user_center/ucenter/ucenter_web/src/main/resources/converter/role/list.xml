@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="role/list" desc="角色管理-列表" group="角色管理" groupCode="role">
+    <send>
+        <item name="type" desc="列表区分" notes="人员管理列表传 type=person"/>
+        <item name="nameQueryLike" desc="名称模糊查询"/>
+        <item name="codeQueryLike" desc="代码模糊查询"/>
+        <item name="codeOrNameLike" desc="模糊分页查询代码/名称关键字"/>
+        <item name="pageNo" desc="页码" type="Integer" default="1"/>
+        <item name="pageSize" desc="页容量" type="Integer" default="15"/>
+    </send>
+    <rcv>
+        <item name="total" type="Integer" desc="数据总量" default="0"/>
+        <item-list name="list" desc="list">
+            <item name="id" desc="id" type="Integer"/>
+            <item name="name" desc="名称"/>
+            <item name="orgId" desc="机构ID 为系统后续多机构新增字段" type="Integer"/>
+            <item name="orgName" desc="机构名称"/>
+            <item name="code" desc="代码"/>
+            <item name="memo" desc="描述"/>
+            <item name="orderNo" desc="顺序号"/>
+            <item name="isSys" desc="是否系统初始化" notes="0-否 1-是" type="Integer"/>
+            <item name="createByName" desc="录入人姓名" mapper="USER_PERSON_NAME_HASH" target="createBy"/>
+            <item name="createTime" desc="录入时间"/>
+        </item-list>
+    </rcv>
+</trans>
+

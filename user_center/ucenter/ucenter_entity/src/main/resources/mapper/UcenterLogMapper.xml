@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wisely.ucenter.mapper.UcenterLogMapper">
+
+    <resultMap type="com.wisely.ucenter.entity.UcenterLog" id="BaseResultMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="orgId" column="org_id" jdbcType="INTEGER"/>
+        <result property="orgName" column="org_name" jdbcType="VARCHAR"/>
+        <result property="loginTime" column="login_time" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="ip" column="ip" jdbcType="VARCHAR"/>
+        <result property="machineName" column="machine_name" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="opContent" column="op_content" jdbcType="VARCHAR"/>
+        <result property="opState" column="op_state" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="BaseColumn">
+        t.id,
+        t.org_id,
+        t.org_name,
+        t.login_time,
+        t.type,
+        t.ip,
+        t.machine_name,
+        t.user_id,
+        t.op_content,
+        t.op_state,
+        t.create_by,
+        t.create_time,
+        t.update_by,
+        t.update_time,
+        t.is_deleted
+    </sql>
+
+    <!-- 动态字段 -->
+    <sql id="DynamicColumn">
+        <if test="orgId != null">
+            org_id,
+        </if>
+        <if test="orgName != null and orgName != ''">
+            org_name,
+        </if>
+        <if test="loginTime != null and loginTime != ''">
+            login_time,
+        </if>
+        <if test="type != null and type != ''">
+            type,
+        </if>
+        <if test="ip != null and ip != ''">
+            ip,
+        </if>
+        <if test="machineName != null and machineName != ''">
+            machine_name,
+        </if>
+        <if test="userId != null">
+            user_id,
+        </if>
+        <if test="opContent != null and opContent != ''">
+            op_content,
+        </if>
+        <if test="opState != null">
+            op_state,
+        </if>
+        <if test="createBy != null">
+            create_by,
+        </if>
+        <if test="createTime != null and createTime != ''">
+            create_time,
+        </if>
+        <if test="updateBy != null">
+            update_by,
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            update_time,
+        </if>
+        <if test="isDeleted != null">
+            is_deleted,
+        </if>
+    </sql>
+
+    <!-- 动态值 -->
+    <sql id="DynamicValue">
+        <if test="orgId != null">
+            #{orgId},
+        </if>
+        <if test="orgName != null and orgName != ''">
+            #{orgName},
+        </if>
+        <if test="loginTime != null and loginTime != ''">
+            #{loginTime},
+        </if>
+        <if test="type != null and type != ''">
+            #{type},
+        </if>
+        <if test="ip != null and ip != ''">
+            #{ip},
+        </if>
+        <if test="machineName != null and machineName != ''">
+            #{machineName},
+        </if>
+        <if test="userId != null">
+            #{userId},
+        </if>
+        <if test="opContent != null and opContent != ''">
+            #{opContent},
+        </if>
+        <if test="opState != null">
+            #{opState},
+        </if>
+        <if test="createBy != null">
+            #{createBy},
+        </if>
+        <if test="createTime != null and createTime != ''">
+            #{createTime},
+        </if>
+        <if test="updateBy != null">
+            #{updateBy},
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            #{updateTime},
+        </if>
+        <if test="isDeleted != null">
+            #{isDeleted},
+        </if>
+    </sql>
+
+    <!-- 动态赋值 -->
+    <sql id="DynamicSet">
+        <if test="orgId != null">
+            org_id = #{orgId},
+        </if>
+        <if test="orgName != null">
+            org_name = #{orgName},
+        </if>
+        <if test="loginTime != null">
+            login_time = #{loginTime},
+        </if>
+        <if test="type != null">
+            type = #{type},
+        </if>
+        <if test="ip != null">
+            ip = #{ip},
+        </if>
+        <if test="machineName != null">
+            machine_name = #{machineName},
+        </if>
+        <if test="userId != null">
+            user_id = #{userId},
+        </if>
+        <if test="opContent != null">
+            op_content = #{opContent},
+        </if>
+        <if test="opState != null">
+            op_state = #{opState},
+        </if>
+        <if test="createBy != null">
+            create_by = #{createBy},
+        </if>
+        <if test="createTime != null">
+            create_time = #{createTime},
+        </if>
+        <if test="updateBy != null">
+            update_by = #{updateBy},
+        </if>
+        <if test="updateTime != null">
+            update_time = #{updateTime},
+        </if>
+        <if test="isDeleted != null">
+            is_deleted = #{isDeleted},
+        </if>
+    </sql>
+
+    <!-- 动态条件 -->
+    <sql id="DynamicWhere">
+        <if test="orgId != null">
+            and t.org_id = #{orgId}
+        </if>
+        <if test="orgName != null and orgName != ''">
+            and t.org_name = #{orgName}
+        </if>
+        <if test="loginTime != null and loginTime != ''">
+            and t.login_time = #{loginTime}
+        </if>
+        <if test="type != null and type != ''">
+            and t.type = #{type}
+        </if>
+        <if test="ip != null and ip != ''">
+            and t.ip = #{ip}
+        </if>
+        <if test="machineName != null and machineName != ''">
+            and t.machine_name = #{machineName}
+        </if>
+        <if test="userId != null">
+            and t.user_id = #{userId}
+        </if>
+        <if test="opContent != null and opContent != ''">
+            and t.op_content = #{opContent}
+        </if>
+        <if test="opState != null">
+            and t.op_state = #{opState}
+        </if>
+        <if test="createBy != null">
+            and t.create_by = #{createBy}
+        </if>
+        <if test="createTime != null and createTime != ''">
+            and t.create_time = #{createTime}
+        </if>
+        <if test="updateBy != null">
+            and t.update_by = #{updateBy}
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            and t.update_time = #{updateTime}
+        </if>
+        <if test="isDeleted != null">
+            and t.is_deleted = #{isDeleted}
+        </if>
+
+        <if test="timeQueryGe != null and timeQueryGe != ''">
+            and t.login_time &gt;= concat(#{timeQueryGe}, ' 00:00:00')
+        </if>
+        <if test="timeQueryLe != null and timeQueryLe != ''">
+            and t.login_time &lt;= concat(#{timeQueryLe}, ' 23:59:59')
+        </if>
+        <if test="accountQueryLike != null and accountQueryLike != ''">
+            and exists (
+                select 1
+                from t_ucenter_user tuu
+                where tuu.id = t.user_id
+                  and tuu.IS_DELETED = 0
+                  and tuu.account like concat('%', #{accountQueryLike}, '%')
+            )
+        </if>
+        <if test="orgIdQueryIn != null and orgIdQueryIn != ''">
+            and t.org_id in
+            <foreach collection="orgIdQueryIn.split(',')" separator="," index="" open="(" close=")" item="orgIdQuery">
+                #{orgIdQuery}
+            </foreach>
+        </if>
+    </sql>
+
+    <!--查询单个-->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select <include refid="BaseColumn" />
+        from t_ucenter_log t
+        where id = #{id}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.wisely.ucenter.entity.UcenterLog">
+        insert into t_ucenter_log  (
+            org_id,
+            org_name,
+            login_time,
+            type,
+            ip,
+            machine_name,
+            user_id,
+            op_content,
+            op_state,
+            create_by,
+            create_time,
+            update_by,
+            update_time,
+            is_deleted
+        )  values  (
+            #{orgId},
+            #{orgName},
+            #{loginTime},
+            #{type},
+            #{ip},
+            #{machineName},
+            #{userId},
+            #{opContent},
+            #{opState},
+            #{createBy},
+            #{createTime},
+            #{updateBy},
+            #{updateTime},
+            #{isDeleted}
+        )
+    </insert>
+
+    <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.wisely.ucenter.entity.UcenterLog">
+        insert into  t_ucenter_log
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <include refid="DynamicColumn" />
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <include refid="DynamicValue" />
+        </trim>
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="updateByPrimaryKey" parameterType="com.wisely.ucenter.entity.UcenterLog">
+        update t_ucenter_log
+        <set>
+            org_id = #{orgId},
+            org_name = #{orgName},
+            login_time = #{loginTime},
+            type = #{type},
+            ip = #{ip},
+            machine_name = #{machineName},
+            user_id = #{userId},
+            op_content = #{opContent},
+            op_state = #{opState},
+            create_by = #{createBy},
+            create_time = #{createTime},
+            update_by = #{updateBy},
+            update_time = #{updateTime},
+            is_deleted = #{isDeleted},
+        </set>
+        where  id = #{id}
+    </update>
+
+    <!-- 通过主键动态修改数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.wisely.ucenter.entity.UcenterLog">
+        update t_ucenter_log
+        <trim prefix="set" suffixOverrides="," >
+            <include refid="DynamicSet" />
+        </trim>
+        where id = #{id}
+    </update>
+
+
+    <!-- 根据条件动态修改数据 -->
+    <update id="updateBySelective" parameterType="com.wisely.ucenter.entity.UcenterLog">
+        update t_ucenter_log t
+        <trim prefix="set" suffixOverrides="," >
+            <include refid="DynamicSet" />
+        </trim>
+        <trim prefix="where" prefixOverrides="AND | OR" >
+            <choose>
+                <!-- 为避免全表更新，至少有一个查询条件 -->
+                <otherwise>
+                    and id = #{id}
+                </otherwise>
+            </choose>
+        </trim>
+    </update>
+
+
+    <!--通过主键删除-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from  t_ucenter_log
+        where id = #{id}
+    </delete>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectListBySelective" parameterType="com.wisely.ucenter.entity.UcenterLog" resultMap="BaseResultMap">
+        select <include refid="BaseColumn" />
+        from  t_ucenter_log t
+        <trim prefix="where " prefixOverrides="AND | OR" >
+            <include refid="DynamicWhere" />
+        </trim>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                order by ${orderBy}
+            </when>
+            <otherwise>
+                order by t.id desc
+            </otherwise>
+        </choose>
+    </select>
+
+</mapper>

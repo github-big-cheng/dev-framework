@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="sysFile/delete" desc="删除" group="系统文件" groupCode="sysFile">
+    <send>
+        <item name="sourceType" desc="业务类型" required="true"/>
+        <item name="sourceIdQueryIn" desc="业务ids" required="true"/>
+    </send>
+    <rcv>
+    </rcv>
+</trans>

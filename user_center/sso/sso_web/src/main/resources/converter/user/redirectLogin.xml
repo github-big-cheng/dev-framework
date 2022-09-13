@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="user/redirectLogin" desc="跳转登录" group="登录" groupCode="user">
+    <send>
+        <item name="token" desc="登录令牌" required="true" base64="true"/>
+    </send>
+    <rcv>
+        <item name="ticket" desc="ticket"/>
+        <item name="id" desc="账号ID" type="Integer"/>
+        <item name="firstLogin" desc="是否首次登录" notes="1-是 0-否" type="Integer"/>
+        <item name="personId" desc="人员ID" type="Integer"/>
+        <item name="personName" desc="人员名称"/>
+        <item name="idNo" desc="身份证号"/>
+        <item name="mobile" desc="手机号"/>
+        <item name="sex" desc="性别"/>
+        <item name="birthday" desc="生日"/>
+        <item name="imgPath" desc="头像路径"/>
+        <item name="orgId" desc="机构ID"/>
+        <item name="orgName" desc="机构名称"/>
+        <item name="organizations" desc="兼职机构"/>
+        <item name="mainDeptId" desc="主要部门"/>
+        <item name="mainDeptName" desc="主要部门"/>
+        <item name="departments" desc="所在部门" notes="多个','分割"/>
+        <item name="posId" desc="职务ID" type="Integer"/>
+        <item name="posName" desc="职务名称" target="posId" mapper="POS_HASH"/>
+        <item name="posLevel" desc="职级"/>
+        <item name="posLevelName" desc="职级" target="posLevel" mapper="CODE_HASH"/>
+        <item name="political" desc="政治面貌"/>
+        <item name="politicalName" desc="政治面貌" target="political" mapper="CODE_HASH"/>
+        <item name="adminisCode" desc="管辖区域代码"/>
+        <item-list name="roleCodes" desc="角色代码" put-all="true"/>
+        <item-list name="authCodes" desc="权限代码" put-all="true"/>
+    </rcv>
+</trans>

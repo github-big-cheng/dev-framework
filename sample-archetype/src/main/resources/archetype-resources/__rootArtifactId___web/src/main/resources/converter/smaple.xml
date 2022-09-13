@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd" >
+<trans name="sample" desc="样例模板" groupCode="sample" group="样例">
+    <send>
+    </send>
+    <rcv>
+        <item name="welcome" desc="welcome" />
+    </rcv>
+</trans>

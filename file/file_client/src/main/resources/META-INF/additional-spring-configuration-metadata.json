@@ -1,0 +1,146 @@
+{
+  "properties": [
+    {
+      "name": "plugins.file.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.wisely.framework.plugins.file.FileProperties",
+      "description": "文件插件开关.",
+      "defaultValue": false
+    },
+    {
+      "name": "plugins.file.mode",
+      "type": "java.lang.String",
+      "sourceType": "com.wisely.framework.plugins.file.FileProperties",
+      "description": "文件处理模式.",
+      "defaultValue": "local"
+    },
+    {
+      "name": "plugins.file.max-file-size",
+      "type": "java.lang.String",
+      "sourceType": "com.wisely.framework.plugins.file.FileProperties",
+      "description": "单文件最大限制.",
+      "defaultValue": "50MB"
+    },
+    {
+      "name": "plugins.file.max-request-size",
+      "type": "java.lang.String",
+      "sourceType": "com.wisely.framework.plugins.file.FileProperties",
+      "description": "请求最大限制.",
+      "defaultValue": "50MB"
+    },
+    {
+      "name": "plugins.file.encrypt-key",
+      "type": "java.lang.String",
+      "sourceType": "com.wisely.framework.plugins.file.FileProperties",
+      "description": "下载加密key.",
+      "defaultValue": "6A32D40E1838B8151B3A36C30CF86ADA"
+    },
+    {
+      "name": "plugins.file.local.path",
+      "type": "java.lang.String",
+      "sourceType": "com.wisely.framework.plugins.file.FileProperties",
+      "description": "本地路径存放."
+    },
+    {
+      "name": "plugins.file.fdfs.group-name",
+      "type": "java.lang.String",
+      "sourceType": "com.wisely.framework.plugins.file.FileProperties",
+      "description": "fastdfs分组名称."
+    },
+    {
+      "name": "plugins.file.fdfs.server-ip",
+      "type": "java.lang.Integer",
+      "sourceType": "com.wisely.framework.plugins.file.FileProperties",
+      "description": "fastdfs服务端口.",
+      "defaultValue": 22122
+    },
+    {
+      "name": "plugins.file.fdfs.max-connection",
+      "type": "java.lang.Integer",
+      "sourceType": "com.wisely.framework.plugins.file.FileProperties",
+      "description": "最大连接数.",
+      "defaultValue": 5
+    },
+    {
+      "name": "plugins.file.fdfs.connection-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "com.wisely.framework.plugins.file.FileProperties",
+      "description": "连接超时时间.",
+      "defaultValue": 2000
+    },
+    {
+      "name": "plugins.file.fdfs.network-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "com.wisely.framework.plugins.file.FileProperties",
+      "description": "网络超时时间.",
+      "defaultValue": 3000
+    },
+    {
+      "name": "plugins.file.fdfs.steal-token",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.wisely.framework.plugins.file.FileProperties",
+      "description": "token有效性.",
+      "defaultValue": false
+    },
+    {
+      "name": "plugins.file.fdfs.secret-key",
+      "type": "java.lang.String",
+      "sourceType": "com.wisely.framework.plugins.file.FileProperties",
+      "description": "密钥."
+    },
+    {
+      "name": "plugins.file.fdfs.charset",
+      "type": "java.lang.String",
+      "sourceType": "com.wisely.framework.plugins.file.FileProperties",
+      "description": "编码.",
+      "defaultValue": "UTF-8"
+    },
+    {
+      "name": "plugins.file.minio.endpoint",
+      "type": "java.lang.String",
+      "sourceType": "com.wisely.framework.plugins.file.FileProperties",
+      "description": "MinIO服务地址."
+    },
+    {
+      "name": "plugins.file.minio.separator",
+      "type": "java.lang.String",
+      "sourceType": "com.wisely.framework.plugins.file.FileProperties",
+      "description": "文件分割符.",
+      "defaultValue": "/"
+    },
+    {
+      "name": "plugins.file.minio.bucketName",
+      "type": "java.lang.String",
+      "sourceType": "com.wisely.framework.plugins.file.FileProperties",
+      "description": "桶名称."
+    },
+    {
+      "name": "plugins.file.minio.account",
+      "type": "java.lang.String",
+      "sourceType": "com.wisely.framework.plugins.file.FileProperties",
+      "description": "账号."
+    },
+    {
+      "name": "plugins.file.minio.password",
+      "type": "java.lang.String",
+      "sourceType": "com.wisely.framework.plugins.file.FileProperties",
+      "description": "密码."
+    }
+  ],
+  "hints": [
+    {
+      "name": "plugins.file.mode",
+      "values": [
+        {
+          "value": "local"
+        },
+        {
+          "value": "fastdfs"
+        },
+        {
+          "value": "minio"
+        }
+      ]
+    }
+  ]
+}

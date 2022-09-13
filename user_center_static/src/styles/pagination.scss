@@ -1,0 +1,175 @@
+@import "./mixin.scss";
+
+.number {
+  font-weight: normal;
+  @include fontSize;
+}
+.active {
+  background: $cBlue;
+  color: $cWhite !important;
+  border-radius: 3px;
+}
+.el-select .el-input {
+  width: 82px;
+}
+button,
+span:not([class*="suffix"]) {
+  @include fontSize;
+}
+/deep/.btn-prev,
+/deep/.btn-next {
+  padding: 0;
+  .el-icon {
+    @include fontSize;
+  }
+}
+.el-pager {
+  li {
+    min-width: 28Px;/*no*/
+    font-weight: normal;
+    &.active {
+      color: $cWhite;
+      border-radius: 3px;
+      background: $cBlue;
+    }
+  }
+}
+.el-pagination {
+  @include flexBoxAlign;
+  justify-content: flex-end;
+  padding: 15px 15px 10px 0;
+  /deep/.el-select .el-input{
+    min-width: 58Px;/*no*/
+  }
+  /deep/span{
+    height: 100%;
+    line-height: 100%;
+    display: flex;
+    align-items: center;
+    @include fontSize;
+  }
+  /deep/.el-select .el-input .el-input__inner{
+    @include fontSize;
+  }
+}
+/deep/.el-pagination__jump {
+  margin-left: 10px;
+  .el-input{
+    height: 100%;
+  }
+}
+
+.el-pagination__total {
+  color: $cGray6;
+}
+// .el-pagination__total_strange {
+//   color: $cGray3;
+//   min-width: auto;
+//   font-style: normal;
+//   padding: 0 2px;
+// }
+// .el-input .el-input__inner {
+//   width: 100%;
+// }
+
+/deep/.el-select .el-input {
+  width: 70px;
+  min-width: 50Px;/*no*/
+}
+// /deep/.el-pagination__editor.el-input {
+//   width: 50px;
+// }
+
+/deep/.page-prev-box {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  .btn-prev {
+    width: fit-content;
+    min-width: unset;
+    &:disabled {
+      [class^="el-icon-ali"],
+      [class*=" el-icon-ali"] {
+        color: $cGrayc;
+      }
+    }
+    &:nth-child(1) {
+      margin-left: 5px;
+    }
+    &:nth-child(2) {
+      margin-left: 16px;
+      margin-right: 6px;
+      position: relative;
+      &::after {
+        content: " ";
+        width: 1px;
+        height: 12px;
+        background: $cGrayc;
+
+        position: absolute;
+        right: -10px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+      }
+    }
+    [class^="el-icon-ali"],
+    [class*=" el-icon-ali"] {
+      @include fontSize;
+      color: $cBlue;
+      font-weight: normal;
+    }
+  }
+}
+/deep/.page-next-box {
+  .btn-next {
+    width: fit-content;
+    min-width: unset;
+    position: relative;
+    &:disabled {
+      [class^="el-icon-ali"],
+      [class*=" el-icon-ali"] {
+        color: $cGrayc;
+      }
+    }
+    &:nth-child(1) {
+      margin-left: 20px;
+      &::after {
+        content: " ";
+        width: 1px;
+        height: 12px;
+        background: $cGrayc;
+        position: absolute;
+        left: -10px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+      }
+    }
+    &:nth-child(2) {
+      margin-left: 16px;
+      margin-right: 20px;
+      &::after {
+        content: " ";
+        width: 1px;
+        height: 12px;
+        background: $cGrayc;
+
+        position: absolute;
+        right: -10px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+      }
+    }
+    &:nth-child(3) {
+      margin-right: 5px;
+    }
+    [class^="el-icon-ali"],
+    [class*=" el-icon-ali"] {
+      @include fontSize;
+      color: $cBlue;
+      font-weight: normal;
+    }
+  }
+}

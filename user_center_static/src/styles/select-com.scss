@@ -1,0 +1,426 @@
+@import "./mixin.scss";
+
+//多选
+.search-ipt {
+  width: 250px;
+  /deep/.el-input-group__append {
+    position: absolute;
+    left: 15Px;/*no*/
+    display: flex;
+    top: 0;
+    padding: 0;
+    width: 0;
+    height: 100%;
+    border: none;
+    align-items: center;
+    .el-button {
+      cursor: default;
+      i {
+        @include fontSize;
+      }
+    }
+  }
+  /deep/.el-input__suffix {
+    transform: translateX(0) !important;
+    display: flex;
+    align-items: center;
+  }
+  /deep/.el-input .el-input__clear {
+    @include fontSize(16px);
+  }
+  /deep/.el-input__validateIcon{
+    display: none;
+  }
+}
+//cp
+.select-choice {
+  /deep/.el-dialog {
+    width: 710px;
+  }
+  /deep/.el-icon-alistructure {
+    margin-right: 10px;
+    color: $cGray9 !important;
+    @include fontSize(14px);
+  }
+  .el-row {
+    margin: 0 !important;
+  }
+  /deep/.el-input__inner {
+    width: 100%;
+    height: 30px;
+    padding-left: 24px;
+    padding-right: 0;
+  }
+  .is-selected {
+    background: rgba(17, 138, 247, 0.06);
+  }
+
+  .s-item {
+    width: 100%;
+    height: auto!important;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 7px 0;
+    position: relative;
+    .el-icon-alipitchon {
+      position: absolute;
+      right: 0;
+      top: 0;
+      @include fontSize(21px);
+      color: $cBlue;
+    }
+  }
+  .s-list {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: $cWhite;
+    overflow: auto;
+    z-index: 9;
+    
+    .item-user {
+      float: left;
+    }
+    .default-avatar {
+      display: flex;
+      height: 36px;
+      width: 36px;
+      margin-right: 10px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100%;
+      background-color: $cGraye5;
+      &::before {
+        @include fontSize(20px);
+        color: $cWhite;
+      }
+    }
+    .tuser-avatar {
+      width: 36px;
+      height: 36px;
+      margin-right: 10px;
+      border-radius: 100%;
+    }
+    .i-name {
+      @include fontSize;
+      font-weight: bold;
+      color: $cGray3;
+      margin-bottom: 3px;
+      padding-top: 2px;
+    }
+    .i-dept {
+      @include fontSize;
+      font-weight: 400;
+      color: $cGray9;
+    }
+    .noRenderP {
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+    }
+    .renderPerson {
+      display: flex;
+      align-items: center;
+      .item-user {
+        height: 36px;
+        width: 36px;
+        margin-left: 11px;
+        text-align: center;
+        line-height: 36px;
+        float: left;
+        i {
+          @include fontSize(30px);
+          color: $cGraye;
+        }
+      }
+      .item-desc {
+        box-sizing: border-box;
+        padding-left: 10px;
+      }
+    }
+  }
+  .col-zz {
+    box-sizing: border-box;
+    padding: 11px !important;
+    border: 1px solid $cGraye;
+    .search-ipt {
+      width: 100%;
+    }
+  }
+  .selected-col {
+    margin-top: 10px;
+    height: 300px;
+    position: relative;
+  }
+  .form-button {
+    box-sizing: border-box;
+    padding-top: 90px;
+    .s-right {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: $cGrayc;
+      display: block;
+      text-align: center;
+      line-height: 26px;
+      cursor: pointer;
+      margin: 0 auto;
+      margin-bottom: 20px;
+      i {
+        @include fontSize(14px);
+        color: $cWhite;
+      }
+    }
+    .s-left {
+      background: $cGrayc;
+    }
+    .r-export {
+      transform: rotate(90deg);
+    }
+    .l-export {
+      transform: rotate(-90deg);
+    }
+  }
+  .dv-organization {
+    margin-top: 10px;
+    height: 300px;
+    overflow: auto;
+    padding-left: 0;
+    box-sizing: border-box;
+    position: relative;
+  }
+}
+.select-personnel {
+  /deep/.el-dialog {
+    height: 410px;
+  }
+  .search-ipt {
+    position: absolute;
+    right: 0;
+    top: -45px;
+    width: 200px;
+  }
+  .dv-organization {
+    height: 260px;
+    overflow: auto;
+    padding-left: 0;
+    box-sizing: border-box;
+  }
+  /deep/.el-tabs__header {
+    margin-bottom: 0;
+    padding: 0 0 10px 0 !important;
+  }
+  /deep/.el-tabs__content {
+    overflow: initial;
+  }
+  /deep/.el-dialog__body {
+    padding-top: 0;
+    padding-bottom: 10px;
+  }
+  .tabs-box {
+    box-sizing: border-box;
+    position: relative;
+    /deep/.el-tabs__item {
+      @include fontSize;
+      padding-left: 0 !important;
+      height: 38px;
+      line-height: 38px;
+    }
+  }
+
+  .tab-organization {
+    position: relative;
+  }
+  /deep/.el-checkbox {
+    display: none;
+  }
+  /deep/.el-input__inner {
+    width: 100%;
+    padding-left: 24px;
+    min-height: 26Px;/*no*/
+    padding-right: 0;
+  }
+  .is-selected {
+    background: rgba(17, 138, 247, 0.06);
+  }
+  .s-list {
+    .s-item {
+      position: relative;
+      height: 48px;
+      cursor: pointer;
+      padding-top: 7px;
+      .el-icon-alipitchon {
+        @include absolute(0, 0);
+        @include fontSize(21px);
+        color: $cBlue;
+      }
+    }
+    .item-user {
+      margin-right: 11px;
+      line-height: 26px;
+      i {
+        @include fontSize(14px);
+        color: $cGray9 !important;
+      }
+    }
+
+    .i-name {
+      @include fontSize;
+      font-weight: bold;
+      color: $cGray3;
+      margin-bottom: 3px;
+      padding-top: 2px;
+    }
+    .i-dept {
+      @include fontSize;
+      font-weight: 400;
+      color: $cGray9;
+    }
+    .noRenderP {
+      @include flexBoxAlign;
+      padding: 0 10px;
+    }
+    .renderPerson {
+      .item-user {
+        @include wh(36px, 36px);
+        margin-left: 11px;
+        text-align: center;
+        line-height: 36px;
+        float: left;
+        i {
+          @include fontSize(30px);
+          color: $cGraye;
+        }
+      }
+      .item-desc {
+        box-sizing: border-box;
+        padding-left: 57px;
+      }
+    }
+  }
+  .default-avatar {
+    @include flexBox;
+    @include wh(36px, 36px);
+    margin-right: 10px;
+    @include borderRadius(100%);
+    background-color: $cGraye5;
+    &::before {
+      @include fontSize(20px);
+      color: $cWhite;
+    }
+  }
+  .tuser-avatar {
+    @include wh(36px, 36px);
+    margin-right: 10px;
+    @include borderRadius(100%);
+  }
+}
+
+.select-person {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 360px;
+  min-width: 341Px;/*no*/
+
+  .right-box {
+    position: absolute;
+    top: 0;
+    right: 1px;
+    z-index: 999;
+    height: 100%;
+    padding: 0 10px 0 0;
+    @include flexBox;
+    i {
+        color: #ccc;
+        &.el-icon-alisearch {
+            font-size: 13Px;
+        }
+    }
+  }
+  /deep/.el-select {
+      width: 100%;
+      overflow: hidden;
+      .el-input .el-icon-circle-close{
+        margin-right: 20px;
+      }
+  }
+  .el-input__suffix {
+      right: 26px;
+      top: 0;
+  }
+  /deep/.el-input__inner{
+    width:100%!important;
+    min-height: 30Px!important;/*no*/
+  }
+  &._multiple {
+      width: 642px;
+      min-width: 550Px;/*no*/
+
+      .el-input__inner {
+          width: 100%;
+          padding-right: 50px;
+      }
+      .el-select .el-input .el-icon-close {
+          font-size: 16px;
+      }
+      .el-input__clear {
+          font-size: 16px;
+      }
+      .el-select__tags {
+          min-width: 642Px;/*no*/
+          width: 642px!important;
+          max-width: auto!important;
+      }
+      /deep/.el-input__suffix {
+          display: none;
+      }
+  }
+  /deep/.el-tag{
+    font-size: 12px;
+    transform: scale(.9);
+    .el-tag__close.el-icon-close{
+      transform: scale(.9);
+    }
+  }
+}
+
+.dv-btn {
+  box-sizing: border-box;
+  padding-top: 90px;
+  .s-right {
+    @include wh(26px, 26px);
+    border-radius: 50%;
+    background: $cGrayc;
+    display: block;
+    text-align: center;
+    line-height: 26px;
+    cursor: pointer;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    i {
+      @include fontSize(14px);
+      color: $cWhite;
+    }
+  }
+  .s-left {
+    background: $cGrayc;
+  }
+  .r-export {
+    transform: rotate(90deg);
+  }
+  .l-export {
+    transform: rotate(-90deg);
+  }
+}
+@media screen and (min-width: 1501px) {
+  .select-person {
+    .right-box {
+      i.el-icon-alisearch {
+              font-size: 12px;
+          }
+      }
+    }
+}

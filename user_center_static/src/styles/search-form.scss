@@ -1,0 +1,184 @@
+@import "@/styles/mixin.scss";
+
+.pack-up {
+  display: inline-block;
+  color: $cBlue;
+  cursor: pointer;
+}
+.active {
+  color: $cBlue;
+}
+.search-form {
+  @include boxSizing;
+  padding: 0 20px 5px;
+  position: relative;
+  /deep/.vue-treeselect {
+    height: 28px;
+    line-height: 28px;
+    width: 173px;
+    .vue-treeselect__control {
+      height: 28px !important;
+      border-radius: 4px !important;
+    }
+    .vue-treeselect__placeholder, .vue-treeselect__single-value  {
+      line-height: 28px !important;
+    }
+    
+    .vue-treeselect__menu label{
+      font-size: 12px !important;
+      color: #606266 !important;
+      font-weight: normal !important;
+    }
+  }
+  .el-input__inner {
+    @include wh(160px, 30px);
+    color: $cGray3;
+    line-height: 30px;
+    padding-left: 10px;
+    vertical-align: top;
+    @include fontSize;
+    @include borderRadius;
+    @include boxSizing;
+  }
+
+  .select-person {
+    width: 250px;
+    min-width: 250Px;/*no*/
+  }
+
+  .input-company .select-person{
+    width: 260px;
+    min-width: 260Px;/*no*/
+  }
+
+  .input-dept .select-person {
+    width: 230px;
+  }
+
+  
+
+  
+
+  .el-input__inner::-webkit-input-placeholder {
+    color: $cGrayc;
+    @include fontSize;
+  }
+
+  /deep/.el-radio__inner {
+    min-width: 14Px;/*no*/
+    min-height: 14Px;/*no*/
+  }
+
+  .el-date-editor.el-date-editor--daterange {
+    width: 240Px;
+  }
+
+  /deep/.el-date-editor--year{
+    width: 100px;
+  }
+
+  /deep/.el-form-item__content {
+    line-height: 1;
+  }
+
+  /deep/.el-form-item__label {
+    min-width: 76Px;/*no*/
+    width: 76px;
+    @include fontSize;
+    color: $cGray6;
+    @include fontWeight;
+    line-height: 30Px;/*no*/
+  }
+
+  /deep/.el-button {
+    min-width: 66Px;/*no*/
+    @include fontWeight(400);
+    margin-left: 0;
+    margin-right: 20px;
+  }
+  .date-two {
+    width: 200px;
+  }
+
+  /deep/.search-btn {
+    margin-left: 16px;
+  }
+
+  .el-cascader {
+    line-height: inherit;
+  }
+  .single{
+    width: 100%!important;
+  }
+  .amountQueryGe,.amountQueryLe{
+    /deep/.el-input__inner{
+      width: 80px;
+      min-width: 80Px;/*no*/
+    }
+  }
+  .amountQueryLe {
+    /deep/.el-form-item__label{
+        width: 0px !important;
+        min-width: 0 !important;
+        margin-right: 2px;
+    }
+  }
+}
+.search-form-label6 {
+  /deep/.el-form-item__label {
+    min-width: 84Px;/*no*/
+    width: 84px;
+  }
+}
+
+/deep/.date-screen span {
+  display: inline-block;
+  height: 100%;
+  padding: 0 3Px;/*no*/
+  cursor: pointer;
+
+  &:hover {
+    color: $cBlue;
+  }
+  &.active {
+    background: rgba(17, 138, 247, 1);
+    color: $cWhite;
+    border-radius: 3px;
+
+    &:hover {
+      color: $cWhite;
+    }
+  }
+}
+.el-date-editor.el-input {
+  width: 170Px;
+}
+
+.search-float{
+  margin-left: 5px;
+}
+
+.popover-box{
+  display: block;
+  padding-bottom: 15px;
+  .el-form-item{
+    width: 422px;
+    min-width: 388Px;/*no*/
+  }
+}
+@media screen and (min-width: 1501px) {
+  .el-date-editor.el-input {
+    width: 170px;
+  }
+  .search-form {
+    /deep/.el-form-item__label {
+      line-height: 28px;
+    }
+    .el-date-editor.el-date-editor--daterange {
+      width: 240px;
+    }
+  }
+  /deep/.date-screen span{
+    line-height: 26px;
+  }
+}

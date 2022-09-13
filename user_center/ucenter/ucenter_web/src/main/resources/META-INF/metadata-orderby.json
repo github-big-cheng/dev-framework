@@ -1,0 +1,111 @@
+{
+  "com.dounion.ucenter.entity.UcenterFunction": [
+    {
+      "key": "orderNoAsc",
+      "column": "ORDER_NO",
+      "alias": "T"
+    },
+    {
+      "key": "orderNoDesc",
+      "column": "ORDER_NO",
+      "alias": "T",
+      "asc": false
+    },
+    {
+      "key": "idAsc",
+      "column": "ID",
+      "alias": "T"
+    },
+    {
+      "key": "idDesc",
+      "column": "ID",
+      "alias": "T",
+      "asc": false
+    }
+  ],
+  "com.dounion.ucenter.entity.UcenterOrg": [
+    {
+      "key": "orderNoAsc",
+      "column": "ORDER_NO",
+      "alias": "T"
+    },
+    {
+      "key": "orderNoDesc",
+      "column": "ORDER_NO",
+      "alias": "T",
+      "asc": false
+    },
+    {
+      "key": "idAsc",
+      "column": "ID",
+      "alias": "T"
+    },
+    {
+      "key": "idDesc",
+      "column": "ID",
+      "alias": "T",
+      "asc": false
+    }
+  ],
+  "com.dounion.ucenter.entity.UcenterPersonOrg": [
+    {
+      "key": "idAsc",
+      "column": "ID",
+      "alias": "T"
+    },
+    {
+      "key": "deptOrderNoAsc",
+      "column": "ORDER_NO",
+      "alias": "TUO",
+      "checkNull": true,
+      "nullValue": 999999
+    },
+    {
+      "key": "orderNoasc",
+      "column": "ORDER_NO",
+      "alias": "T",
+      "checkNull": true,
+      "nullValue": 999999
+    },
+    {
+      "key": "orderNoDesc",
+      "column": "ORDER_NO",
+      "alias": "T",
+      "asc": false,
+      "checkNull": true,
+      "nullValue": 0
+    },
+    {
+      "key": "idDesc",
+      "column": "isMain",
+      "alias": "T",
+      "asc": false
+    },
+    {
+      "key": "isMainAsc",
+      "column": "IS_MAIN",
+      "alias": "T"
+    },
+    {
+      "key": "isMainDesc",
+      "column": "IS_MAIN",
+      "alias": "T",
+      "asc": false,
+      "checkNull": true,
+      "nullValue": 0
+    }
+  ],
+  "com.dounion.ucenter.entity.UcenterJobTitle": [
+    {
+      "key": "nameAsc",
+      "column": "NAME",
+      "alias": "T"
+    },
+    {
+      "key": "codeAsc",
+      "column": "CODE",
+      "alias": "T"
+    }
+  ]
+
+}

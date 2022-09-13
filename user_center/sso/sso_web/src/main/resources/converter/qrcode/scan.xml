@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="/qrcode/scan" desc="扫描二维码" group="二维码登录" groupCode="qrcode">
+    <send>
+        <item name="osType" desc="操作系統类型" default="PC" notes="不传默认PC,手机传ANDROID"/>
+        <item name="qrCode" desc="二维码"/>
+        <item name="opType" desc="操作类型" notes="1-扫描 0-取消" scope="0,1"/>
+    </send>
+    <rcv>
+    </rcv>
+</trans>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="personOrg/list" desc="部门/人员列表" group="部门调整" groupCode="personOrg">
+    <send>
+        <item name="pageNo" desc="页码" type="Integer" default="1"/>
+        <item name="pageSize" desc="页容量" type="Integer" default="15"/>
+        <item name="pathIds" desc="路径精确查询"/>
+        <item name="deptIdQueryInWithChild" desc="部门Id(包括子级)" type="Integer"/>
+        <item name="personIdQueryIn" desc="批量用户id,逗号分隔"/>
+        <item name="personNameQueryLike" desc="人员姓名查询"/>
+    </send>
+    <rcv>
+        <item name="total" type="Integer" desc="数据总量" default="0"/>
+        <item-list name="list" desc="list">
+            <item name="id" desc="id" type="Integer"/>
+            <item name="rootOrgId" desc="机构id" type="Integer"/>
+            <item name="orgId" desc="机构id" type="Integer" target="rootOrgId"/>
+            <item name="orgName" desc="机构名称" mapper="ORG_HASH" target="rootOrgId"/>
+            <item name="type" desc="类型" notes="1：人员机构中间表，0：人员部门中间表" type="Integer"/>
+            <item name="deptId" desc="部门Id" type="Integer"/>
+            <item name="deptName" desc="部门名称" target="deptId" mapper="ORG_HASH"/>
+            <item name="personId" desc="人员Id" type="Integer"/>
+            <item name="personName" desc="人员名称" target="personId" mapper="PERSON_HASH"/>
+            <item name="posId" desc="职位ID" type="Integer"/>
+            <item name="posName" desc="职位名称" target="posId" mapper="POS_HASH"/>
+            <item name="isMain" desc="主机构" notes="1-是" type="Integer"/>
+            <item name="isMainPerson" desc="主要负责人" notes="1:是  0:否" type="Integer"/>
+            <item name="orderNo" desc="顺序号" type="Integer"/>
+        </item-list>
+    </rcv>
+</trans>
+

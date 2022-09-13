@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="person/delete" desc="人员信息-删除" groupCode="person" group="人员管理">
+    <send>
+        <item name="idQueryIn" desc="ids" required="true"/>
+    </send>
+    <rcv>
+    </rcv>
+</trans>

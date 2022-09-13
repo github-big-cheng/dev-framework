@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.dounion.com"
+            targetNamespace="http://www.dounion.com"
+            elementFormDefault="qualified">
+
+    <xsd:element name="trans">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="send"/>
+                <xsd:element ref="rcv"/>
+            </xsd:sequence>
+            <xsd:attributeGroup ref="baseAttributes"/>
+            <xsd:attribute name="url" type="xsd:string"/>
+            <xsd:attribute name="group" type="xsd:string"/>
+            <xsd:attribute name="groupCode" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="send">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="item" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-list" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-tree" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-map" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-json" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="rcv">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="item" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-list" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-tree" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-map" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-json" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="item">
+        <xsd:complexType>
+            <xsd:attributeGroup ref="baseAttributes"/>
+            <xsd:attributeGroup ref="itemBaseAttributes"/>
+            <xsd:attributeGroup ref="itemAttributeGroup"/>
+            <xsd:attributeGroup ref="itemSendAttributes"/>
+            <xsd:attributeGroup ref="itemRcvAttributes"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:attributeGroup name="itemAttributeGroup">
+        <xsd:attribute name="type" type="dataType"/>
+        <xsd:attribute name="ignore-key" type="xsd:string"/>
+    </xsd:attributeGroup>
+
+    <xsd:element name="item-list">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="item" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-list" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-json" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-map" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-tree" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:attributeGroup ref="baseAttributes"/>
+            <xsd:attributeGroup ref="itemListAttributeGroup"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:attributeGroup name="itemListAttributeGroup">
+        <xsd:attribute name="type" type="dataType" fixed="List"/>
+        <xsd:attribute name="ignore-key" type="xsd:string"/>
+    </xsd:attributeGroup>
+
+    <xsd:element name="item-tree">
+        <xsd:annotation>
+            <xsd:documentation>树结构</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="item" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-list" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-json" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-map" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-tree" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:attributeGroup ref="baseAttributes"/>
+            <xsd:attributeGroup ref="itemTreeAttributeGroup"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:attributeGroup name="itemTreeAttributeGroup">
+        <xsd:attribute name="type" type="dataType" fixed="Tree"/>
+        <xsd:attribute name="ignore-key" type="xsd:string"/>
+        <xsd:attribute name="treeKey" use="required" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation>树结构递归使用的key</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="real-type" type="realType">
+            <xsd:annotation>
+                <xsd:documentation>实际数据类型</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:attributeGroup>
+
+    <xsd:element name="item-map">
+        <xsd:annotation>
+            <xsd:documentation>map格式数据</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="item" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-list" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-json" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-map" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-tree" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:attributeGroup ref="baseAttributes"/>
+            <xsd:attributeGroup ref="itemMapAttributeGroup"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:attributeGroup name="itemMapAttributeGroup">
+        <xsd:attribute name="type" type="dataType" fixed="Map"/>
+        <xsd:attribute name="ignore-key" type="xsd:string"/>
+        <xsd:attribute name="random-key" type="xsd:boolean">
+            <xsd:annotation>
+                <xsd:documentation>返回的数据key为动态时使用，如：{'1':{name:'a'},'2':{name:'b'}}</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="put-all" type="xsd:boolean">
+            <xsd:annotation>
+                <xsd:documentation>忽略数据解析，全部放入</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:attributeGroup>
+
+    <xsd:element name="item-json">
+        <xsd:annotation>
+            <xsd:documentation>json格式数据，请求与响应时的具体格式参考转换器定义</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="item" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-list" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-json" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-map" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="item-tree" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:attributeGroup ref="baseAttributes"/>
+            <xsd:attributeGroup ref="itemJsonAttributeGroup"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:attributeGroup name="itemJsonAttributeGroup">
+        <xsd:attribute name="type" type="dataType" fixed="JsonString"/>
+        <xsd:attribute name="real-type" type="realType">
+            <xsd:annotation>
+                <xsd:documentation>实际数据类型</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:attributeGroup>
+
+
+    <xsd:attributeGroup name="baseAttributes">
+        <xsd:annotation>
+            <xsd:documentation>
+                <![CDATA[[基础属性]]>
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:attribute name="name" type="xsd:string" use="required">
+            <xsd:annotation>
+                <xsd:documentation>字段对应的key</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="desc" type="xsd:string" use="required">
+            <xsd:annotation>
+                <xsd:documentation>描述，适宜简洁明了的描述字段定义，如需添加详细解释，请使用notes</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="notes" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation>详细描述，可对字段的取值范围，数据来源等做详细说明、举例等，是对desc的补充</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="target" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation>目标取值</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:attributeGroup>
+    <xsd:attributeGroup name="itemBaseAttributes">
+        <xsd:annotation>
+            <xsd:documentation>
+                <![CDATA[[item相关基础属性属性]]>
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:attribute name="index" type="xsd:int">
+            <xsd:annotation>
+                <xsd:documentation>字段索引，提供按序号字段比对</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:attributeGroup>
+    <xsd:attributeGroup name="itemSendAttributes">
+        <xsd:annotation>
+            <xsd:documentation>
+                <![CDATA[[请求数据相关属性]]>
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:attribute name="paramType" type="paramType" default="query">
+            <xsd:annotation>
+                <xsd:documentation>
+                    <![CDATA[[ 参数类型，默认query，支持路径传参（path）、请求头传参（header）]]>
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="required" type="xsd:boolean" default="false">
+            <xsd:annotation>
+                <xsd:documentation>是否必输，默认false</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="maxlength" type="xsd:positiveInteger">
+            <xsd:annotation>
+                <xsd:documentation>最大长度</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="regular" type="xsd:token">
+            <xsd:annotation>
+                <xsd:documentation>正则表达式</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="regular-type" type="regularType">
+            <xsd:annotation>
+                <xsd:documentation>
+                    <![CDATA[
+                        指定正则校验类型，外部扩展使用RegularTypeContext添加，支持多个同时，使用','分割
+                        字母：letter
+                        数字：number
+                        手机号：mobile
+                        网址：url
+                        邮箱：email
+                        身份证号：idCard
+                        邮政编码：postCode
+                        经度：longitude
+                        纬度：latitude
+                    ]]>
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="min" type="xsd:int">
+            <xsd:annotation>
+                <xsd:documentation>最小值</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="max" type="xsd:int">
+            <xsd:annotation>
+                <xsd:documentation>最大值</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:attributeGroup>
+    <xsd:attributeGroup name="itemRcvAttributes">
+        <xsd:annotation>
+            <xsd:documentation>
+                <![CDATA[响应数据相关属性]]>
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:attribute name="default" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation>默认值</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="mapper" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[值映射，详见ConvertDictionary]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="scale" type="xsd:positiveInteger">
+            <xsd:annotation>
+                <xsd:documentation>与Decimal、DecimalString配置使用，格式化返回数据的精度</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="thousandth" type="xsd:boolean">
+            <xsd:annotation>
+                <xsd:documentation>DecimalString配置使用，如为true，则增加千分位</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="fromPattern" type="datePattern">
+            <xsd:annotation>
+                <xsd:documentation>
+                    与日期格式（DataString）配合使用，标记源数据日期格式
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="toPattern" type="datePattern">
+            <xsd:annotation>
+                <xsd:documentation>
+                    与日期格式（DataString）配合使用，指定的返回数据日期格式
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:attributeGroup>
+
+    <xsd:attribute name="type" type="dataType" default="String">
+        <xsd:annotation>
+            <xsd:documentation>字段数据类型</xsd:documentation>
+        </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="ignore-key" type="xsd:boolean">
+        <xsd:annotation>
+            <xsd:documentation>当返回结果只有一个元素时（最外层元素），如ignore-key为true，则直接返回，忽略所需的key-value格式</xsd:documentation>
+        </xsd:annotation>
+    </xsd:attribute>
+
+    <xsd:simpleType name="dataType">
+        <xsd:annotation>
+            <xsd:documentation>
+                <![CDATA[[数据类型]]>
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="String"/>
+            <xsd:enumeration value="Boolean"/>
+            <xsd:enumeration value="Integer"/>
+            <xsd:enumeration value="Long"/>
+            <xsd:enumeration value="Decimal"/>
+            <xsd:enumeration value="DecimalString"/>
+            <xsd:enumeration value="DateString"/>
+            <xsd:enumeration value="List"/>
+            <xsd:enumeration value="JsonString"/>
+            <xsd:enumeration value="Map"/>
+            <xsd:enumeration value="Tree"/>
+            <xsd:enumeration value="File"/>
+            <xsd:enumeration value="FileList"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+
+    <xsd:simpleType name="realType">
+        <xsd:annotation>
+            <xsd:documentation>
+                <![CDATA[[realType取值范围]]>
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="List"></xsd:enumeration>
+            <xsd:enumeration value="Map"></xsd:enumeration>
+            <xsd:enumeration value="Tree"></xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="paramType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="path"></xsd:enumeration>
+            <xsd:enumeration value="query"></xsd:enumeration>
+            <xsd:enumeration value="header"></xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="regularType">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="datePattern">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="yyyy"></xsd:enumeration>
+            <xsd:enumeration value="MM"></xsd:enumeration>
+            <xsd:enumeration value="MMdd"></xsd:enumeration>
+            <xsd:enumeration value="yyyyMM"></xsd:enumeration>
+            <xsd:enumeration value="yyyyMMdd"></xsd:enumeration>
+            <xsd:enumeration value="yyyy-MM-dd"></xsd:enumeration>
+            <xsd:enumeration value="yyyy-MM-dd HH:mm:ss"></xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+</xsd:schema>

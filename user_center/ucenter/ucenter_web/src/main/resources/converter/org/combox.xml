@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="org/combox" desc="下拉框" group="部门管理" groupCode="org">
+    <send>
+        <item name="id" desc="部门id" type="Integer"/>
+        <item name="cNameOrCodeOrSnameOrLinkerQueryLike" desc="名称、代码、简称、联系人"/>
+        <item name="compType" desc="类型" notes="10027-10:部门, 10027-20:公司/往来单位, 10027-30:集团"/>
+        <item name="cnameQueryLike" desc="部门名称模糊搜索"/>
+    </send>
+    <rcv>
+        <item-list name="list" desc="list" ignore-key="true">
+            <item name="id" desc="id" type="Integer"/>
+            <item name="code" desc="代码"/>
+            <item name="cname" desc="名称"/>
+            <item name="pathIds" desc="路径" notes="ROOT_ID-10001-10002…"/>
+            <item name="pathNames" desc="路径名称" notes="ROOT_ID-10001-10002…"/>
+            <item name="ename" desc="英文名称"/>
+            <item name="sname" desc="简称"/>
+            <item name="linker" desc="企业/部门联系人"/>
+            <item name="linkId" desc="联系人id"/>
+            <item name="linkerMobilePhone" desc="联系人手机号"/>
+            <item name="telephone" desc="办公室电话"/>
+            <item name="fax" desc="传真"/>
+            <item name="orderNo" desc="顺序号" type="Integer"/>
+            <item name="parentId" desc="上级部门" type="Integer"/>
+            <item name="parentValue" desc="上级部门名称" mapper="ORG_HASH" target="parentId"/>
+            <item name="compType" desc="类型" notes="10027-10 部门, 10027-20 公司/往来单位, 10027-30 集团"/>
+            <item name="memo" desc="备注"/>
+
+            <item-map name="info" desc="info" put-all="true">
+
+            </item-map>
+        </item-list>
+    </rcv>
+</trans>

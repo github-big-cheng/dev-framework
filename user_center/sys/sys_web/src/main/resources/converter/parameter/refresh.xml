@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="sysParameter/refresh" desc="刷新缓存" group="系统参数" groupCode="sysParameter">
+    <send>
+        <item name="orgId" desc="机构ID" required="true"/>
+    </send>
+    <rcv>
+    </rcv>
+</trans>

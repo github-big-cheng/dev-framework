@@ -1,0 +1,69 @@
+@import "./mixin.scss";
+
+.title-box {
+    position: relative;
+    display: flex;
+    margin-top: 20px;
+    padding-bottom: 5px;
+    &.center{
+        margin-top: 10px;
+        align-items: center;
+        justify-content: center;
+        .title-text {
+            @include fontSize(22px);
+        }
+    }
+    &.right{
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+.title-line {
+    position: relative;
+    display: inline-block;
+    @include wh(4px,12px);
+    margin-right: 10px;
+    background: $cBlue;
+}
+
+.title-icon{
+    margin-right: 5px;
+    line-height: 32px;
+    @include fontSize(18px);
+}
+
+.title-text {
+    position: relative;
+    line-height: 32px;
+    @include fontSize(16px);
+    color: $cGray3;
+}
+
+.title-first {
+    margin-top: 0;
+}
+
+.title-bgcolor{
+    padding-left: 10px;
+    background-color: $cGrayf4;
+    margin-bottom: 10px;
+    min-height: 30Px;/*no*/
+    height: 34px;
+    align-items: center;
+    .title-line{
+        top: 0;
+    }
+}
+
+.title-fold{
+    i{
+        font-size: 16px;
+        color: $cBlue;
+        margin-right: 5px;
+    }
+}
+
+/deep/.title-right{
+    color: #999;
+}

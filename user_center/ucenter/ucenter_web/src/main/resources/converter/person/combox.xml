@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="person/combox" desc="人员信息-下拉列表" groupCode="person" group="人员管理">
+    <send>
+        <item name="sex" desc="性别" notes="TYPE=10001-10004"/>
+        <item name="marriage" desc="婚姻状况" notes="TYPE=10001-10005"/>
+        <item name="education" desc="学历状况" notes="TYPE=10001-10006"/>
+        <item name="roleIdQuery" desc="角色id精确查询" type="Integer"/>
+        <item name="nameQueryLike" desc="姓名模糊查询"/>
+        <item name="nameOrAccountQueryLike" desc="姓名或者账号模糊查询"/>
+        <item name="pathIds" desc="路径精确查询"/>
+    </send>
+    <rcv>
+        <item-list ignore-key="true" desc="list" name="list">
+            <!-- 基本信息 -->
+            <item name="id" desc="人员id" type="Integer"/>
+            <item name="orgId" desc="机构ID" type="Integer"/>
+            <item name="orgName" desc="机构名称"/>
+            <item name="name" desc="姓名"/>
+            <item name="jobNo" desc="工号"/>
+            <item name="idNo" desc="身份证号码"/>
+            <item name="mobile" desc="手机"/>
+            <item name="personState" desc="员工状态"/>
+
+            <!-- 基本信息 -->
+            <item name="sex" desc="性别 TYPE=10001-10004, 10004-10:男 10004-20:女 "/>
+            <item name="sexName" desc="性别" mapper="CODE_HASH" target="sex"/>
+            <item name="marriage" desc="婚姻状况 TYPE=10001-10005, 10005-10:已婚  10005-20:未婚 "/>
+            <item name="marriageName" desc="婚姻状况" mapper="CODE_HASH" target="marriage"/>
+            <item name="birthday" desc="出生日期"/>
+            <item name="nation" desc="民族"/>
+            <item name="nationName" desc="民族" target="nation" mapper="CODE_HASH"/>
+            <item name="telephone" desc="电话"/>
+            <item name="email" desc="email地址"/>
+            <item name="memo" desc="备注"/>
+
+
+            <item name="userId" desc="userId" type="Integer"/>
+            <item name="account" desc="人员账号"/>
+            <item name="accountStatus" desc="账号状态 1-正常 2-冻结(锁定) 3-注销" type="Integer"/>
+
+            <!-- personInfo信息 -->
+            <item-map name="info" desc="扩展信息" put-all="true">
+                <item name="imeiNo" desc="IMEI号码"/>
+                <item name="imsiNo" desc="IMSI号码"/>
+                <item name="zipcode" desc="邮编"/>
+                <item name="homeProvince" desc="籍贯省份"/>
+                <item name="homeProvinceName" desc="籍贯省份" mapper="CODE_HASH" target="homeProvince"/>
+                <item name="homeCity" desc="籍贯城市"/>
+                <item name="homeCityName" desc="籍贯城市" mapper="CODE_HASH" target="homeCity"/>
+                <item name="homeCounty" desc="籍贯县"/>
+                <item name="homeCountyName" desc="籍贯县" mapper="CODE_HASH" target="homeCounty"/>
+                <item name="address" desc="家庭住址"/>
+                <item name="joinPartyDate" desc="入党日期"/>
+                <item name="political" desc="政治面貌"/>
+                <item name="politicalName" desc="政治面貌" target="political" mapper="CODE_HASH"/>
+                <item name="education" desc="学历" notes="TYPE=10006"/>
+                <item name="educationName" desc="学历" mapper="CODE_HASH" target="education"/>
+                <item name="degree" desc="学位"/>
+                <item name="degreeName" desc="学位" mapper="CODE_HASH" target="degree"/>
+                <item name="graduateTime" desc="毕业时间"/>
+                <item name="graduateSchool" desc="毕业院校"/>
+                <item name="major" desc="专业"/>
+                <item name="beginWorkTime" desc="参加工作时间"/>
+                <item name="workTime" desc="入职时间"/>
+                <item name="resignationTime" desc="离职时间"/>
+                <item name="resignationReason" desc="离职原因"/>
+            </item-map>
+        </item-list>
+    </rcv>
+</trans>

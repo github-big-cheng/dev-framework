@@ -1,0 +1,297 @@
+@import "./mixin.scss";
+
+.node-info {
+    ul {
+        @include flex;
+    }
+    li {
+        @include flexBoxAlign;
+        margin-right: 20px;
+        .info-status {
+            @include wh(14px,14px);
+            @include borderRadius(2px);
+            margin-right: 5px;
+            @include bordered($cGrayc);
+            background-color: $cWhite;
+        }
+        .info-status1{
+            border-color: $cPurple;
+            background-color: #FEF9FF;
+        }
+        .info-status2{
+            border-color: $cOrange;
+            background-color: #FFF9F5;
+        }
+        .info-status3{
+            border-color: $cBlue;
+            background-color: #F5FAFF;
+        }
+        .info-status4,.info-status5{
+            border-color: $cRed;
+            background-color: #FFF8F8;
+        }
+        .info-status6{
+            border-color: $cBlue2;
+            background-color: #F2FDFF;
+        }
+        .info-status7{
+            border-color: $cBlue;
+            background-color: #F5FAFF;
+        }
+        .info-text {
+            font-size: 12px;
+            font-weight: 400;
+            color: $cGray3;
+            line-height: 6px;
+        }
+    }
+}
+/deep/.flow-img{
+    svg {
+        position: relative;
+    }
+    .step-purple {
+        fill: #fef9ff;
+        stroke: $cPurple;
+    }
+    .step-orange {
+        fill: #fff9f5;
+        stroke: $cOrange;
+    }
+    .status-red {
+        color: $cOrange;
+    }
+    .step-redImportant {
+        fill: #fcf9f9;
+        stroke: #8b0802;
+    }
+    .status-blue {
+        color: $cBlue;
+    } 
+    .step-blue {
+        fill: #f5faff;
+        stroke: $cBlue;
+    }
+    .step-red {
+        fill: #fff8f8;
+        stroke: #ff3e3c;
+    }
+    .step-green {
+        fill: #f2fdff;
+        stroke: #4b97a7;
+    }
+    .step-gray {
+        fill: $cWhite;
+        stroke: $cGrayc;
+    }
+    .step-passed,
+    .step-nopass {
+        stroke: $cGray9;
+        fill: $cWhite;
+        stroke-width: 1px;
+        border-radius: 4px;
+    }
+    .step-start,.step-noend {
+        stroke: $cBlue;
+        stroke-width: 5px;
+        fill: $cGrayf5;
+        r:8;
+    }
+    .step-noend {
+        stroke: $cGrayc;
+    }
+    .step-passed {
+        stroke: $cOrange;
+        stroke-width: 1px;
+        fill: #fff9f5;
+    }
+    .step-nopass {
+        stroke: $cGrayc;
+        stroke-width: 1px;
+    }
+    .step-line,
+    .step-hline {
+        stroke: $cGray9;
+        stroke-width: 2px;
+    }
+    .step-start-text,
+    .step-end-text {
+        display: none;
+    }
+    .step-con {
+        font-size: 12px !important;
+    }
+    .step-text-con {
+        font-size: 12px !important;
+    }
+    .step-branch {
+        fill: $cWhite;
+        stroke: $cGrayc;
+        stroke-width: 2px;
+        position: relative;
+    }
+    .step-branch-h {
+        stroke: $cBlue;
+        stroke-width: 2px;
+    }
+    .step-branch::before {
+        content: "";
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 20px;
+        height: 2px;
+    }
+    .icon {
+        width: 1em;
+        height: 1em;
+        vertical-align: -0.15em;
+        fill: currentColor;
+        overflow: hidden;
+    }
+}
+.flow-info-box {
+    display: none;
+    position: absolute;
+    z-index: 999;
+    padding-top: 20px;
+}
+.flow-info {
+    max-height: 300px;
+    overflow-y: auto;
+    width: 300px;
+    background: $cWhite;
+    box-shadow: 1px 1px 3px 1px #00000026;
+    border-color: $cGraye2;
+    .info-header {
+        min-height: 14Px/*no*/;
+        padding: 5px 35px 5px 10px;
+        overflow: hidden;
+        border-width: 0 0 1px;
+        font-weight: bold;
+        background-color: $cGrayf1;
+        .info-header-status {
+            color: $cBlue;
+        }
+    }
+    .unenforced {
+        color: $cBlue;
+    }
+    .table-box {
+        padding: 10px;
+    
+        /deep/.el-table:last-child {
+            margin-bottom: 0;
+        }
+    }
+    /deep/.el-table td {
+        padding: 0;
+    }
+    /deep/.el-table__column-resize-proxy {
+        border: none;
+    }
+}
+
+.bgn {
+    background: none;
+}
+
+/deep/ .el-step__line-inner {
+    display: none;
+}
+
+/deep/ .step-activiti {
+    position: relative;
+    box-sizing: border-box;
+    padding: 15px 25px 15px 25px;
+}
+.btn-flow-table {
+    position: absolute;
+    right: 20px;
+    bottom: 36px;
+    @include flexBox;
+    @include wh(40px,26px);
+}
+
+/deep/.el-step__title {
+    font-size: 0.12rem;
+    line-height: 0.14rem;
+    height: 0.26rem;
+    text-align: center;
+    @include flexBox;
+
+    &.is-wait {
+        color: $cGray9;
+    }
+}
+
+/deep/.el-step__main {
+    position: absolute;
+    top: -0.32rem;
+    width: 0.84rem;
+    margin-left: -0.32rem;
+}
+
+/deep/.el-step__icon-inner {
+    display: none;
+}
+
+/deep/.el-step__icon {
+    position: relative;
+    @include wh(20px,20px);
+    border: 5px solid $cGrayc;
+    background-color: $cGrayf5;
+}
+
+/deep/.el-step__line {
+    top: 6px;
+    height: 9px;
+    background-color: $cGraye;
+}
+
+/deep/.el-step__head {
+    &.is-success {
+        .el-step__title {
+            color: $cBlue;
+        }
+
+        .el-step__icon {
+            border-color: $cBlue;
+        }
+
+        .el-step__line {
+            background-color: #e7f4ff;
+        }
+    }
+
+    &.is-process {
+        .el-step__title {
+            color: $cOrange;
+            font-weight: normal;
+        }
+
+        .el-step__icon {
+            border-color: $cOrange;
+
+            &::before {
+                content: "";
+                position: absolute;
+                z-index: -1;
+                @include wh(32px,32px);
+                background-color: rgba(255, 141, 49, 0.2);
+                border-radius: 100%;
+            }
+        }
+    }
+}
+
+/deep/.el-step__main {
+    .el-step__title.is-success {
+        color: $cGray3;
+    }
+
+    .el-step__title.is-process {
+        color: $cOrange;
+        font-weight: normal;
+    }
+}

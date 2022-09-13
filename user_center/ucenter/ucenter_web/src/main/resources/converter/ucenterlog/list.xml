@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="ucenterlog/list" desc="登录日志" group="登录日志" groupCode="ucenterlog">
+    <send>
+        <!--这里存放的是参数,之后补充完善-->
+        <item name="pageNo" desc="页码" type="Integer" default="1"/>
+        <item name="pageSize" desc="页容量" type="Integer" default="15"/>
+        <item name="type" desc="操作类型" scope="10078-10,10078-20"/>
+        <item name="timeQueryGe" desc="开始时间"/>
+        <item name="timeQueryLe" desc="结束时间"/>
+        <item name="accountQueryLike" desc="操作人员账号"/>
+    </send>
+    <rcv>
+        <item name="total" type="Integer" desc="id" default="0"/>
+        <item-list name="list" desc="">
+            <item name="id" desc="id" type="Integer"/>
+            <item name="orgId" desc="公司id" type="Integer"/>
+            <item name="orgName" desc="公司名称"/>
+            <item name="time" desc="操作时间" />
+            <item name="type" desc="操作类型" />
+            <item name="typeName" desc="操作类型" target="type" mapper="CODE_HASH" />
+            <item name="ip" desc="ip地址"/>
+            <item name="opContent" desc="事件内容"/>
+            <item name="ipName" desc="表单签名打印规则名称" mapper="CODE_HASH" target="ip"/>
+            <item name="machineName" desc="计算机名"/>
+            <item name="userId" type="Integer" desc="用户ID T_UCENTER_USER"/>
+            <item name="opState" type="Integer" desc="操作状态"/>
+            <item name="createBy" type="Integer" desc="创建人 T_UCENTER_USER"/>
+            <item name="createByValue" desc="创建人姓名" mapper="USER_PERSON_NAME_HASH" target="updateBy" />
+            <item name="createTime" desc="创建时间 "/>
+            <item name="updateBy" type="Integer" desc="修改人"/>
+            <item name="updateByValue" desc="修改人姓名" mapper="USER_PERSON_NAME_HASH" target="updateBy"/>
+            <item name="updateTime" desc="修改时间 "/>
+        </item-list>
+    </rcv>
+</trans>

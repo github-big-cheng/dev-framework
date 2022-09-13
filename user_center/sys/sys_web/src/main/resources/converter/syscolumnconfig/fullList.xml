@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="sysColumnConfig/fulllist" desc="配置列表查询" group="自定义界面配置" groupCode="sysColumnConfig">
+    <send>
+        <item name="code" desc="界面code" notes="ex:ucenter_person_list" required="true"/>
+    </send>
+    <rcv>
+        <item-list name="list" desc="list" ignore-key="true">
+            <item name="code" desc="页面代码" notes="example:ucenter_person_list"/>
+            <item name="name" desc="页面名称"/>
+            <item name="colKey" desc="字段key"/>
+            <item name="colName" desc="字段名称"/>
+            <item name="colWidth" desc="字段名称"/>
+            <item name="height" desc="字段名称"/>
+            <item name="orderNo" desc="排序号"/>
+            <item name="isSelected" desc="是否选中"/>
+            <item name="newName" desc="新名称"/>
+            <item name="newOrderNo" desc="新排序号"/>
+        </item-list>
+    </rcv>
+</trans>

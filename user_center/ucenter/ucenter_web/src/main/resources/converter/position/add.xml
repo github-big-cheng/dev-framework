@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="ucenterPosition/add" desc="职位管理-新增" group="职位管理" groupCode="ucenterPosition">
+    <send>
+        <item name="name" desc="名称" required="true"/>
+        <item name="code" desc="代码" required="true"/>
+        <item name="type" desc="职务类型"/>
+        <item name="memo" desc="备注"/>
+    </send>
+    <rcv>
+        <item name="id" desc="id" type="Integer" ignore-key="true"/>
+    </rcv>
+</trans>
+

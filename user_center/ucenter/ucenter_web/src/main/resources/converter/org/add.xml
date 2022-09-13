@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE trans SYSTEM "converter.dtd">
+<trans name="org/add" desc="新增" group="部门管理" groupCode="org">
+    <send>
+        <!-- 基础信息 ucenterOrg -->
+        <item name="code" desc="代码" required="true"/>
+        <item name="cname" desc="中文名称" required="true"/>
+        <item name="compType" desc="类型" required="true"
+              notes="TYPE=10001-10027 10027-10:部门,10027-20:公司"/>
+        <item name="pathIds" desc="路径" notes="ROOT_ID-10001-10002…"/>
+        <item name="pathNames" desc="路径名称" notes="ROOT_ID-10001-10002…"/>
+        <item name="ename" desc="英文名称"/>
+        <item name="sname" desc="简称"/>
+        <item name="linker" desc="企业/部门联系人"/>
+        <item name="linkId" desc="联系人id" type="Integer"/>
+        <item name="linkerMobilePhone" desc="联系人手机号"/>
+        <item name="telephone" desc="办公电话"/>
+        <item name="parentId" desc="上级部门ID" type="Integer"/>
+        <item name="orderNo" desc="顺序号" type="Integer"/>
+        <item name="memo" desc="备注"/>
+
+        <!--详细信息 ucenterOrgInfo-->
+        <item-map name="info" desc="info" put-all="true">
+
+        </item-map>
+    </send>
+    <rcv>
+        <item name="id" desc="id" type="Integer" ignore-key="true"/>
+    </rcv>
+</trans>

@@ -1,0 +1,155 @@
+@import "./mixin.scss";
+.tags-view-container {
+    position: absolute;
+    top: 10Px;/*no*/
+    left: 10px;
+    right: 10px;
+    z-index: 100!important;
+    height: 30Px;
+    width: calc(100% - 20px);
+    background: $cWhite;
+    border-bottom: 1px solid $cBlue;
+    // border-top: 1px solid $cGraye;
+    display: flex;
+
+    .tags-view-item {
+        display: inline-block;
+        position: relative;
+        min-width: 60px;
+        overflow: hidden;
+        cursor: pointer;
+        height: 30Px;
+        line-height: 30Px;
+        border-right: 1px solid $cGraye;
+        color: #495060;
+        text-align: center;
+        background: $cWhite;
+        padding: 0 8px 0 11px;
+        @include fontSize;
+
+        &.active {
+            background-color: $cBlue;
+            color: $cWhite;
+            border-color: $cBlue;
+
+            .el-icon-close:hover {
+                color: $cWhite;
+            }
+        }
+
+        .el-icon-close {
+            width: 16px;
+            height: 16px;
+            vertical-align: 2px;
+            border-radius: 50%;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+            transform-origin: 100% 50%;
+
+            &:before {
+                display: inline-block;
+                vertical-align: -3px;
+            }
+
+            &:hover {
+                color: $cBlue;
+            }
+        }
+        .svgIcon {
+            transition: all .3s;
+        }
+        .affix {
+            transform: rotate(-46deg);
+        }
+    }
+
+    .fix-tag{
+        position: absolute;
+        top:-10px;
+        right:-10px;
+        width: 22px;
+        height: 22px;
+        border-radius: 100%;
+        background-color: #ddd;
+        .el-icon-aliguding{
+            position: absolute;
+            left: 1px;
+            bottom: 1px;
+            font-size: 12px;
+            color: #6cb2eb;
+            transform: scale(.8);
+        }
+    }
+
+    .router-link-active{
+        .fix-tag{
+            background-color: rgba(255,255,255,.5);
+            .el-icon-aliguding{
+                color: $cBlue;
+            }
+        }
+    }
+
+    .tags-view-contextmenu {
+        margin: 0;
+        background: $cWhite;
+        z-index: 999999;
+        position: absolute;
+        list-style-type: none;
+        padding: 5px 0;
+        border-radius: 4px;
+        @include fontSize;
+        font-weight: 400;
+        color: $cGray3;
+        box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
+
+        li {
+            margin: 0;
+            padding: 7px 16px;
+            cursor: pointer;
+
+            &:hover {
+                background: $cGraye;
+            }
+        }
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: none;
+    }
+
+    ::-webkit-scrollbar-track {
+        box-shadow: none;
+    }
+
+    .tags-view-left,
+    .tags-view-right {
+        width: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        i {
+            color: $cGray9;
+            @include fontSize;
+        }
+    }
+
+    .tags-view-left {
+        border-right: 1px solid $cGraye;
+    }
+
+    .tags-view-right {
+        border-left: 1px solid $cGraye;
+    }
+}
+@media screen and (min-width: 1501px) {
+    .tags-view-container {
+        height: 32px;
+        .tags-view-item {
+            height: 32px;
+            line-height: 32px; 
+        }
+    }
+}

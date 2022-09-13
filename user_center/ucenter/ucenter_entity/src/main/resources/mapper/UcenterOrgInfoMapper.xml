@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wisely.ucenter.mapper.UcenterOrgInfoMapper">
+
+    <resultMap type="com.wisely.ucenter.entity.UcenterOrgInfo" id="BaseResultMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="orgId" column="org_id" jdbcType="INTEGER"/>
+        <result property="fieldKey" column="field_key" jdbcType="VARCHAR"/>
+        <result property="fieldValue" column="field_value" jdbcType="VARCHAR"/>
+        <result property="opState" column="op_state" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="BaseColumn">
+        t.id,        
+        t.org_id,        
+        t.field_key,        
+        t.field_value,        
+        t.op_state,        
+        t.create_by,        
+        t.create_time,        
+        t.update_by,        
+        t.update_time,        
+        t.is_deleted        
+    </sql>
+    
+    <!-- 动态字段 -->
+    <sql id="DynamicColumn">
+        <if test="orgId != null"> 
+            org_id, 
+        </if>
+        <if test="fieldKey != null and fieldKey != ''"> 
+            field_key, 
+        </if>
+        <if test="fieldValue != null and fieldValue != ''"> 
+            field_value, 
+        </if>
+        <if test="opState != null"> 
+            op_state, 
+        </if>
+        <if test="createBy != null"> 
+            create_by, 
+        </if>
+        <if test="createTime != null and createTime != ''"> 
+            create_time, 
+        </if>
+        <if test="updateBy != null"> 
+            update_by, 
+        </if>
+        <if test="updateTime != null and updateTime != ''"> 
+            update_time, 
+        </if>
+        <if test="isDeleted != null"> 
+            is_deleted, 
+        </if>
+    </sql>
+    
+    <!-- 动态值 -->
+    <sql id="DynamicValue">
+        <if test="orgId != null">
+            #{orgId},
+        </if>
+        <if test="fieldKey != null and fieldKey != ''">
+            #{fieldKey},
+        </if>
+        <if test="fieldValue != null and fieldValue != ''">
+            #{fieldValue},
+        </if>
+        <if test="opState != null">
+            #{opState},
+        </if>
+        <if test="createBy != null">
+            #{createBy},
+        </if>
+        <if test="createTime != null and createTime != ''">
+            #{createTime},
+        </if>
+        <if test="updateBy != null">
+            #{updateBy},
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            #{updateTime},
+        </if>
+        <if test="isDeleted != null">
+            #{isDeleted},
+        </if>
+    </sql>
+    
+    <!-- 动态赋值 -->
+    <sql id="DynamicSet">
+        <if test="orgId != null">
+            org_id = #{orgId},
+        </if>
+        <if test="fieldKey != null">
+            field_key = #{fieldKey},
+        </if>
+        <if test="fieldValue != null">
+            field_value = #{fieldValue},
+        </if>
+        <if test="opState != null">
+            op_state = #{opState},
+        </if>
+        <if test="createBy != null">
+            create_by = #{createBy},
+        </if>
+        <if test="createTime != null">
+            create_time = #{createTime},
+        </if>
+        <if test="updateBy != null">
+            update_by = #{updateBy},
+        </if>
+        <if test="updateTime != null">
+            update_time = #{updateTime},
+        </if>
+        <if test="isDeleted != null">
+            is_deleted = #{isDeleted},
+        </if>
+    </sql>
+    
+    <!-- 动态条件 -->
+    <sql id="DynamicWhere">
+        <if test="orgId != null">
+            and t.org_id = #{orgId}
+        </if>
+        <if test="fieldKey != null and fieldKey != ''">
+            and t.field_key = #{fieldKey}
+        </if>
+        <if test="fieldValue != null and fieldValue != ''">
+            and t.field_value = #{fieldValue}
+        </if>
+        <if test="opState != null">
+            and t.op_state = #{opState}
+        </if>
+        <if test="createBy != null">
+            and t.create_by = #{createBy}
+        </if>
+        <if test="createTime != null and createTime != ''">
+            and t.create_time = #{createTime}
+        </if>
+        <if test="updateBy != null">
+            and t.update_by = #{updateBy}
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            and t.update_time = #{updateTime}
+        </if>
+        <if test="isDeleted != null">
+            and t.is_deleted = #{isDeleted}
+        </if>
+    </sql>
+
+    <!--查询单个-->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select <include refid="BaseColumn" />
+        from  t_ucenter_org_info t
+        where id = #{id}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.wisely.ucenter.entity.UcenterOrgInfo">
+        insert into t_ucenter_org_info  (
+            org_id,            
+            field_key,            
+            field_value,            
+            op_state,            
+            create_by,            
+            create_time,            
+            update_by,            
+            update_time,            
+            is_deleted            
+        )  values  (
+            #{orgId},            
+            #{fieldKey},            
+            #{fieldValue},            
+            #{opState},            
+            #{createBy},            
+            #{createTime},            
+            #{updateBy},            
+            #{updateTime},            
+            #{isDeleted}            
+        )
+    </insert>
+    
+    <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.wisely.ucenter.entity.UcenterOrgInfo">
+        insert into  t_ucenter_org_info        
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <include refid="DynamicColumn" />
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <include refid="DynamicValue" />
+        </trim>
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="updateByPrimaryKey" parameterType="com.wisely.ucenter.entity.UcenterOrgInfo">
+        update t_ucenter_org_info        
+        <set>
+            org_id = #{orgId},
+            field_key = #{fieldKey},
+            field_value = #{fieldValue},
+            op_state = #{opState},
+            create_by = #{createBy},
+            create_time = #{createTime},
+            update_by = #{updateBy},
+            update_time = #{updateTime},
+            is_deleted = #{isDeleted},
+        </set>
+        where  id = #{id}
+    </update>
+    
+    <!-- 通过主键动态修改数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.wisely.ucenter.entity.UcenterOrgInfo">
+        update t_ucenter_org_info        
+        <trim prefix="set" suffixOverrides="," >
+            <include refid="DynamicSet" />
+        </trim>
+        where id = #{id}
+    </update>
+    
+    
+    <!-- 根据条件动态修改数据 -->
+    <update id="updateBySelective" parameterType="com.wisely.ucenter.entity.UcenterOrgInfo">
+        update t_ucenter_org_info t
+        <trim prefix="set" suffixOverrides="," >
+            <include refid="DynamicSet" />
+        </trim>
+        <trim prefix="where" prefixOverrides="AND | OR" >
+            <choose>
+                <!-- 为避免全表更新，至少有一个查询条件 -->
+                <otherwise>
+                   and id = #{id}
+                </otherwise>
+            </choose>
+        </trim>
+    </update>
+    
+
+    <!--通过主键删除-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from  t_ucenter_org_info        
+        where id = #{id}
+    </delete>
+
+
+    <delete id="deleteByPersonId" parameterType="java.lang.Integer">
+        delete from t_ucenter_org_info
+        where org_id = #{orgId}
+    </delete>
+    
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectListBySelective" parameterType="com.wisely.ucenter.entity.UcenterOrgInfo" resultMap="BaseResultMap">
+        select <include refid="BaseColumn" />
+        from  t_ucenter_org_info t
+        <trim prefix="where " prefixOverrides="AND | OR" >
+            <include refid="DynamicWhere" />
+        </trim>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                order by ${orderBy}
+            </when>
+            <otherwise>
+                order by t.id desc
+            </otherwise>
+        </choose>
+    </select>
+
+</mapper>
+

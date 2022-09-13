@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+        <!ELEMENT trans (send, rcv) >
+        <!ATTLIST trans
+                name CDATA #REQUIRED
+                desc CDATA #REQUIRED
+                group CDATA #IMPLIED
+                groupCode CDATA #IMPLIED>
+
+        <!ELEMENT send (item|item-list|item-tree|item-map|item-json)* >
+        <!ELEMENT rcv (item|item-list|item-tree|item-map|item-json)* >
+
+        <!ELEMENT item EMPTY>
+        <!ATTLIST item
+                index CDATA #IMPLIED
+                name CDATA #REQUIRED
+                desc CDATA #REQUIRED
+                type (String|Boolean|Integer|Long|Decimal|DecimalString|DateString|List|JsonString|Map|Tree|File|FileList) "String"
+                notes CDATA #IMPLIED
+                ignore-key (true|false) "false"
+                paramType (path|query|header) "query"
+                required (true|false) "false"
+                default CDATA #IMPLIED
+                mapper CDATA #IMPLIED
+                target CDATA #IMPLIED
+                fromPattern CDATA #IMPLIED
+                toPattern CDATA #IMPLIED
+                scale CDATA #IMPLIED
+                thousandth (true|false) "false"
+                lsub CDATA #IMPLIED
+                rsub CDATA #IMPLIED
+                lpad CDATA #IMPLIED
+                rpad CDATA #IMPLIED
+                padLen CDATA #IMPLIED
+                maxlength CDATA #IMPLIED
+                regular CDATA #IMPLIED
+                regular-type (letter|number|mobile|url|email|idCard|postCode|longitude|latitude) #IMPLIED
+                min CDATA #IMPLIED
+                max CDATA #IMPLIED
+                between CDATA #IMPLIED
+                scope CDATA #IMPLIED>
+
+        <!ELEMENT item-list (item|item-list|item-tree|item-map|item-json)*>
+        <!ATTLIST item-list
+                name CDATA #REQUIRED
+                desc CDATA #REQUIRED
+                notes CDATA #IMPLIED
+                target CDATA #IMPLIED
+                maxlength CDATA #IMPLIED
+                required (true|false) "false"
+                ignore-key (true|false) "false"
+                put-all (true|false) "false"
+                type (List) "List">
+
+        <!ELEMENT item-map (item|item-list|item-tree|item-map|item-json)*>
+        <!ATTLIST item-map
+                name CDATA #REQUIRED
+                desc CDATA #REQUIRED
+                notes CDATA #IMPLIED
+                type (Map) "Map"
+                target CDATA #IMPLIED
+                required (true|false) "false"
+                ignore-key (true|false) "false"
+                put-all (true|false) "false"
+                random-key CDATA #IMPLIED>
+
+        <!ELEMENT item-tree (item|item-list|item-tree|item-map|item-json)*>
+        <!ATTLIST item-tree
+                name CDATA #REQUIRED
+                desc CDATA #REQUIRED
+                notes CDATA #IMPLIED
+                target CDATA #IMPLIED
+                treeKey CDATA #REQUIRED
+                ignore-key (true|false) "false"
+                put-all (true|false) "false"
+                type (Tree) "Tree"
+                real-type (List|Map) #REQUIRED
+                required (true|false) "false">
+
+        <!ELEMENT item-json (item|item-list|item-tree|item-map|item-json)*>
+        <!ATTLIST item-json
+                name CDATA #REQUIRED
+                desc CDATA #REQUIRED
+                notes CDATA #IMPLIED
+                target CDATA #IMPLIED
+                type (JsonString) "JsonString"
+                real-type (List|Map|Tree) #REQUIRED
+                required (true|false) "false">
