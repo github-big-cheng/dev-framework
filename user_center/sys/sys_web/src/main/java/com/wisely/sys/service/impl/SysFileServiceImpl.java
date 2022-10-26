@@ -35,7 +35,7 @@ public class SysFileServiceImpl implements SysFileService {
         String orgName = input.getString("orgName"); // 机构名称
         String sourceType = input.getString("sourceType"); // 业务类型
         String sourceId = input.getString("sourceId"); // 源id
-        String uploadTime = input.getString("uploadTime"); // 上传时间
+        String uploadTime = input.getString("uploadTime", DateHelper.formatNow()); // 上传时间
 
         // 删除原文件信息
         if (!input.getBoolean("isAppend")) {
@@ -69,12 +69,10 @@ public class SysFileServiceImpl implements SysFileService {
             itemRecord.setUploadTime(uploadTime); // 上传时间
 
             // 文件信息
-            String filename = item.getString("fileName");
-            String fileType = item.getString("fileType");
-            itemRecord.setFilename(filename);
+            itemRecord.setFilename(item.getString("fileName"));
             itemRecord.setRealPath(item.getString("filePath")); // 文件路径
             itemRecord.setAttachSize(item.getLong("fileSize"));
-            itemRecord.setExtension(fileType); // 文件类型
+            itemRecord.setExtension(item.getString("fileType")); // 文件类型
 
             itemRecord.setIsDeleted(0);
             itemRecord.setCreateTime(now);

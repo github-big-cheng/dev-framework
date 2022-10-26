@@ -406,7 +406,8 @@ public class UcenterPersonServiceImpl implements UcenterPersonService, UcenterCo
                 Model.builder()
                         .set("sourceType", FILE_IMAGE_CODE)
                         .set("sourceId", record.getId())
-                        .set("personId", UserHelper.getPersonId())
+                        .set("uploaderId", UserHelper.getPersonId())
+                        .set("uploader", UserHelper.getPersonName())
                         .set("uploadTime", DateHelper.formatNow())
                         .set("files", Lists.newArrayList(personImg)));
     }

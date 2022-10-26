@@ -6,6 +6,8 @@
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="orgId" column="org_id" jdbcType="INTEGER"/>
         <result property="orgName" column="org_name" jdbcType="VARCHAR"/>
+        <result property="uploaderId" column="uploader_id" jdbcType="VARCHAR"/>
+        <result property="uploader" column="uploader" jdbcType="VARCHAR"/>
         <result property="uploadTime" column="upload_time" jdbcType="VARCHAR"/>
         <result property="attachSize" column="attach_size" jdbcType="INTEGER"/>
         <result property="sourceType" column="source_type" jdbcType="VARCHAR"/>
@@ -26,6 +28,8 @@
         t.id,
         t.org_id,
         t.org_name,
+        t.uploader_id,
+        t.uploader,
         t.upload_time,
         t.attach_size,
         t.source_type,
@@ -50,8 +54,14 @@
         <if test="orgName != null and orgName != ''"> 
             org_name, 
         </if>
-        <if test="uploadTime != null and uploadTime != ''"> 
-            upload_time, 
+        <if test="uploaderId != null and uploaderId != ''">
+            uploader_id,
+        </if>
+        <if test="uploader != null and uploader != ''">
+            uploader,
+        </if>
+        <if test="uploadTime != null and uploadTime != ''">
+            upload_time,
         </if>
         <if test="attachSize != null"> 
             attach_size, 
@@ -101,6 +111,12 @@
         </if>
         <if test="orgName != null and orgName != ''">
             #{orgName},
+        </if>
+        <if test="uploaderId != null and uploaderId != ''">
+            #{uploaderId},
+        </if>
+        <if test="uploader != null and uploader != ''">
+            #{uploader},
         </if>
         <if test="uploadTime != null and uploadTime != ''">
             #{uploadTime},
@@ -154,6 +170,12 @@
         <if test="orgName != null">
             org_name = #{orgName},
         </if>
+        <if test="uploaderId != null and uploaderId != ''">
+            uploader_id = #{uploaderId},
+        </if>
+        <if test="uploader != null and uploader != ''">
+            uploader = #{uploader},
+        </if>
         <if test="uploadTime != null">
             upload_time = #{uploadTime},
         </if>
@@ -205,6 +227,12 @@
         </if>
         <if test="orgName != null and orgName != ''">
             and t.org_name = #{orgName}
+        </if>
+        <if test="uploaderId != null and uploaderId != ''">
+            and t.uploader_id = #{uploaderId}
+        </if>
+        <if test="uploader != null and uploader != ''">
+            and t.uploader = #{uploader}
         </if>
         <if test="uploadTime != null and uploadTime != ''">
             and t.upload_time = #{uploadTime}
@@ -269,6 +297,8 @@
         insert into t_sys_file (
             org_id,
             org_name,
+            uploader_id,
+            uploader,
             upload_time,
             attach_size,
             source_type,
@@ -287,8 +317,10 @@
         ) values (
             #{orgId},            
             #{orgName},            
-            #{uploadTime},            
-            #{attachSize},            
+            #{uploaderId},
+            #{uploader},
+            #{uploadTime},
+            #{attachSize},
             #{sourceType},            
             #{subType},            
             #{sourceId},            
@@ -321,6 +353,8 @@
         <set>
             org_id = #{orgId},
             org_name = #{orgName},
+            uploader_id = #{uploaderId},
+            uploader = #{uploader},
             upload_time = #{uploadTime},
             attach_size = #{attachSize},
             source_type = #{sourceType},

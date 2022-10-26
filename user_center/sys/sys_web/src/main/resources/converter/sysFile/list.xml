@@ -14,8 +14,10 @@
             <item name="orgId" desc="机构ID" type="Integer"/>
             <item name="orgName" desc="机构名称"/>
             <item name="sourceType" desc="业务类型"/>
+            <item name="subType" desc="业务子类型"/>
             <item name="sourceId" desc="业务ID"/>
-            <item name="personId" desc="上传人" type="Integer"/>
+            <!--            <item name="uploader" desc="上传人"/>-->
+            <!--            <item name="uploaderId" desc="上传人"/>-->
             <item name="uploadTime" desc="上传时间" type="DateString" fromPattern="yyyy-MM-dd HH:mm:ss"/>
             <!-- 文件信息 -->
             <item name="fileSize" desc="文件大小(字节)" type="Integer" target="attachSize"/>
