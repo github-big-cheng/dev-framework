@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * 基于Redis实现的分布式锁
  */
 @Component
-public class RedisLock implements DoUnionLock {
+public class RedisLock implements WiselyLock {
 
     @Override
     public boolean lock(String key, String value, int time) {

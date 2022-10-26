@@ -3,12 +3,12 @@ package com.wisely.framework.helper.lock;
 /**
  * 锁
  */
-public interface DoUnionLock {
+public interface WiselyLock {
 
     /**
      * 锁名前缀（加锁该前缀后，可以将所有的Redis锁放入一个分组，方便查看）
      */
-    String PREFIX = "DOUNION-LOCK:";
+    String PREFIX = "Wisely-LOCK:";
 
     /**
      * 加锁

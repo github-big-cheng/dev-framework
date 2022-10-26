@@ -1,13 +1,13 @@
 package com.wisely.framework.helper.lock;
 
-import com.wisely.framework.helper.ValidHelper;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.wisely.framework.helper.ValidHelper;
 
 import java.util.concurrent.TimeUnit;
 
 
-public class LocalLock implements DoUnionLock {
+public class LocalLock implements WiselyLock {
 
 
     public LocalLock(int expireTime) {
