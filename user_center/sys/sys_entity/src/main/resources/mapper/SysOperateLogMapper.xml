@@ -4,13 +4,19 @@
 
     <resultMap type="com.wisely.sys.entity.SysOperateLog" id="BaseResultMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
-        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="targetServer" column="target_server" jdbcType="VARCHAR"/>
+        <result property="requestPath" column="request_path" jdbcType="VARCHAR"/>
         <result property="ip" column="ip" jdbcType="VARCHAR"/>
-        <result property="machineName" column="machine_name" jdbcType="VARCHAR"/>
+        <result property="requestMethod" column="request_method" jdbcType="VARCHAR"/>
+        <result property="schema" column="schema" jdbcType="VARCHAR"/>
+        <result property="osType" column="os_type" jdbcType="VARCHAR"/>
+        <result property="token" column="token" jdbcType="VARCHAR"/>
         <result property="userId" column="user_id" jdbcType="INTEGER"/>
-        <result property="opTime" column="op_time" jdbcType="VARCHAR"/>
-        <result property="requestMsg" column="request_msg" jdbcType="VARCHAR"/>
-        <result property="responseMsg" column="response_msg" jdbcType="VARCHAR"/>
+        <result property="requestTime" column="request_time" jdbcType="VARCHAR"/>
+        <result property="responseTime" column="response_time" jdbcType="VARCHAR"/>
+        <result property="requestBody" column="request_body" jdbcType="VARCHAR"/>
+        <result property="responseData" column="response_data" jdbcType="VARCHAR"/>
+        <result property="executeTime" column="execute_time" jdbcType="INTEGER"/>
         <result property="opState" column="op_state" jdbcType="INTEGER"/>
         <result property="createBy" column="create_by" jdbcType="INTEGER"/>
         <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
@@ -20,88 +26,135 @@
     </resultMap>
 
     <sql id="BaseColumn">
-        t.id,        
-        t.name,        
-        t.ip,        
-        t.machine_name,        
-        t.user_id,        
-        t.op_time,        
-        t.request_msg,        
-        t.response_msg,        
-        t.op_state,        
-        t.create_by,        
-        t.create_time,        
-        t.update_by,        
-        t.update_time,        
-        t.is_deleted        
+        t.id,
+        t.target_server,        
+        t.request_path,
+        t.ip,
+        t.request_method,        
+        t.`schema`,
+        t.os_type,        
+        t.token,
+        t.user_id,
+        t.request_time,
+        t.response_time,
+        t.request_body,        
+        t.response_data,
+        t.execute_time,
+        t.op_state,
+        t.create_by,
+        t.create_time,
+        t.update_by,
+        t.update_time,
+        t.is_deleted
     </sql>
-    
+
     <!-- 动态字段 -->
     <sql id="DynamicColumn">
-        <if test="name != null and name != ''"> 
-            name, 
+        <if test="targetServer != null and targetServer != ''">
+            target_server,
         </if>
-        <if test="ip != null and ip != ''"> 
-            ip, 
+        <if test="requestPath != null and requestPath != ''">
+            request_path,
         </if>
-        <if test="machineName != null and machineName != ''"> 
-            machine_name, 
+        <if test="ip != null and ip != ''">
+            ip,
         </if>
-        <if test="userId != null"> 
-            user_id, 
+        <if test="requestMethod != null and requestMethod != ''">
+            request_method,
         </if>
-        <if test="opTime != null and opTime != ''"> 
-            op_time, 
+        <if test="schema != null and schema != ''">
+            `schema`,
         </if>
-        <if test="requestMsg != null and requestMsg != ''"> 
-            request_msg, 
+        <if test="osType != null and osType != ''">
+            os_type,
         </if>
-        <if test="responseMsg != null and responseMsg != ''"> 
-            response_msg, 
+        <if test="token != null and token != ''">
+            token,
         </if>
-        <if test="opState != null"> 
-            op_state, 
+        <if test="userId != null">
+            user_id,
         </if>
-        <if test="createBy != null"> 
-            create_by, 
+
+        <if test="requestTime != null and requestTime != ''">
+            request_time,
         </if>
-        <if test="createTime != null and createTime != ''"> 
-            create_time, 
+        <if test="responseTime != null and responseTime != ''">
+            response_time,
         </if>
-        <if test="updateBy != null"> 
-            update_by, 
+
+        <if test="requestBody != null and requestBody != ''">
+            request_body,
         </if>
-        <if test="updateTime != null and updateTime != ''"> 
-            update_time, 
+        <if test="responseData != null and responseData != ''">
+            response_data,
         </if>
-        <if test="isDeleted != null"> 
-            is_deleted, 
+        <if test="executeTime != null">
+            execute_time,
+        </if>
+
+        <if test="opState != null">
+            op_state,
+        </if>
+        <if test="createBy != null">
+            create_by,
+        </if>
+        <if test="createTime != null and createTime != ''">
+            create_time,
+        </if>
+        <if test="updateBy != null">
+            update_by,
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            update_time,
+        </if>
+        <if test="isDeleted != null">
+            is_deleted,
         </if>
     </sql>
-    
+
     <!-- 动态值 -->
     <sql id="DynamicValue">
-        <if test="name != null and name != ''">
-            #{name},
+        <if test="targetServer != null and targetServer != ''">
+            #{targetServer},
+        </if>
+        <if test="requestPath != null and requestPath != ''">
+            #{requestPath},
         </if>
         <if test="ip != null and ip != ''">
             #{ip},
         </if>
-        <if test="machineName != null and machineName != ''">
-            #{machineName},
+        <if test="requestMethod != null and requestMethod != ''">
+            #{requestMethod},
+        </if>
+        <if test="schema != null and schema != ''">
+            #{schema},
+        </if>
+        <if test="osType != null and osType != ''">
+            #{osType},
+        </if>
+        <if test="token != null and token != ''">
+            #{token},
         </if>
         <if test="userId != null">
             #{userId},
         </if>
-        <if test="opTime != null and opTime != ''">
-            #{opTime},
+
+        <if test="requestTime != null and requestTime != ''">
+            #{requestTime},
         </if>
-        <if test="requestMsg != null and requestMsg != ''">
-            #{requestMsg},
+        <if test="responseTime != null and responseTime != ''">
+            #{responseTime},
         </if>
-        <if test="responseMsg != null and responseMsg != ''">
-            #{responseMsg},
+        <if test="requestBody != null and requestBody != ''">
+            #{requestBody},
         </if>
+        <if test="responseData != null and responseData != ''">
+            #{responseData},
+        </if>
+        <if test="executeTime != null">
+            #{executeTime},
+        </if>
+
         <if test="opState != null">
             #{opState},
         </if>
@@ -121,30 +174,50 @@
             #{isDeleted},
         </if>
     </sql>
-    
+
     <!-- 动态赋值 -->
     <sql id="DynamicSet">
-        <if test="name != null">
-            name = #{name},
+        <if test="targetServer != null">
+            target_server = #{targetServer},
+        </if>
+        <if test="requestPath != null">
+            request_path = #{requestPath},
         </if>
         <if test="ip != null">
             ip = #{ip},
         </if>
-        <if test="machineName != null">
-            machine_name = #{machineName},
+        <if test="requestMethod != null">
+            request_method = #{requestMethod},
+        </if>
+        <if test="schema != null">
+            `schema` = #{schema},
+        </if>
+        <if test="osType != null">
+            os_type = #{osType},
+        </if>
+        <if test="token != null">
+            token = #{token},
         </if>
         <if test="userId != null">
             user_id = #{userId},
         </if>
-        <if test="opTime != null">
-            op_time = #{opTime},
+
+        <if test="requestTime != null">
+            request_time = #{requestTime},
         </if>
-        <if test="requestMsg != null">
-            request_msg = #{requestMsg},
+        <if test="responseTime != null">
+            response_time = #{responseTime},
         </if>
-        <if test="responseMsg != null">
-            response_msg = #{responseMsg},
+        <if test="requestBody != null">
+            request_body = #{requestBody},
         </if>
+        <if test="responseData != null">
+            response_data = #{responseData},
+        </if>
+        <if test="executeTime != null">
+            execute_time = #{executeTime},
+        </if>
+
         <if test="opState != null">
             op_state = #{opState},
         </if>
@@ -164,30 +237,49 @@
             is_deleted = #{isDeleted},
         </if>
     </sql>
-    
+
     <!-- 动态条件 -->
     <sql id="DynamicWhere">
-        <if test="name != null and name != ''">
-            and t.name = #{name}
+        <if test="targetServer != null and targetServer != ''">
+            and t.target_server = #{targetServer}
+        </if>
+        <if test="requestPath != null and requestPath != ''">
+            and t.request_path = #{requestPath}
         </if>
         <if test="ip != null and ip != ''">
             and t.ip = #{ip}
         </if>
-        <if test="machineName != null and machineName != ''">
-            and t.machine_name = #{machineName}
+        <if test="requestMethod != null and requestMethod != ''">
+            and t.request_method = #{requestMethod}
+        </if>
+        <if test="schema != null and schema != ''">
+            and t.`schema` = #{schema}
+        </if>
+        <if test="osType != null and osType != ''">
+            and t.os_type = #{osType}
+        </if>
+        <if test="token != null and token != ''">
+            and t.token = #{token}
         </if>
         <if test="userId != null">
             and t.user_id = #{userId}
         </if>
-        <if test="opTime != null and opTime != ''">
-            and t.op_time = #{opTime}
+        <if test="requestTime != null and requestTime != ''">
+            and t.request_time = #{requestTime}
         </if>
-        <if test="requestMsg != null and requestMsg != ''">
-            and t.request_msg = #{requestMsg}
+        <if test="responseTime != null and responseTime != ''">
+            and t.response_time = #{responseTime}
         </if>
-        <if test="responseMsg != null and responseMsg != ''">
-            and t.response_msg = #{responseMsg}
+        <if test="requestBody != null and requestBody != ''">
+            and t.request_body = #{requestBody}
         </if>
+        <if test="responseData != null and responseData != ''">
+            and t.response_data = #{responseData}
+        </if>
+        <if test="executeTime != null">
+            and t.execute_time = #{executeTime}
+        </if>
+
         <if test="opState != null">
             and t.op_state = #{opState}
         </if>
@@ -207,20 +299,20 @@
             and t.is_deleted = #{isDeleted}
         </if>
 
-        <if test="accountQueryLike != null and accountQueryLike != ''">
-            and t.account like concat('%', #{accountQueryLike}, '%')
+        <if test="targetServerQueryLike != null and targetServerQueryLike != ''">
+            and t.target_server like concat('%', #{targetServerQueryLike}, '%')
         </if>
-        <if test="timeQueryLe != null and timeQueryLe != ''">
-            and t.op_time <![CDATA[<=]]> concat(#{timeQueryLe}, ' 23:59:00')
+        <if test="requestTimeQueryLe != null and requestTimeQueryLe != ''">
+            and t.request_time <![CDATA[<=]]> concat(#{requestTimeQueryLe}, ' 23:59:00')
         </if>
-        <if test="timeQueryGe != null and timeQueryGe != ''">
-            and t.op_time >= concat(#{timeQueryGe}, ' 00:00:00')
+        <if test="requestTimeQueryGe != null and requestTimeQueryGe != ''">
+            and t.request_time >= concat(#{requestTimeQueryGe}, ' 00:00:00')
         </if>
     </sql>
 
     <!--查询单个-->
     <select id="selectByPrimaryKey" resultMap="BaseResultMap">
-        select <include refid="BaseColumn" />
+        select <include refid="BaseColumn"/>
         from  t_sys_operate_log t
         where id = #{id}
     </select>
@@ -228,39 +320,50 @@
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.wisely.sys.entity.SysOperateLog">
         insert into t_sys_operate_log  (
-name,            
-ip,            
-machine_name,            
-user_id,            
-op_time,            
-request_msg,            
-response_msg,            
-op_state,            
-create_by,            
-create_time,            
-update_by,            
-update_time,            
-is_deleted            
-)  values  (
-            #{name},            
-            #{ip},            
-            #{machineName},            
-            #{userId},            
-            #{opTime},            
-            #{requestMsg},            
-            #{responseMsg},            
-            #{opState},            
-            #{createBy},            
-            #{createTime},            
-            #{updateBy},            
-            #{updateTime},            
-            #{isDeleted}            
-
+            target_server,
+            request_path,
+            ip,
+            request_method,            
+            `schema`,
+            os_type,            
+            token,
+            user_id,
+            request_time,
+            response_time,
+            request_body,            
+            response_data,
+            execute_time,
+            op_state,
+            create_by,
+            create_time,
+            update_by,
+            update_time,
+            is_deleted
+        )  values  (
+            #{targetServer},            
+            #{requestPath},
+            #{ip},
+            #{requestMethod},            
+            #{schema},            
+            #{osType},            
+            #{token},
+            #{userId},
+            #{requestTime},
+            #{responseTime},
+            #{requestBody},            
+            #{responseData},
+            #{executeTime},
+            #{opState},
+            #{createBy},
+            #{createTime},
+            #{updateBy},
+            #{updateTime},
+            #{isDeleted}
         )
     </insert>
-    
+
     <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.wisely.sys.entity.SysOperateLog">
-        insert into  t_sys_operate_log        
+        insert into  t_sys_operate_log
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <include refid="DynamicColumn" />
         </trim>
@@ -271,15 +374,22 @@ is_deleted
 
     <!--通过主键修改数据-->
     <update id="updateByPrimaryKey" parameterType="com.wisely.sys.entity.SysOperateLog">
-        update t_sys_operate_log        
+        update t_sys_operate_log
         <set>
-            name = #{name},
+            target_server = #{targetServer},
+            request_path = #{requestPath},
             ip = #{ip},
-            machine_name = #{machineName},
+            request_method = #{requestMethod},
+            `schema` = #{schema},
+            os_type = #{osType},
+            token = #{token},
             user_id = #{userId},
-            op_time = #{opTime},
-            request_msg = #{requestMsg},
-            response_msg = #{responseMsg},
+            request_time = #{requestTime},
+            response_time = #{responseTime},
+            request_body = #{requestBody},
+            response_data = #{responseData},
+            execute_time = #{executeTime},
+
             op_state = #{opState},
             create_by = #{createBy},
             create_time = #{createTime},
@@ -289,17 +399,17 @@ is_deleted
         </set>
         where  id = #{id}
     </update>
-    
+
     <!-- 通过主键动态修改数据 -->
     <update id="updateByPrimaryKeySelective" parameterType="com.wisely.sys.entity.SysOperateLog">
-        update t_sys_operate_log        
+        update t_sys_operate_log
         <trim prefix="set" suffixOverrides="," >
             <include refid="DynamicSet" />
         </trim>
         where id = #{id}
     </update>
-    
-    
+
+
     <!-- 根据条件动态修改数据 -->
     <update id="updateBySelective" parameterType="com.wisely.sys.entity.SysOperateLog">
         update t_sys_operate_log t
@@ -315,15 +425,15 @@ is_deleted
             </choose>
         </trim>
     </update>
-    
+
 
     <!--通过主键删除-->
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete from  t_sys_operate_log        
         where id = #{id}
     </delete>
-    
-    
+
+
     <!--通过实体作为筛选条件查询-->
     <select id="selectListBySelective" parameterType="com.wisely.sys.entity.SysOperateLog" resultMap="BaseResultMap">
         select <include refid="BaseColumn" />

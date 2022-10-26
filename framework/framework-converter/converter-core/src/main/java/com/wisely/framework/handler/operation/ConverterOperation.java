@@ -5,11 +5,6 @@ import com.wisely.framework.handler.entity.ConverterItemEntity;
 
 public interface ConverterOperation<T> {
 
-
-    Object validation(ConverterItemEntity itemEntity, Object data);
-
-    Object converter(ConverterItemEntity itemEntity, Object data);
-
     /**
      * 请求处理
      *
@@ -27,5 +22,23 @@ public interface ConverterOperation<T> {
      * @return
      */
     Object response(ConverterEntity entity, Object response);
+
+    /**
+     * 数据项校验
+     *
+     * @param itemEntity
+     * @param data
+     * @return
+     */
+    Object validation(ConverterItemEntity itemEntity, Object data);
+
+    /**
+     * 数据项转换
+     *
+     * @param itemEntity
+     * @param data
+     * @return
+     */
+    Object converter(ConverterItemEntity itemEntity, Object data);
 
 }

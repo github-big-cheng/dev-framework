@@ -101,13 +101,13 @@ public class SysCodeController {
     /**
      * 单个查询
      *
-     * @param value 主键VALUE
+     * @param id 主键VALUE
      * @return Object对象
      */
     @RequestMapping("/view")
     @Converter(path = "code/view")
-    public Object view(String value) {
-        return ResponseBuilder.buildSuccess(sysCodeService.load(value));
+    public Object view(Integer id) {
+        return ResponseBuilder.buildSuccess(sysCodeService.load(id));
     }
 
 

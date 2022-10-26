@@ -12,7 +12,7 @@ import com.wisely.sso.client.entity.SsoUser;
 import com.wisely.sso.client.helper.UserHelper;
 import com.wisely.sys.api.SysNetApi;
 import com.wisely.ucenter.caches.UserCache;
-import com.wisely.ucenter.client.handler.UcenterDictionaryHelper;
+import com.wisely.ucenter.client.handler.UcDictHelper;
 import com.wisely.ucenter.client.vo.UcenterOrgVo;
 import com.wisely.ucenter.common.UcenterConstants;
 import com.wisely.ucenter.entity.*;
@@ -163,30 +163,27 @@ public class UcenterUserServiceImpl implements UcenterUserService, UcenterConsta
      */
     @Override
     public SsoUser loadSsoUser() {
+
         Model input = RequestHelper.getInput();
+        AssertHelper.EX_VALIDATION.isNotEmpty(input, "personId", "common.parameter_required.personId");
 
-        if (input.isEmpty("personId")) {
-            return null;
-        }
 
-        UcenterUser user = this.loadByPersonId(input.getInt("personId"));
-        if (ValidHelper.isNull(user)) {
-            return null;
-        }
-
+        Integer personId = input.getInt("personId");
         SsoUser ssoUser = new SsoUser();
         // 用户基本信息
-        ssoUser.setId(user.getId());
-        ssoUser.setAccount(user.getAccount());
-        ssoUser.setFirstLogin(user.getFirstLogin());
+        UcenterUser user = this.loadByPersonId(personId);
+        if (ValidHelper.isNotEmpty(user)) {
+            ssoUser.setId(user.getId());
+            ssoUser.setAccount(user.getAccount());
+            ssoUser.setFirstLogin(user.getFirstLogin());
+        }
 
         // 人员基本信息
-        UcenterPerson person = ucenterPersonMapper.selectByPrimaryKey(user.getPersonId());
+        UcenterPerson person = ucenterPersonMapper.selectByPrimaryKey(personId);
         if (ValidHelper.isNotEmpty(person)) {
-
             ssoUser.setOrgId(person.getOrgId());
             ssoUser.setOrgName(person.getOrgName());
-            ssoUser.setPersonId(user.getPersonId());
+            ssoUser.setPersonId(personId);
             ssoUser.setJobNo(person.getJobNo());
             ssoUser.setIdNo(person.getIdNo());
             ssoUser.setPersonName(person.getName());
@@ -199,7 +196,7 @@ public class UcenterUserServiceImpl implements UcenterUserService, UcenterConsta
                     sysNetApi.loadFiles(
                             Model.builder()
                                     .set("sourceType", FILE_IMAGE_CODE)
-                                    .set("sourceId", person.getId()));
+                                    .set("sourceId", personId));
             if (ValidHelper.isNotEmpty(modelList)) {
                 ssoUser.setImgPath(modelList.get(0).getString("filePath"));
             }
@@ -207,7 +204,7 @@ public class UcenterUserServiceImpl implements UcenterUserService, UcenterConsta
             // 部门
             UcenterPersonOrg personOrgQuery = new UcenterPersonOrg();
             personOrgQuery.setIsDeleted(0);
-            personOrgQuery.setPersonId(person.getId());
+            personOrgQuery.setPersonId(personId);
             personOrgQuery.setOrderBy("isMainDesc"); // 主部门在最前
             List<UcenterPersonOrg> deptList = ucenterPersonOrgMapper.selectListBySelective(personOrgQuery);
             if (ValidHelper.isNotEmpty(deptList)) {
@@ -224,7 +221,7 @@ public class UcenterUserServiceImpl implements UcenterUserService, UcenterConsta
                     //设置主部门
                     if (ValidHelper.isEquals(x.getIsMain(), 1)) {
                         ssoUser.setMainDeptId(x.getDeptId());
-                        UcenterOrgVo deptVo = UcenterDictionaryHelper.loadOrgVo(x.getDeptId());
+                        UcenterOrgVo deptVo = UcDictHelper.loadOrgVo(x.getDeptId());
                         if (ValidHelper.isNotEmpty(deptVo)) {
                             ssoUser.setMainDeptName(deptVo.getCname());
                         }
@@ -242,7 +239,7 @@ public class UcenterUserServiceImpl implements UcenterUserService, UcenterConsta
             ucenterRoles.stream().forEach(d -> rolesModel.set(DataHelper.getString(d.getId()), Model.parseObject(d)));
 
             UcenterPersonRole roleQuery = new UcenterPersonRole();
-            roleQuery.setPersonId(person.getId());
+            roleQuery.setPersonId(personId);
             roleQuery.setIsDeleted(0);
             List<UcenterPersonRole> roles = ucenterPersonRoleMapper.selectListBySelective(roleQuery);
             if (ValidHelper.isNotEmpty(roles)) {
@@ -259,9 +256,9 @@ public class UcenterUserServiceImpl implements UcenterUserService, UcenterConsta
         Model model = Model.builder();
         if (!ssoUser.getRoleCodes().contains(ROLE_SUPER_ADMIN)) {
             // 非管理员，查询指定权限
-            model.set("personId", user.getPersonId());
+            model.set("personId", personId);
         }
-        List<Model> functionList = menuService.loadFunctionByAuth(user.getPersonId());
+        List<Model> functionList = menuService.loadFunctionByAuth(personId);
         if (ValidHelper.isNotEmpty(functionList)) {
             functionList.stream().forEach(x -> {
                 if (ValidHelper.isNotEmpty(x)) {
@@ -272,8 +269,8 @@ public class UcenterUserServiceImpl implements UcenterUserService, UcenterConsta
 
         // 扩展属性及信息
         Model<Integer, Model> personInfoModel =
-                ucenterPersonInfoService.personInfoQuery(DataHelper.getString(user.getPersonId()));
-        ssoUser.getExtendedProperties().putAll(personInfoModel.get(user.getPersonId()));
+                ucenterPersonInfoService.personInfoQuery(DataHelper.getString(personId));
+        ssoUser.getExtendedProperties().putAll(personInfoModel.get(personId));
 
         //保存SsoUser与ticket的映射关系
         return ssoUser;

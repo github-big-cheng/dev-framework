@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 /**
  * 自定义页面配置表(SysColumnConfig)实体类
  *
- * @author ruijie.hu
+ * @author system
  * @since 2021-06-02 18:01:11
  */
 @Setter

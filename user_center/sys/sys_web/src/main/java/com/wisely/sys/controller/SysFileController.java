@@ -3,8 +3,10 @@ package com.wisely.sys.controller;
 
 import com.wisely.framework.entity.Model;
 import com.wisely.framework.handler.annotation.Converter;
+import com.wisely.framework.helper.AssertHelper;
 import com.wisely.framework.helper.RequestHelper;
 import com.wisely.framework.helper.ResponseBuilder;
+import com.wisely.framework.helper.StringHelper;
 import com.wisely.sys.entity.SysFile;
 import com.wisely.sys.service.SysFileService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +17,13 @@ import javax.annotation.Resource;
 /**
  * 系统文件
  *
- * @author ruijie.hu
+ * @author system
  * @since 2021-06-03 18:16:33
  */
 @RestController
 @RequestMapping("/sysFile")
 public class SysFileController {
+
     /**
      * 服务对象
      */
@@ -31,6 +34,8 @@ public class SysFileController {
     @RequestMapping("/list/api")
     @Converter(path = "sysFile/list")
     public Object list(SysFile sysFile) {
+        boolean flag = StringHelper.isNotBlank(sysFile.getSourceId()) || StringHelper.isNotBlank(sysFile.getSourceIdQueryIn());
+        AssertHelper.EX_VALIDATION.isTrue(flag, "common.parameter_required.sourceId_or_sourceIdQueryIn");
         return ResponseBuilder.buildSuccess(sysFileService.selectListBySelective(sysFile));
     }
 

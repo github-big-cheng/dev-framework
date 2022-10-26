@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 /**
  * 菜单(TSysFunction)表控制层
  *
- * @author ruijie.hu
+ * @author system
  * @since 2021-05-28 17:42:04
  */
 @RestController
@@ -40,6 +40,14 @@ public class SysFunctionController {
     public Object list(SysFunction query, PageVo pageVo) {
         return ResponseBuilder.buildSuccess(sysFunctionService.findByPage(query, pageVo));
     }
+
+
+    @RequestMapping("/list/tree")
+    @Converter(path = "function/tree")
+    public Object listTree(SysFunction query) {
+        return ResponseBuilder.buildSuccess(sysFunctionService.listTree(query));
+    }
+
 
     /**
      * 新增

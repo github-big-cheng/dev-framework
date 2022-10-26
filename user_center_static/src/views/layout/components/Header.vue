@@ -80,7 +80,7 @@
     import {mapGetters} from "vuex";
     import {getLocalStorage, getToken} from "@/utils/auth";
     import {resetRouter} from "@/router";
-    import {requestUrl} from "@/api/api";
+    import {staticFilePathFormat} from "../../../filters";
 
     export default {
         data() {
@@ -99,7 +99,7 @@
                 this.workDepartment = deptName;
                 this.name = personName;
                 this.workPost = positionName;
-                this.avatarImg = imgPath ? requestUrl + "/file" + imgPath : this.avatarImg;
+                this.avatarImg = imgPath ? staticFilePathFormat(imgPath) : this.avatarImg;
             }
             this.$store.dispatch("GetNoticeSum");
         },

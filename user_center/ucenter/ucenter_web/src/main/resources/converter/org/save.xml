@@ -3,6 +3,7 @@
 <trans name="org/save" desc="修改" group="部门管理" groupCode="org">
     <send>
         <!-- 基础信息 ucenterOrg -->
+        <item name="id" desc="id" required="true"/>
         <item name="cname" desc="中文名称" required="true"/>
         <item name="compType" desc="类型" notes="TYPE=10001-10027 10027-10:部门,10027-20:公司"/>
         <item name="code" desc="代码" required="true"/>

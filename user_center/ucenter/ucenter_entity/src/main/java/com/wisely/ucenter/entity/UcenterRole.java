@@ -9,7 +9,7 @@ import lombok.Setter;
 /**
  * 角色(UcenterRole)实体类
  *
- * @author ruijie.hu
+ * @author system
  * @since 2021-05-28 17:33:21
  */
 @Setter

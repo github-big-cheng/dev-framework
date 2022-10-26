@@ -2,15 +2,15 @@
 <!DOCTYPE trans SYSTEM "converter.dtd">
 <trans name="code/view" desc="系统代码-查看" group="代码管理" groupCode="code" >
     <send>
-        <item name="value" desc="主键value" required="true"/>
+        <item name="id" desc="主键value" type="Integer" required="true"/>
     </send>
     <rcv>
+        <item name="id" desc="id" type="Integer"/>
         <item name="value" desc="代码值"/>
         <item name="pathValue" desc="PATH"/>
         <item name="code" desc="代码"/>
         <item name="name" desc="名称"/>
-        <item name="sname" desc="简称"/>
-        <item name="ename" desc="英文名称"/>
+        <item name="locale" desc="国际化" default="zh_CN"/>
         <item name="orderNo" desc="排序字段" type="Integer"/>
         <item name="type" desc="类别"/>
         <item name="typeValue" desc="类别名称" mapper="CODE_HASH" target="type"/>

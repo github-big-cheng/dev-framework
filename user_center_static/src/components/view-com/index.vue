@@ -35,7 +35,7 @@
         </ul>
 
         <div class="user-img" v-if="isImgShow">
-            <img :src="imgPath ? url + imgPath : ''" alt=""/>
+            <img :src="url" alt=""/>
         </div>
 
         <div class="form-button" v-if="showBack">
@@ -70,7 +70,7 @@
 <script>
     import pageTitle from "@/components/page-title";
     import UpFile from "@/components/upload-files";
-    import {requestUrl} from "@/api/api";
+    import {staticFilePathFormat} from "../../filters";
 
     export default {
         components: {
@@ -132,13 +132,12 @@
                 },
             },
         },
-        data() {
-            return {
-                url: "",
-            };
-        },
-        mounted() {
-            this.isImgShow ? (this.url = requestUrl + '/file') : '';
+        computed: {
+            url() {
+                if (this.isImgShow) {
+                    return staticFilePathFormat(this.imgPath);
+                }
+            }
         },
         methods: {
             handlerClick(item) {

@@ -1,26 +1,32 @@
 package com.wisely.sys.handler;
 
 import com.wisely.framework.handler.dictionary.ConverterDictionary;
-import com.wisely.framework.helper.ValidHelper;
+import com.wisely.framework.handler.entity.ConverterItemEntity;
+import com.wisely.framework.helper.DataHelper;
+import com.wisely.framework.helper.StringHelper;
+import com.wisely.sys.common.SysConstants;
 import com.wisely.sys.eum.SysCacheEnum;
 
 
-public class SysConverterDictionary implements ConverterDictionary {
+public class SysConverterDictionary implements ConverterDictionary<String>, SysConstants {
 
     @Override
-    public boolean accept(String bizType) {
-        return ValidHelper.isNotEmpty(SysCacheEnum.loadByMapper(bizType));
+    public boolean accept(ConverterItemEntity itemEntity) {
+        return SysCacheEnum.getMapperModel().containsKey(itemEntity.getMapper());
     }
 
     @Override
-    public String loadValue(String bizKey, String valueKey, String defaultValue) {
+    public String loadValue(ConverterItemEntity itemEntity, Object value) {
 
-        if (ValidHelper.isNotEmpty(bizKey) && ValidHelper.isNotEmpty(valueKey)) {
-            String result = SysDictionaryHelper.loadEntityCacheManager(bizKey, valueKey);
-            if (ValidHelper.isNotEmpty(result)) {
-                return result;
-            }
+        String result = DataHelper.getString(value);
+        if (StringHelper.isBlank(result)) {
+            return result;
         }
-        return defaultValue;
+
+        if (StringHelper.equals(itemEntity.getMapper(), CODE_MAPPER_KEY)) {
+            return SysDictHelper.loadValue(itemEntity.getMapper(), result, itemEntity.getExtendField("locale"));
+        }
+
+        return SysDictHelper.loadValue(itemEntity.getMapper(), result);
     }
 }

@@ -240,29 +240,29 @@
                         <WorkPlan></WorkPlan>
                     </div>
                 </el-row>
-                <el-row :gutter="24">
-                    <div class="hm-mode hm-dynamic-info">
-                        <pageTitle title="动态信息" titleIcon="el-icon-chat-line-round"></pageTitle>
-                        <div class="dynamic-info">
-                            <el-timeline>
-                                <el-timeline-item
-                                    v-for="(item, index) in dynamicInfoList"
-                                    :key="index"
-                                    :timestamp="item.publishDate"
-                                    placement="top"
-                                >
-                                    <a href="javascript:void(0)">
-                                        <span @click.stop="handleLiClick('dynamicInfo', item)"
-                                            >[{{ item.statusName }}]{{ item.title }}</span
-                                        >
-                                    </a>
-                                </el-timeline-item>
-                            </el-timeline>
-                            <!-- 无数据 S-->
-                            <EmptyData v-if="!dynamicInfoList" />
-                        </div>
-                    </div>
-                </el-row>
+<!--                <el-row :gutter="24">-->
+<!--                    <div class="hm-mode hm-dynamic-info">-->
+<!--                        <pageTitle title="动态信息" titleIcon="el-icon-chat-line-round"></pageTitle>-->
+<!--                        <div class="dynamic-info">-->
+<!--                            <el-timeline>-->
+<!--                                <el-timeline-item-->
+<!--                                    v-for="(item, index) in dynamicInfoList"-->
+<!--                                    :key="index"-->
+<!--                                    :timestamp="item.publishDate"-->
+<!--                                    placement="top"-->
+<!--                                >-->
+<!--                                    <a href="javascript:void(0)">-->
+<!--                                        <span @click.stop="handleLiClick('dynamicInfo', item)"-->
+<!--                                            >[{{ item.statusName }}]{{ item.title }}</span-->
+<!--                                        >-->
+<!--                                    </a>-->
+<!--                                </el-timeline-item>-->
+<!--                            </el-timeline>-->
+<!--                            &lt;!&ndash; 无数据 S&ndash;&gt;-->
+<!--                            <EmptyData v-if="!dynamicInfoList" />-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </el-row>-->
             </el-col>
         </el-row>
     </div>
@@ -360,9 +360,10 @@ export default {
         },
     },
     created() {
+        return;
         this.userInfo = getLocalStorage("userInfo");
         //通知
-        this.getTabList("getNewsList", this.noticesTabNames[0].params);
+        // this.getTabList("getNewsList", this.noticesTabNames[0].params);
         //审批
         if (this.oaflowMap("oa_flow_list_approval")) {
             this.approvalAuth = true;
@@ -429,6 +430,7 @@ export default {
         },
         //获取列表数据
         async getTabList(apiName, params, type, pageNo = 1, pageSize = 5) {
+            return;
             try {
                 const { code, data } = await this.$http[apiName]({ ...params, pageNo, pageSize }, type);
                 if (code !== 0) return;

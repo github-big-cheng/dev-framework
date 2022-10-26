@@ -1,9 +1,8 @@
 package com.wisely.sso.client.filter;
 
+import com.wisely.framework.entity.Model;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Map;
 
 @Getter
 @Setter
@@ -48,6 +47,6 @@ public class LoginFilterProperties {
     /**
      * 初始化参数
      */
-    private Map<String, String> initParameters;
+    private Model<String, String> initParameters = Model.builder();
 
 }

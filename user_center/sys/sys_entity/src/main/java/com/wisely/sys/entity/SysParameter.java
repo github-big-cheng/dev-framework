@@ -98,7 +98,7 @@ public class SysParameter extends BaseEntity implements Serializable {
     /**
      * 说明模糊查询
      */
-    private String descriptQueryLike;
+    private String descriptionQueryLike;
     /**
      * orgId集合
      */

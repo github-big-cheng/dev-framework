@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 /**
  * 用户相关
  *
- * @author ruijie.hu
+ * @author system
  * @date 2021/6/2 13:49
  */
 @RestController

@@ -5,12 +5,9 @@ import com.wisely.framework.api.NetApi;
 import com.wisely.framework.api.NetTools;
 import com.wisely.framework.entity.Model;
 import com.wisely.framework.handler.cache.EntityCacheManager;
-import com.wisely.framework.helper.AssertHelper;
-import com.wisely.framework.helper.JsonHelper;
-import com.wisely.framework.helper.ResponseBuilder;
-import com.wisely.framework.helper.ValidHelper;
+import com.wisely.framework.helper.*;
 import com.wisely.sys.common.SysConstants;
-import com.wisely.sys.handler.SysDictionaryHelper;
+import com.wisely.sys.handler.SysDictHelper;
 import com.wisely.sys.vo.SysCodeVo;
 import com.wisely.sys.vo.SysParameterVo;
 import lombok.extern.slf4j.Slf4j;
@@ -54,7 +51,7 @@ public class SysNetApi extends NetApi implements SysConstants {
      * @return
      */
     public Model uploadFile(Model model) {
-        return this.doRequest(UPLOAD_FILE, model);
+        return this.request(UPLOAD_FILE, model, new TypeReference<Model>() {});
     }
 
 
@@ -66,7 +63,8 @@ public class SysNetApi extends NetApi implements SysConstants {
      */
     public List<Model> loadFiles(Model input) {
         AssertHelper.EX_VALIDATION.isNotBlank(input, "sourceType", "common.parameter_required.fileType");
-        AssertHelper.EX_VALIDATION.isNotEmpty(input, "sourceId", "common.parameter_required.sourceId");
+        boolean flag = input.isNotBlank("sourceId") || input.isNotBlank("sourceIdQueryIn");
+        AssertHelper.EX_VALIDATION.isTrue(flag, "common.parameter_required.sourceId_or_sourceIdQueryIn");
         return this.request(FIND_FILES, input, new TypeReference<List<Model>>() {
         });
     }
@@ -77,10 +75,11 @@ public class SysNetApi extends NetApi implements SysConstants {
      * @param input
      * @return
      */
-    public Model deleteFile(Model input) {
+    public Integer deleteFile(Model input) {
         AssertHelper.EX_VALIDATION.isNotBlank(input, "sourceType", "common.parameter_required.fileType");
         AssertHelper.EX_VALIDATION.isNotEmpty(input, "sourceIdQueryIn", "common.parameter_required.sourceId");
-        return this.doRequest(DELETE_FILE, input);
+        return this.request(DELETE_FILE, input, new TypeReference<Integer>() {
+        });
     }
 
 
@@ -141,7 +140,17 @@ public class SysNetApi extends NetApi implements SysConstants {
      * @return
      */
     public SysCodeVo loadSysCode(String value) {
-        return SysDictionaryHelper.loadCodeVo(value);
+        return loadSysCode(value, DEFAULT_LOCALE);
+    }
+
+    /**
+     * 获取code名称
+     *
+     * @param value
+     * @return
+     */
+    public SysCodeVo loadSysCode(String value, String locale) {
+        return SysDictHelper.loadCodeVo(value, locale);
     }
 
     /**
@@ -151,7 +160,17 @@ public class SysNetApi extends NetApi implements SysConstants {
      * @return
      */
     public String loadSysCodeName(String value) {
-        SysCodeVo codeVo = this.loadSysCode(value);
+        return loadSysCodeName(value, DEFAULT_LOCALE);
+    }
+
+    /**
+     * 获取code对应中文
+     *
+     * @param value
+     * @return
+     */
+    public String loadSysCodeName(String value, String locale) {
+        SysCodeVo codeVo = this.loadSysCode(value, locale);
         return ValidHelper.isEmpty(codeVo) ? "" : codeVo.getName();
     }
 }

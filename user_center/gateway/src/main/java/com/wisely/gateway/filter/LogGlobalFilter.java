@@ -5,6 +5,7 @@ import com.wisely.framework.helper.JsonHelper;
 import com.wisely.framework.helper.StringHelper;
 import com.wisely.framework.helper.ValidHelper;
 import com.wisely.gateway.common.GateWayLogProperties;
+import com.wisely.gateway.common.helper.AsyncKafkaBean;
 import com.wisely.gateway.common.helper.WebHelper;
 import com.wisely.gateway.entity.GatewayLog;
 import lombok.extern.slf4j.Slf4j;
@@ -28,9 +29,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpRequestDecorator;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.StopWatch;
 import org.springframework.web.reactive.function.BodyInserter;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.HandlerStrategies;
@@ -51,14 +50,14 @@ import java.util.Map;
 @Slf4j
 public class LogGlobalFilter implements GlobalFilter, Ordered {
 
-    public LogGlobalFilter(GateWayLogProperties properties, KafkaTemplate<String, Object> kafkaTemplate) {
+    public LogGlobalFilter(GateWayLogProperties properties, AsyncKafkaBean asyncKafkaBean) {
         this.properties = properties;
-        this.kafkaTemplate = kafkaTemplate;
+        this.asyncKafkaBean = asyncKafkaBean;
     }
 
     private GateWayLogProperties properties;
 
-    private KafkaTemplate<String, Object> kafkaTemplate;
+    private AsyncKafkaBean asyncKafkaBean;
 
     private final List<HttpMessageReader<?>> messageReaders = HandlerStrategies.withDefaults().messageReaders();
 
@@ -164,13 +163,12 @@ public class LogGlobalFilter implements GlobalFilter, Ordered {
      * 打印日志
      *
      * @param gatewayLog 网关日志
-     * @author javadaily
      * @date 2021/3/24 14:53
      */
     private void writeAccessLog(GatewayLog gatewayLog) {
 //        StopWatch stopWatch = new StopWatch();
 //        stopWatch.start();
-        kafkaTemplate.send(this.properties.getTopic(), JsonHelper.obj2Json(gatewayLog));
+        this.asyncKafkaBean.sendMessage(this.properties.getTopic(), JsonHelper.obj2Json(gatewayLog));
 //        stopWatch.stop();
 //        log.debug("writeAccessLog: {}", stopWatch.prettyPrint());
     }
@@ -202,7 +200,7 @@ public class LogGlobalFilter implements GlobalFilter, Ordered {
                 if (contentLength > 0) {
                     httpHeaders.setContentLength(contentLength);
                 } else {
-                    // TODO: this causes a 'HTTP/1.1 411 Length Required'
+                    //TODO: this causes a 'HTTP/1.1 411 Length Required'
                     httpHeaders.set(HttpHeaders.TRANSFER_ENCODING, "chunked");
                 }
                 return httpHeaders;

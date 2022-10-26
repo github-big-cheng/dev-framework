@@ -1,17 +1,13 @@
 package com.wisely.ucenter.client.api;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.wisely.framework.api.NetApi;
 import com.wisely.framework.api.NetTools;
 import com.wisely.framework.entity.Model;
 import com.wisely.framework.handler.cache.EntityCacheManager;
-import com.wisely.framework.helper.AssertHelper;
-import com.wisely.framework.helper.DataHelper;
-import com.wisely.framework.helper.JsonHelper;
-import com.wisely.framework.helper.ResponseBuilder;
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.wisely.framework.helper.*;
 import com.wisely.ucenter.client.common.UcenterConstants;
-import com.wisely.ucenter.client.eum.UcenterCacheEnum;
-import com.wisely.ucenter.client.handler.UcenterDictionaryHelper;
+import com.wisely.ucenter.client.vo.UcenterOrgVo;
 import com.wisely.ucenter.client.vo.UcenterPersonVo;
 import lombok.extern.slf4j.Slf4j;
 
@@ -56,12 +52,26 @@ public class UcenterNetApi extends NetApi implements UcenterConstants {
      * @param personId 人员ID
      * @return UcenterPersonVo
      */
-    public UcenterPersonVo loadUcenterPerson(Integer personId) {
-        AssertHelper.EX_VALIDATION.isNotEmpty(personId, "common.parameter_required.personId");
-        return EntityCacheManager.deserializer(
-                PERSON_CACHE_KEY,
-                DataHelper.getString(personId),
-                UcenterPersonVo.class);
+    public UcenterPersonVo loadPersonById(Integer personId) {
+        return ValidHelper.isNotEmpty(personId) ?
+                EntityCacheManager.deserializer(
+                        PERSON_CACHE_KEY,
+                        DataHelper.getString(personId),
+                        UcenterPersonVo.class) : null;
+    }
+
+
+    /**
+     * 根据ID获取机构/部门信息
+     *
+     * @param orgId 机构/部门id
+     * @return UcenterOrgVo
+     */
+    public UcenterOrgVo loadOrgById(Integer orgId) {
+        return ValidHelper.isNotEmpty(orgId) ? EntityCacheManager.deserializer(
+                ORG_CACHE_KEY,
+                DataHelper.getString(orgId),
+                UcenterOrgVo.class) : null;
     }
 
     /************缓存操作方法结束************/
@@ -73,40 +83,39 @@ public class UcenterNetApi extends NetApi implements UcenterConstants {
      * @return
      */
     public Model loadSsoUser(Integer personId) {
-        return this.request(LOAD_SSOUSER, Model.builder().set("personId", personId), new TypeReference<Model>() {
+        return this.request(LOAD_SSO_USER, Model.builder().set("personId", personId), new TypeReference<Model>() {
         });
     }
 
 
     /**
-     * 按角色查询人员列表
+     * 人员-列表查询
      *
      * @param model orgType org类型 部门-'12001-10'
      *              orgIdQueryIn 机构/部门ID
      *              roleCodeQueryIn 多角色code
+     *              idQueryIn 多id查询
      * @return
      */
     public List<Model> loadPersonBySelective(Model model) {
-        return this.request(SELECTIVE_PERSON, model, new TypeReference<List<Model>>() {
+        return this.request(PERSON_LIST, model, new TypeReference<List<Model>>() {
         });
     }
 
+
     /**
-     * 获取部门人员信息
-     * 包含部门排序
+     * 人员-分页查询
      *
-     * @param model type: 12001-10、12001-20
-     *              personIds: 人员ids
+     * @param model
      * @return
      */
-    public List<Model> deptPersonList(Model model) {
-        Model result = this.request(DEPT_PERSON, model, new TypeReference<Model>() {
+    public Model loadPersonByPage(Model model) {
+        return this.request(PERSON_PAGE, model, new TypeReference<Model>() {
         });
-        return result.getModelList("list");
     }
 
     /**
-     * 获取部门List
+     * 机构/部门列表
      *
      * @param input
      * @return
@@ -117,47 +126,13 @@ public class UcenterNetApi extends NetApi implements UcenterConstants {
     }
 
     /**
-     * 获取部门树
+     * 机构/部门分页
      *
-     * @param model ids 批量部门id
+     * @param model
      * @return
      */
-    public List<Model> loadDeptTree(Model model) {
-        return this.request(DEPT_TREE, model, new TypeReference<List<Model>>() {
+    public Model loadOrgByPage(Model model) {
+        return this.request(ORG_PAGE, model, new TypeReference<Model>() {
         });
     }
-
-    /**
-     * 获取部门人员树
-     *
-     * @param model personIdsQuery 批量人员id
-     * @param model ids 批量部门ID
-     * @return
-     */
-    public List<Model> loadDeptPersonTree(Model model) {
-        return this.request(DEPT_PERSON_TREE, model, new TypeReference<List<Model>>() {
-        });
-    }
-
-    /**
-     * 获取角色
-     *
-     * @return
-     */
-    public List<Model> roleList(Model input) {
-        return this.request(ROLE_LIST, input, new TypeReference<List<Model>>() {
-        });
-    }
-
-    /**
-     * 人员列表查询
-     *
-     * @param input
-     * @return
-     */
-    public List<Model> loadPersonList(Model input) {
-        return this.request(PERSON_LIST, input, new TypeReference<List<Model>>() {
-        });
-    }
-
 }

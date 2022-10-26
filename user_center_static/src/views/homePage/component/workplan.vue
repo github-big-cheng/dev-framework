@@ -142,18 +142,18 @@
                     startTimeQuery: calenderDateList[0].date + " 00:00",
                     endTimeQuery: calenderDateList[41].date + " 23:59",
                 };
-                this.$http.getWorkPlanList(monthWorkForm).then((res) => {
-                    if (res.code == 0) {
-                        let {list} = res.data;
-                        calenderDateList.forEach((calender) => {
-                            let flag = list.some((item) =>
-                                moment(calender.date).isBetween(item.startTime, item.endTime, "day", "[]")
-                            );
-                            calender.haveWork = flag;
-                        });
-                        this.calenderDateList = calenderDateList;
-                    }
-                });
+                // this.$http.getWorkPlanList(monthWorkForm).then((res) => {
+                //     if (res.code == 0) {
+                //         let {list} = res.data;
+                //         calenderDateList.forEach((calender) => {
+                //             let flag = list.some((item) =>
+                //                 moment(calender.date).isBetween(item.startTime, item.endTime, "day", "[]")
+                //             );
+                //             calender.haveWork = flag;
+                //         });
+                //         this.calenderDateList = calenderDateList;
+                //     }
+                // });
             },
             handlePrev() {
                 //上月
@@ -204,6 +204,7 @@
                 this.getWorkList();
             },
             async getWorkList() {
+                return;
                 try {
                     const {code, data} = await this.$http.getWorkPlanList({currentTime: this.selectedWorkDay})
                     if (+code !== 0) return;

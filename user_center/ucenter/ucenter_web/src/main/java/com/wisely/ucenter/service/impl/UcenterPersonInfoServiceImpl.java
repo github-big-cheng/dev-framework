@@ -41,7 +41,6 @@ public class UcenterPersonInfoServiceImpl implements UcenterPersonInfoService {
         if (ValidHelper.isEmpty(list)) {
             return result;
         }
-
         list.forEach(info ->
                 result.getModel(info.getPersonId(), true)
                         .set(info.getFieldKey(), info.getFieldValue()));

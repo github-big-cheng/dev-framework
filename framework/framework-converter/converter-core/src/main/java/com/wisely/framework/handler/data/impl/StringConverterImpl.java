@@ -78,8 +78,8 @@ public class StringConverterImpl implements DefaultDataConverter<String>, Conver
 
     /**
      * 处理顺序：
-     * 1. rsub 右截取
-     * 2. lsub 左截取
+     * 1. lsub 左截取
+     * 2. rsub 右截取
      * 3. lpad 左补齐
      * 4. rpad 右补齐
      *

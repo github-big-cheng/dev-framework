@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * 部门/机构人员中间表(UcenterPersonOrg)实体类
  *
- * @author ruijie.hu
+ * @author system
  * @since 2021-05-28 17:33:07
  */
 @Setter

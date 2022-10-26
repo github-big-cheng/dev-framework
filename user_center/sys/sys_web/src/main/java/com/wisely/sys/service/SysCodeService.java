@@ -51,7 +51,7 @@ public interface SysCodeService {
      * @param value 主键代码值
      * @return UcenterCode对象
      */
-    SysCode load(String value);
+    SysCode load(Integer value);
 
     /**
      * 批量删除

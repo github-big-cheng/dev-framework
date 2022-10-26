@@ -5,6 +5,9 @@
  * @param character
  * @returns {*}
  */
+import {getToken} from "../utils/auth";
+import {requestUrl} from "../api/api";
+
 export const formatText = (val, character = "-") => {
     return val ? val : character;
 }
@@ -91,7 +94,7 @@ export const staticFilePathFormat = (filePath, defaultVal = "") => {
     if (!filePath) {
         return defaultVal;
     }
-    return window.location.origin + "/file" + filePath;
+    return requestUrl + "/sys/file/download?_sgk=" + getToken() + "&filePath=" + filePath;
 }
 
 /**

@@ -9,6 +9,7 @@ import com.wisely.framework.helper.*;
 import com.wisely.framework.helper.encry.Md5Helper;
 import com.wisely.sso.client.entity.SsoUser;
 import com.wisely.sso.client.filter.LoginFilterProperties;
+import com.wisely.sso.client.helper.UserHelper;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
@@ -30,13 +31,10 @@ public class LoginHandler {
     public static SsoUser doCheck(String _sgk, String osType) {
 
         AssertHelper.EX_BUSINESS.isNotEmpty(_sgk, "common.parameter_required.{0}", SSO_KEY);
-        AssertHelper.EX_BUSINESS.isNotEmpty(_sgk, "common.parameter_required.osType");
+        AssertHelper.EX_BUSINESS.isNotEmpty(osType, "common.parameter_required.osType");
 
         // 检查是否保存登录票据信息
-        String userJson = RedisHelper.get(TICKET_PREFIX + osType + _sgk);
-        AssertHelper.EX_BUSINESS.isNotEmpty(userJson, "login.login_checked_failed");
-
-        SsoUser ssoUser = JsonHelper.json2Obj(userJson, SsoUser.class);
+        SsoUser ssoUser = UserHelper.loadByTicket(osType, _sgk);
         AssertHelper.EX_BUSINESS.isNotEmpty(ssoUser, "login.login_checked_failed");
 
         // 检查token是否为当前活动ticket

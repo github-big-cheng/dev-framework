@@ -2,17 +2,20 @@
 <!DOCTYPE trans SYSTEM "converter.dtd">
 <trans name="sysOperationLog/add" desc="新增" group="操作日志" groupCode="sysOperationLog">
     <send>
-        <item name="className" desc="类名"/>
-        <item name="columnName" desc="字段名"/>
-        <item name="oldValue" desc="修改后"/>
-        <item name="newValue" desc="修改后"/>
-        <item name="billNo" desc="业务单号"/>
-        <item name="bizId" desc="业务ID"/>
         <item name="userId" desc="用户ID"/>
-        <item name="account" desc="账号"/>
-        <item name="ip" desc="ip"/>
-        <item name="machineName" desc="机器名称"/>
-        <item name="time" desc="操作时间"/>
+        <item name="targetServer" desc="访问实例"/>
+        <item name="requestPath" desc="请求路径"/>
+        <item name="requestMethod" desc="请求方法"/>
+        <item name="schema" desc="协议"/>
+        <item name="osType" desc="操作系统类型"/>
+        <item name="token" desc="令牌"/>
+        <item name="requestBody" desc="请求体"/>
+        <item name="responseData" desc="响应体"/>
+        <item name="ip" desc="请求ip"/>
+        <item name="requestTime" desc="请求时间"/>
+        <item name="responseTime" desc="响应时间"/>
+        <item name="executeTime" desc="执行时间"/>
+        <item name="opTime" desc="操作时间"/>
     </send>
     <rcv>
         <item name="id" desc="id" type="Integer" ignore-key="true"/>

@@ -1,9 +1,9 @@
 package com.wisely.framework.helper;
 
+import com.google.common.collect.Lists;
 import com.wisely.framework.entity.FrameworkRequestWrapper;
 import com.wisely.framework.entity.Model;
 import com.wisely.framework.handler.message.MessageConvert;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
 import org.springframework.web.context.request.RequestAttributes;
@@ -20,7 +20,6 @@ import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +34,8 @@ public class RequestHelper {
     private RequestHelper() {
     }
 
+
+    private final static String REQUEST_DATA = "REQUEST_DATA";
 
     private final static ThreadLocal<FrameworkRequestWrapper> THREAD_LOCAL_MAP = new ThreadLocal<>();
 
@@ -234,43 +235,41 @@ public class RequestHelper {
      */
     public static Model getInput(HttpServletRequest request, boolean clearHistory) {
 
-        Model input = (Model) request.getAttribute("input");
-        if (null != input && !input.isEmpty() && !clearHistory) {
+        Model input = (Model) request.getAttribute(REQUEST_DATA);
+        if (ValidHelper.isNotEmpty(input) && !clearHistory) {
             return input;
-        } else {
-            input = Model.builder("REQUEST_DATA");
         }
-        for (Enumeration e = request.getParameterNames(); e.hasMoreElements(); ) {
+
+        // 创建Model
+        input = Model.builder(REQUEST_DATA);
+
+        for (Enumeration e = request.getParameterNames(); e.hasMoreElements();) {
             String key = (String) e.nextElement();
             String[] values = request.getParameterValues(key);
-            for (String value : values) {
-                if (input.containsKey(key) && !key.equalsIgnoreCase("id")) {
-                    Object temp = input.get(key);
-                    if (temp instanceof List) {
-                        ((List) temp).add(value);
-                    } else {
-                        List temps = new ArrayList();
-                        temps.add(temp);
-                        temps.add(value);
-                        input.put(key, temps);
-                    }
-                } else {
-                    input.put(key, value);
-                }
-            }
+            input.set(key, StringHelper.join(values, ","));
         }
 
         // payload方式参数
         if (StringHelper.contains(request.getContentType(), "application/json")) {
-            try (BufferedReader br = request.getReader()) {
-                StringBuffer sb = new StringBuffer();
-                String s;
-                while ((s = br.readLine()) != null) {
-                    sb.append(s);
+            try {
+                // 使用FrameworkRequestWrapper支持流的重复读取
+                FrameworkRequestWrapper wrapper;
+                if (request instanceof FrameworkRequestWrapper) {
+                    wrapper = (FrameworkRequestWrapper) request;
+                } else {
+                    // 非框架代码兼容
+                    wrapper = new FrameworkRequestWrapper(request);
                 }
-                String lines = sb.toString();
-                if (StringHelper.isNotBlank(lines)) {
-                    input.putAll(JsonHelper.json2Obj(lines, Map.class));
+                try (BufferedReader br = wrapper.getReader()) {
+                    StringBuffer sb = new StringBuffer();
+                    String s;
+                    while ((s = br.readLine()) != null) {
+                        sb.append(s);
+                    }
+                    String lines = sb.toString();
+                    if (StringHelper.isNotBlank(lines)) {
+                        input.putAll(JsonHelper.json2Obj(lines, Map.class));
+                    }
                 }
             } catch (Exception e) {
                 log.warn("request.getInputStream error:{}", e);
@@ -287,7 +286,9 @@ public class RequestHelper {
             }
         }
 
-        request.setAttribute("input", input);
+        // request中重新赋值
+        request.setAttribute(REQUEST_DATA, input);
+
         return input;
     }
 

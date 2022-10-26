@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * 机构/部门信息(UcenterOrg)实体类
  *
- * @author ruijie.hu
+ * @author system
  * @since 2021-05-28 17:32:34
  */
 @Setter
@@ -32,7 +32,10 @@ public class UcenterOrg extends BaseEntity implements Serializable {
      * 所属机关（单位）名称
      */
     private String orgName;
-
+    /**
+     * 类型 部门/机构 10027-10:部门, 10027-20:往来单位/公司, 10027-30:机构
+     */
+    private String compType;
     /**
      * 父级id
      */
@@ -45,7 +48,6 @@ public class UcenterOrg extends BaseEntity implements Serializable {
      * 路径名称 ROOT_ID-10001-10002…
      */
     private String pathNames;
-
     /**
      * 代码
      */
@@ -82,15 +84,10 @@ public class UcenterOrg extends BaseEntity implements Serializable {
      * 传真
      */
     private String fax;
-
     /**
      * 顺序号
      */
     private Integer orderNo;
-    /**
-     * 类型 部门/机构 10027-10:部门, 10027-20:党支部, 10027-30:机构
-     */
-    private String compType;
     /**
      * 备注
      */
@@ -147,6 +144,14 @@ public class UcenterOrg extends BaseEntity implements Serializable {
      * 路径 模糊搜索
      */
     private String pathIdsQueryLike;
+    /**
+     * 路径 模糊搜索
+     */
+    private String pathIdsQueryLeftLike;
+    /**
+     * 路径 模糊搜索
+     */
+    private String pathIdsQueryRightLike;
     /**
      * 部门名称模糊搜索
      */

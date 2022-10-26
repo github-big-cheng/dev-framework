@@ -218,7 +218,9 @@
                         this.tableDataFrom.push({
                             deptId: item.deptId,
                             isMain: item.isMain == 1 ? '1' : '0',
-                            isMainPerson: item.isMainPerson == 1 ? true : false
+                            isMainPerson: item.isMainPerson == 1 ? true : false,
+                            posId: item.posId,
+                            posLev: item.posLev
                         });
                         this.tableData.push(data)
                     }

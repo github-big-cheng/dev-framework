@@ -43,7 +43,7 @@
 
         <item name="roleIds" desc="角色ids"/>
         <item-json name="personImg" desc="人员头像json串" real-type="Map">
-            <item name="fileSize" desc="文件大小"/>
+            <item name="fileSize" desc="文件大小" type="Integer"/>
             <item name="filePath" desc="文件路径"/>
             <item name="fileName" desc="文件名称"/>
             <item name="fileType" desc="文件类型"/>

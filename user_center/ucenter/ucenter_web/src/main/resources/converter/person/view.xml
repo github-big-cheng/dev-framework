@@ -13,7 +13,7 @@
         <item name="jobNo" desc="工号"/>
         <item name="idNo" desc="身份证号码"/>
         <item name="mobile" desc="手机"/>
-        <item name="personState" desc="员工状态"/>
+        <item name="status" desc="员工状态"/>
 
         <!-- 基本信息 -->
         <item name="sex" desc="性别 TYPE=10001-10004, 10004-10:男 10004-20:女 "/>
@@ -59,12 +59,13 @@
         <item name="userId" desc="userId" type="Integer"/>
         <item name="account" desc="人员账号"/>
         <item name="accountStatus" desc="账号状态 1-正常 2-冻结(锁定) 3-注销" type="Integer"/>
+        <item name="roleIds" desc="批量角色ids"/>
         <item name="roleNames" desc="批量角色名称" target="roleIds" mapper="ROLE_HASH"/>
         <item name="deptNames" desc="人员所在部门名称" target="deptIds" mapper="ORG_HASH"/>
 
         <!-- 头像 -->
         <item-map name="personImg" desc="人员头像json字符串信息">
-            <item name="fileSize" desc="文件大小"/>
+            <item name="fileSize" desc="文件大小" type="Integer"/>
             <item name="filePath" desc="文件路径"/>
             <item name="fileName" desc="文件名称"/>
             <item name="fileType" desc="扩展名"/>
@@ -72,6 +73,7 @@
         <!-- 人员部门信息 -->
         <item-list name="ucenterPersonOrgs" desc="人员部门信息">
             <item name="deptId" desc="部门id" type="Integer"/>
+            <item name="deptName" desc="部门名称" target="deptId" mapper="ORG_HASH"/>
             <item name="isMain" desc="主要部门" notes="1-是 0-否"/>
             <item name="isMainPerson" desc="主要负责人" notes="1-是 0-否"/>
             <item name="posId" desc="职位" type="Integer"/>

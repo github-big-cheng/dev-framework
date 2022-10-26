@@ -5,8 +5,7 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
 const CompressionPlugin = require("compression-webpack-plugin");
 
 const isProduction = process.env.NODE_ENV === "production";
-// const requestUrl = "http://127.0.0.1";
-const requestUrl = "http://47.94.101.149:8002/";
+const requestUrl = "http://127.0.0.1";
 
 module.exports = {
   // 基本路径
@@ -191,28 +190,11 @@ module.exports = {
       },
       "/dev-api/sys": {
         target: requestUrl + "/sys",
-        // target: "http://localhost:83/sys",
         ws: false,
         changeOrigin: true,
         pathRewrite: {
           "^/dev-api/sys": "",
         },
-      },
-      "/dev-api/file": {
-        target: requestUrl + "/file",
-        ws: false,
-        changeOrigin: true,
-        pathRewrite: {
-          "^/dev-api/file": "",
-        },
-      },
-      "^/file": {
-        target: requestUrl + '/flie',
-        ws: false,
-        changeOrigin: true,
-        pathRewrite: {
-            "^/file": ""
-        }
       },
     },
   },

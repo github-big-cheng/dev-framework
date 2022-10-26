@@ -2,7 +2,7 @@
 <!DOCTYPE trans SYSTEM "converter.dtd">
 <trans name="org/tree" desc="机构部门树" group="部门管理" groupCode="org">
     <send>
-        <item name="isAll" desc="是否进行权限过滤 不为空就查询所有机构,为空就查询当前人所属机构的" type="Integer"/>
+        <item name="isAll" desc="是否进行权限过滤" notes="不为空就查询所有机构,为空就查询当前人所属机构的" type="Integer"/>
     </send>
     <rcv>
         <item-tree name="list" desc="list" ignore-key="true" treeKey="children" real-type="List">

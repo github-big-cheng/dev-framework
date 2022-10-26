@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -61,13 +62,7 @@ public class UcenterPersonServiceImpl implements UcenterPersonService, UcenterCo
 
 
     @Override
-    public List<UcenterPerson> findList(UcenterPerson query) {
-        query.setIsDeleted(0);
-        return ucenterPersonMapper.selectExtendedListBySelective(query);
-    }
-
-    @Override
-    public PageInfo findByPage(UcenterPerson query, PageVo pageVo) {
+    public Model findByPage(UcenterPerson query, PageVo pageVo) {
         query.setIsDeleted(0);
         //不是管理员，过滤机构
         if (!UserHelper.hasRole(ROLE_SUPER_ADMIN)) {
@@ -90,33 +85,50 @@ public class UcenterPersonServiceImpl implements UcenterPersonService, UcenterCo
             }
         }
 
-        query.setIsDeleted(0);
         PageHelper.startPage(pageVo.getPageNo(), pageVo.getPageSize());
-        List<UcenterPerson> ucenterPersonList =
-                ucenterPersonMapper.selectExtendedListBySelective(query);
-        return new PageInfo(this.selectPersonWithDetail(ucenterPersonList));
+        query.setIsDeleted(0);
+        List<UcenterPerson> dataList = ucenterPersonMapper.selectListBySelective(query);
+        PageInfo pageInfo = new PageInfo(dataList);
+        return Model.builder().set("total", pageInfo.getTotal()).set("list", this.selectPersonWithDetail(dataList));
     }
 
     /**
      * 查询人员信息以及人员对应的角色信息
      *
-     * @param ucenterPersonList
-     * @return List<UcenterPerson>
+     * @param dataList
+     * @return List<Model>
      */
-    public List<Model> selectPersonWithDetail(List<UcenterPerson> ucenterPersonList) {
+    @Override
+    public List<Model> selectPersonWithDetail(List<UcenterPerson> dataList) {
 
         List<Model> personList = Lists.newArrayList();
-
-        if (ValidHelper.isEmpty(ucenterPersonList)) {
+        if (ValidHelper.isEmpty(dataList)) {
             return personList;
         }
 
         //人员id
-        List<Integer> personIdList = ucenterPersonList.stream().map(UcenterPerson::getId).collect(Collectors.toList());
+        List<Integer> personIdList = dataList.stream().map(UcenterPerson::getId).collect(Collectors.toList());
         String personIds = StringHelper.join(personIdList, ",");
 
         // personInfo信息
         Model<Integer, Model> personInfoModel = ucenterPersonInfoService.personInfoQuery(personIds);
+
+
+        // 账号信息
+        Model<Integer, Model> userModel = Model.builder();
+        UcenterUser userQuery = new UcenterUser();
+        userQuery.setIsDeleted(0);
+        userQuery.setPersonIdQueryIn(personIds);
+        List<UcenterUser> userList = ucenterUserService.list(userQuery);
+        if (ValidHelper.isNotEmpty(userList)) {
+            userList.forEach(user -> {
+                Model item = Model.builder();
+                item.set("userId", user.getId())
+                        .set("account", user.getAccount())
+                        .set("accountStatus", user.getStatus());
+                userModel.set(user.getPersonId(), item);
+            });
+        }
 
         // 人员部门信息
         Model<Integer, List<UcenterPersonOrg>> personOrgModel = Model.builder();
@@ -140,11 +152,25 @@ public class UcenterPersonServiceImpl implements UcenterPersonService, UcenterCo
                     personRoleModel.getSet(personRole.getPersonId(), true).add(personRole.getRoleId()));
         }
 
+        // 调用SysNetApi 获取人员的头像信息
+        Model<Integer, Model> imageModel = Model.builder();
+        List<Model> fileList =
+                sysNetApi.loadFiles(
+                        Model.builder()
+                                .set("sourceType", FILE_IMAGE_CODE)
+                                .set("sourceIdQueryIn", personIds));
+        if (ValidHelper.isNotEmpty(fileList)) {
+            fileList.forEach(file -> imageModel.set(file.getInt("sourceId"), file));
+        }
 
-        ucenterPersonList.forEach(person -> {
+
+        dataList.forEach(person -> {
 
             Model temp = Model.parseObject(person);
             personList.add(temp);
+
+            // 账号信息
+            temp.putAll(userModel.get(person.getId()));
 
             // personInfo 信息
             if (personInfoModel.containsKey(person.getId())) {
@@ -172,15 +198,8 @@ public class UcenterPersonServiceImpl implements UcenterPersonService, UcenterCo
                 temp.set("ucenterPersonOrgs", personDeptList);
             }
 
-            // 调用SysNetApi 获取人员的头像信息
-            List<Model> modelList =
-                    sysNetApi.loadFiles(
-                            Model.builder()
-                                    .set("sourceType", FILE_IMAGE_CODE)
-                                    .set("sourceId", person.getId()));
-            if (ValidHelper.isNotEmpty(modelList)) {
-                temp.set("personImg", modelList.get(0));
-            }
+            // 头像
+            temp.set("personImg", imageModel.get(person.getId()));
         });
 
         return personList;
@@ -252,9 +271,10 @@ public class UcenterPersonServiceImpl implements UcenterPersonService, UcenterCo
         // 刷新缓存
         UcenterPerson cacheQuery = new UcenterPerson();
         cacheQuery.setId(record.getId());
-        List<UcenterPerson> persons = ucenterPersonMapper.selectExtendedListBySelective(cacheQuery);
-        if (ValidHelper.isNotEmpty(persons)) {
-            personCache.syncCache(persons.get(0));
+        List<UcenterPerson> dataList = ucenterPersonMapper.selectListBySelective(cacheQuery);
+        List<Model> cacheList = this.selectPersonWithDetail(dataList);
+        if (ValidHelper.isNotEmpty(cacheList)) {
+            personCache.syncCache(cacheList.get(0));
         }
         return record.getId();
     }
@@ -262,14 +282,16 @@ public class UcenterPersonServiceImpl implements UcenterPersonService, UcenterCo
 
     @Override
     public Model load(Integer id) {
-        UcenterPerson ucenterPerson = new UcenterPerson();
-        ucenterPerson.setId(id);
-        ucenterPerson.setIsDeleted(0);
-        List<UcenterPerson> ucenterPersonList = ucenterPersonMapper.selectExtendedListBySelective(ucenterPerson);
-        List<Model> personList = this.selectPersonWithDetail(ucenterPersonList);
+        UcenterPerson query = new UcenterPerson();
+        query.setId(id);
+        query.setIsDeleted(0);
+        List<UcenterPerson> dataList = ucenterPersonMapper.selectListBySelective(query);
+        List<Model> personList = this.selectPersonWithDetail(dataList);
         return ValidHelper.isEmpty(personList) ? null : personList.get(0);
     }
 
+
+    @Transactional
     @Override
     public int delete(String idQueryIn) {
         AssertHelper.EX_VALIDATION.isNotBlank(idQueryIn, "common.parameter_required.idQueryIn");
@@ -375,26 +397,27 @@ public class UcenterPersonServiceImpl implements UcenterPersonService, UcenterCo
     public void personImgSave(UcenterPerson record) {
 
         Model input = RequestHelper.getInput();
-        String personImg = input.getString("personImg");
-
-        if (ValidHelper.isEmpty(record) ||
-                StringHelper.isBlank(personImg)) {
+        if (input.isEmpty("personImg")) {
             return;
         }
 
-        Model model = Model.parseObject(personImg);
+        Model personImg = input.getModel("personImg");
         sysNetApi.uploadFile(
                 Model.builder()
                         .set("sourceType", FILE_IMAGE_CODE)
                         .set("sourceId", record.getId())
+                        .set("personId", UserHelper.getPersonId())
                         .set("uploadTime", DateHelper.formatNow())
-                        .set("files", Lists.newArrayList(model)));
+                        .set("files", Lists.newArrayList(personImg)));
     }
 
 
     @Override
-    public List<Model> loadPersonBySelective(Model model) {
-        return ucenterPersonMapper.loadPersonBySelective(model);
+    public List<Model> loadPersonBySelective(UcenterPerson query) {
+        query.setIsDeleted(0);
+        List<UcenterPerson> personList = ucenterPersonMapper.selectListBySelective(query);
+        return selectPersonWithDetail(personList);
+
     }
 
 

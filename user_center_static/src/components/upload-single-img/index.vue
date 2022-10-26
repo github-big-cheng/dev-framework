@@ -24,6 +24,7 @@
 <script>
     import {getToken} from "@/utils/auth";
     import {requestUrl} from '@/api/api'
+    import {staticFilePathFormat} from "../../filters";
 
     export default {
         name: 'uploadSingleImgCom',
@@ -62,7 +63,7 @@
         created() {
             // this.url = window.location.origin;
             this.url = requestUrl;
-            this.imagePath = this.value ? requestUrl + "/file" + this.value : "";
+            this.imagePath = this.value ? staticFilePathFormat(this.value) : "";
         },
         data() {
             return {
@@ -77,22 +78,16 @@
         },
         watch: {
             imageUrl(url) {
-                if (url) {
-                    this.imagePath = requestUrl + "/file" + url;
-                }
+                this.imagePath = staticFilePathFormat(url);
             },
             value(url) {
-                if (url) {
-                    this.imagePath = requestUrl + "/file" + url;
-                }
+                this.imagePath = staticFilePathFormat(url);
             },
         },
         methods: {
             handleAvatarSuccess(res, file) {
                 if (res.code == 0) {
-                    let filePath =
-                        requestUrl + "/file" + res.data[0].filePath;
-                    this.imagePath = filePath;
+                    this.imagePath = staticFilePathFormat(res.data[0].filePath);
                     this.$emit("upLoadImg", res.data[0].filePath);
                     this.$emit("upLoadImgFullInfo", res.data[0]);
                     this.$emit("input", res.data[0].filePath);

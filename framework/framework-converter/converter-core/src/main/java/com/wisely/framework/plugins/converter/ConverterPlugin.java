@@ -59,12 +59,13 @@ public class ConverterPlugin extends AbstractPlugin {
     @Bean
     @ConditionalOnMissingBean(ConverterDefineParser.class)
     public ConverterDefineParser converterDefineParser(ConverterProperties converterProperties) {
-        // xml
-        if (StringHelper.equals(converterProperties.getDefineType(), "xml")) {
-            return new XmlConverterDefineParser();
+        // yml
+        if (StringHelper.equals(converterProperties.getDefineType(), "yml")) {
+            return new YamlConverterDefineParser();
         }
-        // 默认 yaml
-        return new YamlConverterDefineParser();
+
+        // 默认 xml
+        return new XmlConverterDefineParser();
     }
 
 

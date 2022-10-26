@@ -352,6 +352,12 @@
         <if test="pathIdsQueryLike != null and pathIdsQueryLike != ''">
             and t.path_ids like concat ('%',#{pathIdsQueryLike},'%')
         </if>
+        <if test="pathIdsQueryLeftLike != null and pathIdsQueryLeftLike != ''">
+            and t.path_ids like concat (#{pathIdsQueryLeftLike},'%')
+        </if>
+        <if test="pathIdsQueryRightLike != null and pathIdsQueryRightLike != ''">
+            and t.path_ids like concat ('%', #{pathIdsQueryRightLike})
+        </if>
         <if test="idQueryIn != null and idQueryIn != ''">
             and t.id in
             <foreach collection="idQueryIn.split(',')" item="idQuery" index="" separator="," open="(" close=")">

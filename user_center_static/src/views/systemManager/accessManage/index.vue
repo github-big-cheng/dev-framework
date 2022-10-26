@@ -93,7 +93,7 @@
                     <el-tab-pane
                             :label="item.name"
                             :name="i + ''"
-                            v-for="(item, i) in allMenuList"
+                            v-for="(item, i) in projectList"
                             :key="item.id"
                     ></el-tab-pane>
                 </el-tabs>
@@ -147,7 +147,8 @@
                     :loading="isLoading"
                     style="color: #fff; border: 1px solid #409eff"
                     @click="clickSave"
-            >{{ isLoading ? '保存中' : '保存' }}</el-button>
+            >{{ isLoading ? '保存中' : '保存' }}
+            </el-button>
         </div>
     </div>
 </template>
@@ -214,6 +215,7 @@
                 isLoading: false,
                 tableData: [],
                 treeList: [],
+                projectList: [],
                 height: null,
                 tHeight: null,
                 checkedAll: false,
@@ -252,15 +254,11 @@
         },
         created() {
             // this.getMenuList('', "userId");
+            this.getProjectList()
             this.getUserList()
             this.getRoleList()
             this.getPosList()
             this.url = window.location.origin
-        },
-        computed: {
-            allMenuList() {
-                return this.$store.getters.allMenuList
-            },
         },
         methods: {
             handleClick() {
@@ -272,7 +270,7 @@
                 this[type](params)
             },
             filterData() {
-                if(this.organizationValue.trim() === '') return;
+                if (this.organizationValue.trim() === '') return;
                 this.searchOrganizationList = this.allOrganizationList.filter((item) => item.name && item.name.indexOf(this.organizationValue) != -1)
                 this.showSearchZz = true
             },
@@ -323,43 +321,64 @@
             formatLeft() {
                 setTimeout(() => {
                     let span_2 = document.getElementsByClassName('span_2')
-                    let span_3 = document.getElementsByClassName('span_3')
-                    let span_4 = document.getElementsByClassName('span_4')
+                    if (span_2 && span_2.length) {
+                        for (let i = 0; i < span_2.length; i++) {
+                            if (span_2[i] && span_2[i].parentNode) {
+                                span_2[i].parentNode.getElementsByClassName('el-checkbox')[0].className =
+                                    'el-checkbox treelist-layer1'
+                            }
+                        }
+                    }
 
-                    span_2.forEach((item) => {
-                        item.parentNode.getElementsByClassName('el-checkbox')[0].className =
-                            'el-checkbox treelist-layer1'
-                    })
-                    span_3.forEach((item) => {
-                        item.parentNode.getElementsByClassName('el-checkbox')[0].className =
-                            'el-checkbox treelist-layer2'
-                    })
-                    span_4.forEach((item) => {
-                        item.parentNode.getElementsByClassName('el-checkbox')[0].className =
-                            'el-checkbox treelist-layer3'
-                    })
+                    let span_3 = document.getElementsByClassName('span_3')
+                    if (span_3 && span_3.length) {
+                        for (let i = 0; i < span_3.length; i++) {
+                            if (span_3[i] && span_3[i].parentNode) {
+                                span_3[i].parentNode.getElementsByClassName('el-checkbox')[0].className =
+                                    'el-checkbox treelist-layer2'
+                            }
+                        }
+                    }
+
+                    let span_4 = document.getElementsByClassName('span_4')
+                    if (span_4 && span_4.length) {
+                        for (let i = 0; i < span_4.length; i++) {
+                            if (span_4[i] && span_4[i].parentNode) {
+                                span_4[i].parentNode.getElementsByClassName('el-checkbox')[0].className =
+                                    'el-checkbox treelist-layer3'
+                            }
+                        }
+                    }
                 }, 0)
             },
             formatChecked() {
-                return;
                 setTimeout(() => {
                     let checboxs = document.getElementsByClassName('el-checkbox')
+                    if (checboxs && checboxs.length) {
+                        for (let i = 0; i < checboxs.length; i++) {
+                            checboxs[i].style.background = '#fff'
+                        }
+                    }
+
                     let checkeds = document.getElementsByClassName('is-indeterminate')
-                    checboxs.forEach((item) => {
-                        item.style.background = '#fff'
-                    })
-                    checkeds.forEach((item) => {
-                        item.parentNode.style.background = 'rgba(218, 238, 253,1)'
-                    })
+                    if (checkeds && checkeds.length) {
+                        for (let i = 0; i < checboxs.length; i++) {
+                            if (checkeds[i] && checkeds[i].parentNode) {
+                                checkeds[i].parentNode.style.background = 'rgba(218, 238, 253,1)'
+                            }
+                        }
+                    }
                 }, 0)
             },
             handlExpandClick() {
                 this.formatLeft()
             },
-            // getTbHeight() {
-            //   this.height = this.tbHegiht(this.$refs);
-            //
-            // },
+            async getProjectList() {
+                const {code, data} = await this.$http.projectCombox();
+                if (code == 0) {
+                    this.projectList = data.list;
+                }
+            },
             getUserList() {
                 this.treeLoading = true
                 this.$http.getUcenterOrgTreePerson({isMain: 1}).then((res) => {
@@ -448,27 +467,26 @@
                     this.menuLoading = true
                     let res
                     let menuList
-                    // res = await this.$http.accessManage();
                     res = await this.$http.getUcenterobjfunc({
-                        projectId: this.allMenuList[this.tabActiveName].id,
+                        projectId: this.projectList[this.tabActiveName].id,
                         objType: this.activeName,
                         objId,
                     })
                     menuList = this.$formatTree(
-                        res.data[0].subFunction,
+                        res.data,
                         'subFunction',
                         false,
                         'tree-filebox',
                         'tree-file'
                     )
+
                     this.treeList = this.formatMenuList(menuList);
+
                     this.tableData = menuList
                     this.dfCheckedKeys = this.$filterTreeId(menuList).treeIds
                     this.ids = this.dfCheckedKeys.join(',')
                     let allIds = this.$filterTreeId(menuList).allIds
-                    // if (this.alltreeids.length == 0) {
                     this.alltreeids = this.$filterAllTreeId(menuList)
-                    // }
 
                     if (allIds.length == this.alltreeids.length) {
                         this.checkedAll = true
@@ -476,14 +494,15 @@
                         this.checkedAll = false
                     }
 
-                    setTimeout(() => {
-                        this.menuLoading = false
-                    }, 700)
                     this.formatLeft()
                     this.formatChecked()
                     // this.closeLoading(this.$route);
                 } catch (e) {
                     // this.closeLoading(this.$route);
+                } finally {
+                    setTimeout(() => {
+                        this.menuLoading = false
+                    }, 400)
                 }
             },
             formatMenuList(menuList) {
@@ -522,7 +541,7 @@
                     funcIds,
                     objType: this.activeName,
                     objId,
-                    projectId: this.allMenuList[this.tabActiveName].id,
+                    projectId: this.projectList[this.tabActiveName].id,
                 }
                 this.isLoading = true
                 this.$http
@@ -590,13 +609,14 @@
         height: 100%;
 
         .asideormain {
-            height: calc(100% - 58Px);/*no*/
+            height: calc(100% - 58Px); /*no*/
         }
 
         .aside-packup .aside-con .hd {
             top: 0;
         }
     }
+
     @media screen and (min-width: 1501px) {
         .u-obj-container .asideormain {
             height: calc(100% - 58px);

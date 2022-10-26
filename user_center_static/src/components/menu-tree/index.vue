@@ -47,7 +47,7 @@
                     <el-checkbox
                         v-for="(item, index) in data.menuBox"
                         :key="index"
-                        v-model="item.isSelect"
+                        v-model="item.isSelected"
                         :true-label="1"
                         :false-label="0"
                         @change="handleMenu($event, item)"
@@ -61,7 +61,6 @@
 </template>
 
 <script>
-let id = 10000;
 export default {
     name: 'menuTreeCom',
     props: {
@@ -180,12 +179,34 @@ export default {
         },
         loadingChecked(data, e) {
             this.loading.base = true;
+            console.log(data, e);
+            const {isSelected} = data;
+            this.formatMenuBox(isSelected, e.checkedNodes, new Set(e.checkedKeys));
             setTimeout(() => {
                 this.loading.base = false;
             }, 0);
         },
+
+        formatMenuBox(isSelected, nodeList, checkedSet) {
+            if (!nodeList || !nodeList.length) {
+                return;
+            }
+
+            nodeList.forEach(node => {
+               if (!node.menuBox || !node.menuBox.length) {
+                   return true;
+               }
+
+               node.menuBox.forEach(box => {
+                   if (checkedSet.has(box.id)) {
+                       box.isSelected = isSelected;
+                   }
+               });
+            });
+        },
+
         getChecked(data, e) {
-            data.isSelect = e ? 1 : 0;
+            data.isSelected = e ? 1 : 0;
             let menuIds = this.getCheckedKeys(
                 this.treeList,
                 this.$refs.tree.getCheckedKeys(),

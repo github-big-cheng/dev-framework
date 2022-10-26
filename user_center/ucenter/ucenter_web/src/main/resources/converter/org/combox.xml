@@ -6,6 +6,8 @@
         <item name="cNameOrCodeOrSnameOrLinkerQueryLike" desc="名称、代码、简称、联系人"/>
         <item name="compType" desc="类型" notes="10027-10:部门, 10027-20:公司/往来单位, 10027-30:集团"/>
         <item name="cnameQueryLike" desc="部门名称模糊搜索"/>
+        <item name="pathIdsQueryLeftLike" desc="左精确模糊查询" notes="pathIds like concat('#{pathIdsQueryLeftLike}', '%'"/>
+        <item name="pathIdsQueryRightLike" desc="右精确模糊查询" notes="pathIds like concat('%', '#{pathIdsQueryLeftLike}'"/>
     </send>
     <rcv>
         <item-list name="list" desc="list" ignore-key="true">

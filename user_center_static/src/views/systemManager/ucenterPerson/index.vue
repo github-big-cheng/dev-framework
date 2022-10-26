@@ -531,13 +531,9 @@
                     this.$showWarning("只能选择一条数据");
                     return;
                 }
-                let {account, accountStatus} = this.selectionList[0];
+                let {account} = this.selectionList[0];
                 if (!account) {
                     this.$showError("当前记录未分配账号，请刷新后重试");
-                    return;
-                }
-                if (accountStatus != "1") {
-                    this.$showError("当前记录账号状态异常，请刷新后重试");
                     return;
                 }
                 this.$confirm("账号" + account + "的密码将要被重置，请确认是否继续？", "提示", {

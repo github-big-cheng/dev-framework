@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("sysOperationLog")
 public class SysOperateLogController {
+
     @Resource
     SysOperateLogService sysOperateLogService;
 

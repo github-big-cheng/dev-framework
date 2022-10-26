@@ -2,7 +2,6 @@ package com.wisely.framework.plugins.converter;
 
 import com.wisely.framework.handler.aop.ConverterHandler;
 import com.wisely.framework.handler.aop.DefaultConverterHandler;
-import com.wisely.framework.plugins.converter.ConverterPlugin;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;

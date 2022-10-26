@@ -2,7 +2,8 @@ package com.wisely.sso.client.filter;
 
 import com.wisely.framework.entity.FrameworkRequestWrapper;
 import com.wisely.framework.entity.Model;
-import com.wisely.framework.exception.BusinessException;
+import com.wisely.framework.exception.BaseException;
+import com.wisely.framework.exception.eum.ExceptionCodeEnum;
 import com.wisely.framework.helper.AssertHelper;
 import com.wisely.framework.helper.RequestHelper;
 import com.wisely.framework.helper.StringHelper;
@@ -18,6 +19,7 @@ import org.springframework.util.PathMatcher;
 
 import javax.annotation.Resource;
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -51,7 +53,7 @@ public class LoginFilter implements Filter, SsoConstants {
     @Override
     public void init(FilterConfig filterConfig) {
 
-        Model initParameters = Model.builder(loginFilterProperties.getInitParameters());
+        Model initParameters = loginFilterProperties.getInitParameters();
 
         // 登录校验白名单
         List<String> ignoreLoginList = initParameters.getSpitList("excludes", ",");
@@ -67,10 +69,17 @@ public class LoginFilter implements Filter, SsoConstants {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        FrameworkRequestWrapper wrapper = (FrameworkRequestWrapper) servletRequest;
+        FrameworkRequestWrapper wrapper;
+        if (servletRequest instanceof FrameworkRequestWrapper) {
+            wrapper = (FrameworkRequestWrapper) servletRequest;
+        } else {
+            // 非框架代码兼容
+            wrapper = new FrameworkRequestWrapper((HttpServletRequest) servletRequest);
+        }
+
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        Model input = RequestHelper.getInput();
+        Model input = RequestHelper.getInput(wrapper);
         String osType = input.getString(OS_KEY, OS_PC);
         String ticket = input.getString(SSO_KEY);
 
@@ -91,6 +100,7 @@ public class LoginFilter implements Filter, SsoConstants {
         }
 
         // 登录校验
+        Exception ex = null;
         if (needLoginCheck(wrapper)) {
             boolean flag = false;
             try {
@@ -98,24 +108,29 @@ public class LoginFilter implements Filter, SsoConstants {
                 params.set(OS_KEY, osType)
                         .set(SSO_KEY, ticket);
 
-                String action = StringHelper.removeStart(wrapper.getServletPath(), "/");
-                if (needAuthCheck(action)) {
-                    params.set("action", action);
+                if (needAuthCheck(wrapper.getServletPath())) {
+                    params.set("action", wrapper.getServletPath());
                 }
 
                 // 登录及权限校验
                 SsoUser ssoUser = loginCheck.loginCheck(params);
-                AssertHelper.EX_VALIDATION.isNotEmpty(ssoUser, "login.login_checked_failed");
+                AssertHelper.EX_BUSINESS.isNotEmpty(ssoUser, "login.login_checked_failed");
 
                 // 设置线程用户信息线程变量
                 flag = true;
                 UserHelper.setUser(ssoUser);
 
-            } catch (BusinessException e) {
+            } catch (BaseException e) {
+                ex = e;
                 // response loginCheck message to client
                 RequestHelper.writeResponse(e.getCode(), e.getMessage(), loginFilterProperties.getRedirectUrl());
+                return;
+            } catch (Exception e) {
+                ex = e;
+                RequestHelper.writeResponse(ExceptionCodeEnum.SYSTEM.getCode(), e.getMessage(), null);
+                return;
             } finally {
-                if (flag) {
+                if (flag && ValidHelper.isNotEmpty(ex)) {
                     UserHelper.clear();
                 }
             }

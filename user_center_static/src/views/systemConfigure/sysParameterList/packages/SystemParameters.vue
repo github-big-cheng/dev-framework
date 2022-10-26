@@ -142,17 +142,17 @@ export default {
           prop: "keies",
         },
         {
-          label: "内网地址",
+          label: "值",
           prop: "value",
         },
         {
-          label: "外网地址",
-          prop: "outValue",
+          label: "类型",
+          prop: "type",
           width: "200",
         },
         {
-          label: "开发地址",
-          prop: "remark",
+          label: "子类型",
+          prop: "subType",
           width: "200",
         },
       ],
@@ -170,6 +170,10 @@ export default {
     },
     /* 请求列表 */
     async requsetList() {
+      if (!this.orgId) {
+        return ;
+      }
+
       try {
         this.loading = true;
         const { pageInfo, keies } = this;
@@ -258,6 +262,12 @@ export default {
     },
 
     updateTable() {
+
+      if (!this.orgId) {
+        this.$message.error('请先选择机构！');
+        return;
+      }
+
       this.pageInfo = {
         total: 1,
         pageNo: 1,
@@ -269,6 +279,12 @@ export default {
     },
 
     addTable() {
+
+      if (!this.orgId) {
+        this.$message.error('请先选择机构！');
+        return;
+      }
+
       if (!this.judgeEmpty()) return;
       const initialValue = Object.fromEntries(
         this.tableColumn.map((i) => [i.prop, ""])

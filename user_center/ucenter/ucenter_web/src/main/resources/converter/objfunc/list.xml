@@ -18,7 +18,7 @@
             <item name="imgPath" desc="图标路径"/>
             <item name="orderNo" desc="排序号" type="Integer"/>
             <item name="type" type="Integer" desc="类型" notes="1-菜单 2-子菜单 3-tab页签 4-按钮"/>
-            <item name="isSelect" type="Integer" desc="是否被选中"/>
+            <item name="isSelected" type="Integer" desc="是否被选中" default="0"/>
         </item-tree>
     </rcv>
 </trans>

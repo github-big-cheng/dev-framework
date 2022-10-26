@@ -3,6 +3,8 @@ package com.wisely.sys.mapper;
 import com.wisely.framework.entity.BaseMapper;
 import com.wisely.sys.entity.SysParameter;
 
+import java.util.List;
+
 /**
  * 系统参数表(SysParameter)表数据库访问层
  *
@@ -11,4 +13,5 @@ import com.wisely.sys.entity.SysParameter;
  */
 public interface SysParameterMapper extends BaseMapper<SysParameter> {
 
+    List<Integer> selectOrgIds();
 }

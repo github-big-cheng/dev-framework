@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 自定义页面配置表(TSysColumnConfig)表服务接口
  *
- * @author ruijie.hu
+ * @author system
  * @since 2021-06-03 17:56:46
  */
 public interface SysParameterService {

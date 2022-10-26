@@ -100,7 +100,7 @@ const systemManager = {
         component: () => import("@/views/systemManager/menuManage/pageAdd"),
         meta: {title: "菜单管理-新增", icon: "", deepth: 1,noWait: true, path: "/menuManage"}
     },
-    ucenter_function_save: {
+    ucenter_function_edit: {
         path: "/menuManageEdit/:id?",
         name: "menuManageEdit",
         component: () => import("@/views/systemManager/menuManage/pageEdit"),

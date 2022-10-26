@@ -26,6 +26,7 @@ create table `ucenter`.`t_ucenter_obj_func`
     org_name    varchar(128) comment '机构名称',
     obj_type    varchar(32) comment '权限类型',
     obj_id      int(10) comment '类型id',
+    project_id  int(10) comment '应用id',
     func_id     int(10) comment '菜单id',
     op_state    int(10) comment '操作状态',
     create_by   int(10) comment '创建人',

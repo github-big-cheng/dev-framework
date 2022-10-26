@@ -1,107 +1,98 @@
 package com.wisely.ucenter.client.eum;
 
 import com.wisely.framework.entity.Model;
-import com.wisely.framework.handler.cache.EntityCacheManager;
+import com.wisely.framework.helper.DataHelper;
+import com.wisely.framework.helper.ValidHelper;
 import com.wisely.ucenter.client.common.UcenterConstants;
+import com.wisely.ucenter.client.handler.UcDictHelper;
 import com.wisely.ucenter.client.vo.*;
+import lombok.Getter;
 
 import java.util.Arrays;
+import java.util.function.Function;
 
-
-/**
- * Ucenter 缓存处理类
- */
+@Getter
 public enum UcenterCacheEnum implements UcenterConstants {
 
-
+    /**
+     * 默认的空返回，避免空指针
+     */
+    EMPTY(null, (key) -> null),
     /**
      * UcenterOrg.id --> UcenterOrg.name
      */
-    ORG_NAME(ORG_CACHE_KEY, "ORG_HASH", UcenterOrgVo.class, "cname", "id"),
+    ORG_NAME("ORG_HASH", (orgId) -> {
+        UcenterOrgVo orgVo = UcDictHelper.loadOrgVo(DataHelper.getInt(orgId));
+        return ValidHelper.isNotEmpty(orgVo) ? orgVo.getCname() : null;
+    }),
     /**
-     * UcenterPerson.id --> UcenterPerson.personName
+     * UcenterPerson.id --> UcenterPerson.name
      */
-    PERSON_NAME(PERSON_CACHE_KEY, "PERSON_HASH", UcenterPersonVo.class, "name", "id"),
+    PERSON_NAME("PERSON_HASH", (personId) -> {
+        return UcDictHelper.getPersonName(DataHelper.getInt(personId));
+    }),
     /**
      * UcenterPerson.id --> UcenterPerson.account
      */
-    PERSON_ACCOUNT(PERSON_CACHE_KEY, "ACCOUNT_HASH", UcenterPersonVo.class, "account", "id"),
-    /**
-     * UcenterPerson.account --> UcenterPerson.personName
-     */
-    ACCOUNT_PERSON(ACCOUNT_PERSON_CACHE_KEY, "ACCOUNT_PERSON_HASH", UcenterPersonVo.class, "name", "account"),
-
-    /**
-     * UcenterPerson.account --> UcenterPerson.personId
-     */
-    ACCOUNT_PERSONID(ACCOUNT_PERSON_CACHE_KEY, "ACCOUNT_PERSONID_HASH", UcenterPersonVo.class, "id", "account"),
-
+    PERSON_ACCOUNT("ACCOUNT_HASH", (personId) -> {
+        UcenterPersonVo personVo = UcDictHelper.loadPersonVo(DataHelper.getInt(personId));
+        return ValidHelper.isNotEmpty(personVo) ? personVo.getAccount() : null;
+    }),
+//    /**
+//     * UcenterPerson.account --> UcenterPerson.personName
+//     */
+//    ACCOUNT_PERSON(ACCOUNT_PERSON_CACHE_KEY, "ACCOUNT_PERSON_HASH", UcenterPersonVo.class, "name", "account"),
     /**
      * UcenterUser.id --> UcenterUser.account
      */
-    USER_ACCOUNT(USER_CACHE_KEY, "USER_HASH", UcenterUserVo.class, "account", "id"),
+    USER_ACCOUNT("USER_HASH", (userId) -> {
+        UcenterUserVo userVo = UcDictHelper.loadUser(DataHelper.getInt(userId));
+        return ValidHelper.isNotEmpty(userVo) ? userVo.getAccount() : null;
+    }),
     /**
-     * UcenterUser.id --> UcenterPerson.personName
+     * UcenterUser.id --> UcenterPerson.name
      */
-    USER_PERSONNAME(USER_PERSON_CACHE_KEY, "USER_PERSON_NAME_HASH", UcenterPersonVo.class, "name", "id"),
+    USER_PERSON_NAME("USER_PERSON_NAME_HASH", (userId) -> {
+        UcenterUserVo userVo = UcDictHelper.loadUser(DataHelper.getInt(userId));
+        if (ValidHelper.isEmpty(userVo)) {
+            return null;
+        }
+
+        return UcDictHelper.getPersonName(userVo.getPersonId());
+    }),
 
     /**
-     * UcenterCode.value --> UcenterCode.name
+     * UcenterRole.value --> UcenterRole.name
      */
-    ROLE_NAME(ROLE_CACHE_KEY, "ROLE_HASH", UcenterRoleVo.class, "name", "id"),
+    ROLE_NAME("ROLE_HASH", (roleId) -> {
+        UcenterRoleVo roleVo = UcDictHelper.loadRoleVo(DataHelper.getInt(roleId));
+        return ValidHelper.isNotEmpty(roleVo) ? roleVo.getName() : null;
+    }),
 
     /**
      * UcenterPosition.id -> UcenterPosition.name
      */
-    POSITION_NAME(POSITION_CACHE_KEY, "POS_HASH", UcenterPositionVo.class, "name", "id"),
+    POSITION_NAME("POS_HASH", (positionId) -> {
+        UcenterPositionVo positionVo = UcDictHelper.loadPositionVo(DataHelper.getInt(positionId));
+        return ValidHelper.isNotEmpty(positionVo) ? positionVo.getName() : null;
+    }),
     ;
 
-    private String key;
+    UcenterCacheEnum(String mapper, Function<String, String> valueFunction) {
+        this.mapper = mapper;
+        this.valueFunction = valueFunction;
+    }
 
     private String mapper;
 
-    private Class<? extends EntityCacheManager> clazz;
+    private Function<String, String> valueFunction;
 
-    private String field;
-
-    private String primary;
-
-    UcenterCacheEnum(String key, String mapper, Class<? extends EntityCacheManager> clazz, String field, String primary) {
-        this.key = key;
-        this.mapper = mapper;
-        this.clazz = clazz;
-        this.field = field;
-        this.primary = primary;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public String getMapper() {
-        return mapper;
-    }
-
-    public Class<? extends EntityCacheManager> getClazz() {
-        return clazz;
-    }
-
-    public String getField() {
-        return field;
-    }
-
-    public String getPrimary() {
-        return primary;
-    }
 
     private final static Model<String, UcenterCacheEnum> MAPPER_MODEL = Model.builder();
 
-    private final static Model<String, UcenterCacheEnum> KEY_MODEL = Model.builder();
-
     static {
         Arrays.stream(values()).forEach(x -> {
-            MAPPER_MODEL.set(x.getMapper(), x);
-            KEY_MODEL.set(x.getKey(), x);
+            MAPPER_MODEL.set(x.mapper, x);
         });
     }
 
@@ -109,17 +100,11 @@ public enum UcenterCacheEnum implements UcenterConstants {
         return MAPPER_MODEL;
     }
 
-    public static Model getKeyModel() {
-        return KEY_MODEL;
-    }
-
     public static UcenterCacheEnum loadByMapper(String mapper) {
-        return MAPPER_MODEL.get(mapper);
+        return MAPPER_MODEL.containsKey(mapper) ? MAPPER_MODEL.get(mapper) : EMPTY;
     }
 
-    public static UcenterCacheEnum loadByKey(String key) {
-        return KEY_MODEL.get(key);
+    public String loadValue(String key) {
+        return this.getValueFunction().apply(key);
     }
-
-
 }

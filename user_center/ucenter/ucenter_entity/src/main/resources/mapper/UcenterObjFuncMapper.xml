@@ -8,6 +8,7 @@
         <result property="orgName" column="org_name" jdbcType="VARCHAR"/>
         <result property="objType" column="obj_type" jdbcType="VARCHAR"/>
         <result property="objId" column="obj_id" jdbcType="INTEGER"/>
+        <result property="projectId" column="project_id" jdbcType="INTEGER"/>
         <result property="funcId" column="func_id" jdbcType="INTEGER"/>
         <result property="opState" column="op_state" jdbcType="INTEGER"/>
         <result property="createBy" column="create_by" jdbcType="INTEGER"/>
@@ -23,6 +24,7 @@
         t.org_name,
         t.obj_type,
         t.obj_id,
+        t.project_id,
         t.func_id,
         t.op_state,
         t.create_by,
@@ -45,6 +47,9 @@
         </if>
         <if test="objId != null">
             obj_id,
+        </if>
+        <if test="projectId != null">
+            project_id,
         </if>
         <if test="funcId != null">
             func_id,
@@ -83,6 +88,9 @@
         <if test="objId != null">
             #{objId},
         </if>
+        <if test="projectId != null">
+            #{projectId},
+        </if>
         <if test="funcId != null">
             #{funcId},
         </if>
@@ -120,6 +128,9 @@
         <if test="objId != null">
             obj_id = #{objId},
         </if>
+        <if test="projectId != null">
+            project_id = #{projectId},
+        </if>
         <if test="funcId != null">
             func_id = #{funcId},
         </if>
@@ -156,6 +167,9 @@
         </if>
         <if test="objId != null">
             and t.obj_id = #{objId}
+        </if>
+        <if test="projectId != null">
+            and t.project_id = #{projectId}
         </if>
         <if test="funcId != null">
             and t.func_id = #{funcId}
@@ -201,6 +215,7 @@
             org_name,
             obj_type,
             obj_id,
+            project_id,
             func_id,
             op_state,
             create_by,
@@ -213,6 +228,7 @@
              #{orgName},
              #{objType},
              #{objId},
+             #{projectId},
              #{funcId},
              #{opState},
              #{createBy},
@@ -242,6 +258,7 @@
             org_name = #{orgName},
             obj_type = #{objType},
             obj_id = #{objId},
+            project_id = #{projectId},
             func_id = #{funcId},
             op_state = #{opState},
             create_by = #{createBy},
@@ -308,7 +325,7 @@
 
     <!-- 根据条件动态修改数据 -->
     <update id="deleteBySelective" parameterType="com.wisely.ucenter.entity.UcenterObjFunc">
-        delete from t_ucenter_obj_func t
+        delete t from t_ucenter_obj_func t
         <trim prefix="where " prefixOverrides="AND | OR">
             <include refid="DynamicWhere"/>
         </trim>

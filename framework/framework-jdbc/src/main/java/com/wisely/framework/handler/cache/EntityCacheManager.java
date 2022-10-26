@@ -13,7 +13,7 @@ public interface EntityCacheManager {
      *
      * @return
      */
-    static <T> T deserializer(String cacheKey, String primaryKey, Class<T> clazz) {
+    static <T extends EntityCacheManager> T deserializer(String cacheKey, String primaryKey, Class<T> clazz) {
 //        return batchDeserializer(cacheKey, clazz, primaryKey).get(primaryKey);
         AssertHelper.EX_SYSTEM.isNotBlank(cacheKey, "common.parameter_required.cacheKey");
         AssertHelper.EX_SYSTEM.isNotBlank(primaryKey, "common.parameter_required.primaryKey");
@@ -32,7 +32,7 @@ public interface EntityCacheManager {
      *
      * @return
      */
-    static <T> Model<String, T> batchDeserializer(String cacheKey, Class<T> clazz, String... primaryKeys) {
+    static <T extends EntityCacheManager> Model<String, T> batchDeserializer(String cacheKey, Class<T> clazz, String... primaryKeys) {
 
         AssertHelper.EX_SYSTEM.isNotBlank(cacheKey, "common.parameter_required.cacheKey");
         AssertHelper.EX_SYSTEM.isNotEmpty(primaryKeys, "common.parameter_required.primaryKey");

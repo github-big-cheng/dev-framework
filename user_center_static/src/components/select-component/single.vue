@@ -99,7 +99,7 @@ CONTROL.set(
 
 CONTROL.set(
     "menu",
-    createConfig("菜单管理", "getUcenterobjfunc")
+    createConfig("菜单管理", "getMenuListChild", {pageSize: 999})
 );
 
 CONTROL.set(

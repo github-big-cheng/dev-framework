@@ -394,5 +394,9 @@
         </choose>
     </select>
 
+    <select id="selectLocales" resultType="java.lang.String">
+        select distinct locale from t_sys_code where is_deleted = 0
+    </select>
+
 </mapper>
 

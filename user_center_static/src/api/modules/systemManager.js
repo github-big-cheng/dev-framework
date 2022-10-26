@@ -9,12 +9,13 @@
 import Ajax from '@/utils/request';
 
 const menu = {
-    getMenuList: (params) => Ajax.get('/ucenter/ucenterFunction/list/tree', params),
-    
+    getMenuList: (params) => Ajax.get('/sys/sysFunction/list/tree', params),
+
+    projectCombox: (params) => Ajax.get('/sys/sysProject/list/combox', params),
+
     getUcenterobjfunc: (params) => Ajax.getWithLoading('/ucenter/ucenterObjFunc/list', params),
 
     functionSave: (params) => Ajax.post('/ucenter/ucenterObjFunc/save', params),
-
 
     ucenterroleList: (params) => Ajax.get('/ucenter/ucenterRole/list', params),
 }

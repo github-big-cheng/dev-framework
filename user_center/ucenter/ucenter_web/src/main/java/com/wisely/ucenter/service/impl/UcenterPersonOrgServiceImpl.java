@@ -7,7 +7,7 @@ import com.wisely.framework.entity.PageVo;
 import com.wisely.framework.helper.*;
 import com.wisely.sso.client.entity.SsoUser;
 import com.wisely.sso.client.helper.UserHelper;
-import com.wisely.ucenter.client.handler.UcenterDictionaryHelper;
+import com.wisely.ucenter.client.handler.UcDictHelper;
 import com.wisely.ucenter.client.vo.UcenterOrgVo;
 import com.wisely.ucenter.client.vo.UcenterPersonVo;
 import com.wisely.ucenter.entity.UcenterOrg;
@@ -109,7 +109,7 @@ public class UcenterPersonOrgServiceImpl implements UcenterPersonOrgService {
         // 按部门删除原关系
         ucenterPersonOrgMapper.deleteBySelective(Model.builder().set("personIdQueryIn", personIds));
 
-        UcenterOrgVo deptVo = UcenterDictionaryHelper.loadOrgVo(deptId);
+        UcenterOrgVo deptVo = UcDictHelper.loadOrgVo(deptId);
         AssertHelper.EX_BUSINESS.isNotEmpty(deptVo, "common.entity_not_found.UcenterOrgCache_{0}", deptId);
         Integer orgId = ValidHelper.isNotEmpty(deptVo.getOrgId()) ? deptVo.getOrgId() : deptId;
 
@@ -118,7 +118,7 @@ public class UcenterPersonOrgServiceImpl implements UcenterPersonOrgService {
 
             Integer personId = DataHelper.getInt(k);
 
-            UcenterPersonVo personVo = UcenterDictionaryHelper.loadPersonVo(personId);
+            UcenterPersonVo personVo = UcDictHelper.loadPersonVo(personId);
 
             UcenterPersonOrg personOrgRecord = new UcenterPersonOrg();
             personOrgRecord.setRootOrgId(orgId);
@@ -136,7 +136,7 @@ public class UcenterPersonOrgServiceImpl implements UcenterPersonOrgService {
         if (ValidHelper.isNotEmpty(toRootPersonList)) {
             toRootPersonList.forEach(personId -> {
 
-                UcenterPersonVo personVo = UcenterDictionaryHelper.loadPersonVo(personId);
+                UcenterPersonVo personVo = UcDictHelper.loadPersonVo(personId);
 
                 UcenterPersonOrg rootOrgPersonRecord = new UcenterPersonOrg();
                 rootOrgPersonRecord.setRootOrgId(orgId);
@@ -180,7 +180,7 @@ public class UcenterPersonOrgServiceImpl implements UcenterPersonOrgService {
 
             UcenterPersonOrg record = (UcenterPersonOrg) item.convertTo(UcenterPersonOrg.class);
 
-            UcenterOrgVo dept = UcenterDictionaryHelper.loadOrgVo(record.getDeptId());
+            UcenterOrgVo dept = UcDictHelper.loadOrgVo(record.getDeptId());
             record.setRootOrgId(ValidHelper.isNotEmpty(dept.getOrgId()) ? dept.getOrgId() : dept.getId());
             record.setPersonId(ucenterPerson.getId());
             record.setIsDeleted(0);

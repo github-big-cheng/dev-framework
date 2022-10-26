@@ -3,6 +3,11 @@ package com.wisely.sys.common;
 public interface SysConstants {
 
     /**
+     * 系统代码默认国际化
+     */
+    String DEFAULT_LOCALE = "zh_CN";
+
+    /**
      * 系统参数缓存
      */
     String PARAMETER_CACHE_KEY = "SYS_PARAMETER_CACHE:";
@@ -10,10 +15,16 @@ public interface SysConstants {
     /**
      * 代码缓存
      */
-    String CODE_CACHE_KEY = "SYS_CODE_CACHE";
+    String CODE_CACHE_KEY = "SYS_CODE_CACHE:";
+
+    /**
+     * 代码缓存
+     */
+    String CODE_MAPPER_KEY = "CODE_HASH";
 
 
 
+    // =================================== NetApi ===================================================
     /**
      * 系统参数缓存
      */

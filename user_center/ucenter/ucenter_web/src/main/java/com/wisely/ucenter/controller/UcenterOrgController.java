@@ -35,7 +35,7 @@ public class UcenterOrgController {
      * @param query UcenterOrg
      * @return Model
      */
-    @RequestMapping(value = {"/list", "/combox"})
+    @RequestMapping(value = {"/list", "/combox", "/page/api"})
     @Converter(path = "org/list")
     public Model list(UcenterOrg query, PageVo pageVo) {
         return ResponseBuilder.buildSuccess(ucenterOrgService.findByPage(query, pageVo));

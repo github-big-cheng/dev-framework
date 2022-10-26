@@ -4,14 +4,13 @@ import com.wisely.framework.common.ConverterConstants;
 import com.wisely.framework.handler.data.DefaultDataConverter;
 import com.wisely.framework.handler.dictionary.ConverterDictionary;
 import com.wisely.framework.handler.entity.ConverterItemEntity;
-import com.wisely.framework.helper.DataHelper;
 import com.wisely.framework.helper.StringHelper;
 import com.wisely.framework.helper.ValidHelper;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 /**
@@ -39,25 +38,18 @@ public class MapperConverterImpl implements DefaultDataConverter<Object>, Conver
             return o;
         }
 
-        // 待转换数据数组
-        String[] values = StringHelper.split(DataHelper.getString(o, null),
-                item.getExtendField().getString(CONVERTER_ATTR_SEPARATOR,","));
-        if (ValidHelper.isEmpty(values)) {
-            return o;
-        }
 
-        // support multi keys
-        List<String> list = Lists.newArrayList();
-        for (ConverterDictionary dictionary : convertDictionaryList) {
-
-            if (!dictionary.accept(item.getMapper())) {
-                continue;
+        // apply multi keys
+        AtomicReference<Object> reference = new AtomicReference<>(o);
+        convertDictionaryList.forEach(dictionary -> {
+            if (!dictionary.accept(item)) {
+                return;
             }
 
-            for (String val : values) {
-                list.add(dictionary.loadValue(item.getMapper(), val, item.getDefaultVal()));
-            }
-        }
-        return StringHelper.join(list, item.getExtendField().getString(CONVERTER_ATTR_SEPARATOR,","));
+            Object temp = dictionary.loadValue(item, reference.get());
+            reference.set(temp);
+        });
+
+        return reference.get();
     }
 }

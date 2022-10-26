@@ -10,12 +10,12 @@ import java.io.Serializable;
 /**
  * 角色(UcenterRole)实体类
  *
- * @author ruijie.hu
+ * @author system
  * @since 2021-05-28 17:33:21
  */
 @Setter
 @Getter
-public class UcenterRoleVo extends BaseEntity implements Serializable , EntityCacheManager {
+public class UcenterRoleVo extends BaseEntity implements Serializable, EntityCacheManager {
 
     private static final long serialVersionUID = -93083949006181734L;
     /**
@@ -50,28 +50,4 @@ public class UcenterRoleVo extends BaseEntity implements Serializable , EntityCa
      * 备注
      */
     private String memo;
-    /**
-     * 操作状态
-     */
-    private Integer opState;
-    /**
-     * 录入人
-     */
-    private Integer createBy;
-    /**
-     * 录入时间
-     */
-    private String createTime;
-    /**
-     * 更新人
-     */
-    private Integer updateBy;
-    /**
-     * 更新时间
-     */
-    private String updateTime;
-    /**
-     * 删除标记
-     */
-    private Integer isDeleted;
 }

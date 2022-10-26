@@ -41,29 +41,5 @@ public class UcenterPositionVo extends BaseEntity implements Serializable, Entit
      * 备注 MEMO
      */
     private String memo;
-    /**
-     * 操作状态
-     */
-    private Integer opState;
-    /**
-     * 创建人 T_UCENTER_USER
-     */
-    private Integer createBy;
-    /**
-     * 创建时间 yyyy-mm-dd hh:mm:ss
-     */
-    private String createTime;
-    /**
-     * 修改人 T_UCENTER_USER
-     */
-    private Integer updateBy;
-    /**
-     * 修改时间 yyyy-mm-dd hh:mm:ss
-     */
-    private String updateTime;
-    /**
-     * 是否删除 1-是 0-否
-     */
-    private Integer isDeleted;
 
 }

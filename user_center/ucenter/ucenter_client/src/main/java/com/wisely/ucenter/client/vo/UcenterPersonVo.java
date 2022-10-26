@@ -1,6 +1,7 @@
 package com.wisely.ucenter.client.vo;
 
 import com.wisely.framework.entity.BaseEntity;
+import com.wisely.framework.entity.Model;
 import com.wisely.framework.handler.cache.EntityCacheManager;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,11 +14,11 @@ public class UcenterPersonVo extends BaseEntity implements Serializable, EntityC
 
     private static final long serialVersionUID = -54739022558305992L;
     /**
-     * ID ID
+     * id
      */
     private Integer id;
     /**
-     * 机构ID 为系统后续多机构新增字段
+     * 机构id
      */
     private Integer orgId;
     /**
@@ -25,126 +26,49 @@ public class UcenterPersonVo extends BaseEntity implements Serializable, EntityC
      */
     private String orgName;
     /**
-     * 代码
-     */
-    private String code;
-    /**
-     * 编号(工号）
-     */
-    private String billNo;
-    /**
      * 姓名
      */
     private String name;
     /**
-     * 性别 TYPE = 10004
-     */
-    private String sex;
-    /**
-     * 职务
-     */
-    private Integer posId;
-    /**
-     * 职级 TYPE = 10080
-     */
-    private String posLevel;
-    /**
-     * 婚姻状况 TYPE = 10005
-     */
-    private String marriage;
-    /**
-     * 身份证号码
+     * 身份证号
      */
     private String idNo;
     /**
-     * 出生日期
+     * 工号
      */
-    private String birthday;
+    private String jobNo;
     /**
-     * 民族
+     * 性别
      */
-    private String nation;
+    private String sex;
     /**
-     * 籍贯省份
+     * 手机号
      */
-    private String homeProvince;
-    /**
-     * 籍贯城市
-     */
-    private String homeCity;
-    /**
-     * 籍贯县 TYPE = 10007
-     */
-    private String homeCounty;
-    /**
-     * 家庭住址
-     */
-    private String address;
+    private String mobile;
     /**
      * 电话
      */
     private String telephone;
     /**
-     * email地址
+     * email
      */
     private String email;
     /**
-     * 邮编
+     * 婚姻状况
      */
-    private String zipcode;
+    private String marriage;
     /**
-     * 手机
+     * 出生日期
      */
-    private String mobile;
+    private String birthday;
     /**
-     * 学历 TYPE = 10006
+     * 国籍
      */
-    private String education;
+    private String nation;
     /**
-     * 学位
+     * 扩展信息
      */
-    private String degree;
-    /**
-     * 毕业时间
-     */
-    private String graduateTime;
-    /**
-     * 毕业院校
-     */
-    private String graduateSchool;
-    /**
-     * 专业
-     */
-    private String major;
-    /**
-     * 参加工作时间
-     */
-    private String beginWorkTime;
-    /**
-     * 入职时间
-     */
-    private String workTime;
-    /**
-     * 员工状态
-     */
-    private String personState;
-    /**
-     * 顺序号
-     */
-    private Integer orderNo;
-    /**
-     * 备注
-     */
-    private String remark;
-    /**
-     * IMSI号码
-     */
-    private String imsiNo;
-    /**
-     * IMEI号码
-     */
-    private String imeiNo;
-
+    private Model info = Model.builder();
 
     /**
      * 用户ID

@@ -5,26 +5,27 @@
         <!--这里存放的是参数,之后补充完善-->
         <item name="pageNo" desc="页码" type="Integer" default="1"/>
         <item name="pageSize" desc="页容量" type="Integer" default="15"/>
-        <item name="timeQueryGe" desc="开始时间"/>
-        <item name="timeQueryLe" desc="结束时间"/>
+        <item name="opTimeQueryGe" desc="开始时间"/>
+        <item name="opTimeQueryLe" desc="结束时间"/>
     </send>
     <rcv>
         <item name="total" type="Integer" desc="id" default="0"/>
         <item-list name="list" desc="列表">
             <item name="id" desc="id" type="Integer"/>
-            <item name="billNo" desc="业务单号"/>
-            <item name="bizId" desc="业务ID"/>
-            <item name="userId" desc="用户ID"/>
-            <item name="account" desc="账号"/>
-            <item name="ip" desc="ip"/>
-            <item name="machineName" desc="机器名称"/>
-            <item name="opTime" desc="操作时间"/>
-            <item name="createBy" desc="录入人" type="Integer"/>
-            <item name="createByName" desc="创建人姓名" mapper="USER_PERSON_NAME_HASH" target="createBy"/>
-            <item name="createTime" desc="录入时间"/>
-            <item name="updateBy" desc="修改人" type="Integer"/>
-            <item name="updateTime" desc="修改时间"/>
-            <item name="updateByName" desc="修改人姓名" mapper="USER_PERSON_NAME_HASH" target="updateBy"/>
+            <item name="targetServer" desc="访问实例"/>
+            <item name="requestPath" desc="请求路径"/>
+            <item name="ip" desc="请求ip"/>
+            <item name="requestMethod" desc="请求方法"/>
+            <item name="schema" desc="协议"/>
+            <item name="osType" desc="操作系统类型"/>
+            <item name="token" desc="令牌"/>
+            <item name="userId" desc="用户ID" type="Integer"/>
+            <item name="userName" desc="用户名称" target="userId" mapper="USER_PERSON_NAME_HASH"/>
+            <item name="requestBody" desc="请求体"/>
+            <item name="responseData" desc="响应体"/>
+            <item name="requestTime" desc="请求时间"/>
+            <item name="responseTime" desc="响应时间"/>
+            <item name="executeTime" desc="执行时间" type="Integer"/>
         </item-list>
     </rcv>
 </trans>

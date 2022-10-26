@@ -1,6 +1,5 @@
 package com.wisely.ucenter.service.impl;
 
-import com.wisely.framework.entity.AbstractCache;
 import com.wisely.framework.entity.BaseEntityCache;
 import com.wisely.framework.entity.Model;
 import com.wisely.framework.helper.ValidHelper;
@@ -25,6 +24,7 @@ public class UcenterCacheServiceImpl implements UcenterCacheService {
             return;
         }
         cacheList.forEach(cache -> this.cacheModel.set(cache.getName(), cache));
+        log.info("cacheModel: {}", this.cacheModel);
     }
 
     @Override

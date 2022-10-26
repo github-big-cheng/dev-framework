@@ -5,11 +5,11 @@ import com.github.pagehelper.PageInfo;
 import com.wisely.framework.entity.Model;
 import com.wisely.framework.entity.PageVo;
 import com.wisely.framework.helper.DateHelper;
-import com.wisely.framework.helper.JsonHelper;
-import com.wisely.framework.helper.RedisHelper;
 import com.wisely.framework.helper.StringHelper;
+import com.wisely.framework.helper.ValidHelper;
 import com.wisely.sso.client.SsoConstants;
 import com.wisely.sso.client.entity.SsoUser;
+import com.wisely.sso.client.helper.UserHelper;
 import com.wisely.sys.entity.SysOperateLog;
 import com.wisely.sys.mapper.SysOperateLogMapper;
 import com.wisely.sys.service.SysOperateLogService;
@@ -51,23 +51,20 @@ public class SysOperateLogServiceImpl implements SysOperateLogService, SsoConsta
         Optional<?> optional = Optional.ofNullable(consumerRecord.value());
         if (optional.isPresent()) {
             Model sysLog = Model.parseObject(optional.get());
-            SysOperateLog record = new SysOperateLog();
-            if (sysLog.isNotBlank(SSO_KEY)) {
+            SysOperateLog record = (SysOperateLog) sysLog.convertTo(SysOperateLog.class);
+            if (StringHelper.isNotBlank(record.getToken())) {
                 try {
-                    String userJson = RedisHelper.get(TICKET_PREFIX + sysLog.getString(OS_KEY) + sysLog.getString(SSO_KEY));
-                    SsoUser ssoUser = JsonHelper.json2Obj(userJson, SsoUser.class);
-                    record.setUserId(ssoUser.getId());
+                    SsoUser ssoUser = UserHelper.loadByTicket(record.getOsType(), record.getToken());
+                    if (ValidHelper.isNotEmpty(ssoUser)) {
+                        record.setUserId(ssoUser.getId());
+                    }
                 } catch (Exception e) {
                     log.error("load user error:{}", e);
                 }
             }
-            record.setIp(sysLog.getString("ip"));
-            record.setMachineName(sysLog.getString("targetServer"));
-            record.setName(sysLog.getString("requestPath"));
-            record.setOpTime(StringHelper.left(sysLog.getString("requestTime"), 20));
-            record.setRequestMsg(sysLog.getString("requestBody"));
-            record.setResponseMsg(sysLog.getString("responseData"));
+
             record.setIsDeleted(0);
+            record.setCreateBy(1);
             record.setCreateTime(DateHelper.formatNow());
             sysOperateLogMapper.insertSelective(record);
         }

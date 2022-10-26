@@ -76,7 +76,7 @@ public class SpringHelper implements ApplicationContextAware {
      * @return Bean对象
      */
     public static <T> T getBean(Class<T> cls) {
-        return context == null ? null : context.getBean(cls);
+        return !hasBean(cls) ? null : context.getBean(cls);
     }
 
     /**
@@ -86,7 +86,7 @@ public class SpringHelper implements ApplicationContextAware {
      * @return Bean对象
      */
     public static Object getBean(String name) {
-        return context == null ? null : context.getBean(name);
+        return !hasBean(name) ? null : context.getBean(name);
     }
 
     /**
@@ -98,7 +98,7 @@ public class SpringHelper implements ApplicationContextAware {
      * @return Bean对象
      */
     public static <T> T getBean(String name, Class<T> cls) {
-        return context == null ? null : context.getBean(name, cls);
+        return !hasBean(name) ? null : context.getBean(name, cls);
     }
 
 }

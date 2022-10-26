@@ -1,186 +1,194 @@
 <template>
     <div class="main-content-wrap inner-maincon">
         <form-com
-            ref="ruleFormBox"
-            :config="formConfigs"
-        >
-    
-        </form-com>
+                ref="ruleFormBox"
+                :config="formConfigs"
+        ></form-com>
         <div class="form-button">
             <el-button  @click="goBack($route)">取消</el-button>
             <el-button
-                type="primary"
-                v-loading="btnLoading"
-                @click="submitForm"
-                >保存</el-button
+                    type="primary"
+                    v-loading="btnLoading"
+                    @click="submitForm"
+            >保存</el-button
             >
         </div>
     </div>
 </template>
 
 <script>
-import formCom from "@/components/form-com";
-import vPinyin from "@/utils/v-py.js";
+    import formCom from "@/components/form-com";
 
-export default({
-    name:"menuManageEdit",
-    components: {
-        formCom,
-    },
-    data() {
-        return {
-            connectName:"",
-            connectCode:"",
-            searchForm:{
-                pageNo:1,
-                pageSize:5,
-            },
-            formConfigs: [
-                {
-                    type: 'selectCom',
-                    label: '上级菜单',
-                    prop: 'parentId',
-                    prop2: 'parentName',
-                    value: '',
-                    names: '',
-                    title: '上级菜单',
-                    tabList: ['menu'],
-                    focus: true,
-                    rules: {
-                        require: true
-                    },
-                    class:"single input-w360"
+    export default{
+        name:"menuManageEdit",
+        components: {
+            formCom,
+        },
+        data() {
+            return {
+                id: null,
+                searchForm:{
+                    pageNo:1,
+                    pageSize:5,
                 },
-                {
-                    type: 'input',
-                    label: '菜单名称',
-                    prop: "name",
-                    value: '',
-                    rules: {
-                        require: true
-                    },
-                },
-                {
-                    type: 'input',
-                    label: '请求地址',
-                    prop: "action",
-                    value: '',
-                    rules: {
-                        require: true
-                    },
-                },
-                {
-                    type: 'input',
-                    label: '代码',
-                    prop: "code",
-                    value: '',
-                    rules: {
-                        require: true
-                    },
-                },
-                {
-                    type: 'input',
-                    label: '图标路径',
-                    prop: "imgPath",
-                    value: '',
-                    rules: {
-                        require: true
-                    },
-                },
-                {
-                    type: 'input',
-                    label: '排序号',
-                    prop: "orderNo",
-                    value: '',
-                    rules: {
-                        require: true
-                    },
-                },
-                {
-                    type: 'select',
-                    label: '类型',
-                    prop: "type",
-                    value: '',
-                    rules: {
-                        require: true
-                    },
-                    children: [
-                        {
-                            name: '菜单',
-                            value: 1
+                formConfigs: [
+                    {
+                        index: 0,
+                        type: 'input',
+                        label: '菜单名称',
+                        prop: "name",
+                        value: '',
+                        rules: {
+                            require: true
                         },
-                        {
-                            name: '子菜单',
-                            value: 2
+                    },
+                    {
+                        index: 1,
+                        type: 'select',
+                        label: '类型',
+                        prop: "type",
+                        value: '',
+                        rules: {
+                            require: true
                         },
+                        children: [
+                            {
+                                name: '菜单',
+                                value: 1
+                            },
+                            {
+                                name: '子菜单',
+                                value: 2
+                            },
 
-                        {
-                            name: 'tab页签',
-                            value: 3
+                            {
+                                name: 'tab页',
+                                value: 3
+                            },
+                            {
+                                name: '按钮',
+                                value: 4
+                            }
+                        ]
+                    },
+                    {
+                        index: 2,
+                        type: 'input',
+                        label: '请求地址',
+                        prop: "action",
+                        value: '',
+                    },
+                    {
+                        index: 3,
+                        type: 'input',
+                        label: '代码',
+                        prop: "code",
+                        value: '',
+                        rules: {
+                            require: true
                         },
-                        {
-                            name: '按钮',
-                            value: 4
-                        }
-
-                    ]
-                },
-            ],
-            btnLoading: false,
-        }
-    },
-    watch: {
-        connectCode(val) {
-            this.$refs.ruleFormBox.ruleForm.code = val;
-        }
-    },
-    async created() {
-        let { id } = this.$route.params;
-        if (id) {
-            await this.getUserMenuView({id})
-        }
-        this.$route.meta.noLoading = true;
-    },
-    methods: {
-        getUserMenuView(params) {
-            this.$http.getUserMenuView(params).then(res => {
-                if (res.code != 0) return;
+                    },
+                    {
+                        index: 4,
+                        type: 'select',
+                        label: '所属应用',
+                        prop: 'projectId',
+                        children: [],
+                        rules: {
+                            require: true
+                        },
+                        normalizer: { value: 'id', label: 'name' },
+                        changeCB: (value) => this.getMenuList(value)
+                    },
+                    {
+                        index: 5,
+                        type: 'select',
+                        label: '上级菜单',
+                        prop: 'parentId',
+                        normalizer: { value: 'id', label: 'name' },
+                        children: [],
+                    },
+                    {
+                        index: 6,
+                        type: 'input',
+                        label: '图标路径',
+                        prop: "imgPath",
+                        value: '',
+                    },
+                    {
+                        index: 7,
+                        type: 'input',
+                        label: '排序号',
+                        prop: "orderNo",
+                        value: '',
+                    },
+                    {
+                        index: 8,
+                        type: 'input',
+                        typeName: 'textarea',
+                        label: '菜单描述',
+                        prop: 'description',
+                        class: "single item-remark",
+                        maxlength: "100",
+                    }
+                ],
+                btnLoading: false
+            }
+        },
+        created() {
+            let { id } = this.$route.params;
+            if (id) {
+                this.id = id;
+                this.getMenuView({id})
+            }
+            this.$route.meta.noLoading = true;
+            this.getProjectList();
+        },
+        methods: {
+            async getMenuView(params) {
+                const {code,data} = await this.$http.getMenuView(params);
+                if (code != 0) {
+                    return;
+                }
 
                 this.formConfigs.forEach(item => {
-                    if(item.type == 'selectCom') {
-                        let names = res.data[item.prop2];
-                        this.$refs.ruleFormBox.setFormValue(item.prop2, names)
-                    }
-                    let value = res.data[item.prop];
+                    let value = data[item.prop];
                     this.$refs.ruleFormBox.setFormValue(item.prop, value)
                 })
-            }).catch(err => console.log(err))
-        },
-        getInputValue(val) {
-            this.connectCode = vPinyin.chineseToPinYin(val);
-            this.$refs.ruleFormBox.ruleForm.cname = val;
-        },
-        //btn
-        cancelClick(){
-            this.goBack(this.$route)
-        },
-        async submitForm(type) {
-            const ruleFormBox = await this.$refs.ruleFormBox.getFormAndValidate();
 
-            if(!ruleFormBox.status) return;
+                if (data.projectId) {
+                    this.getMenuList(data.projectId);
+                }
+            },
+            async getProjectList() {
+                const {code, data} = await this.$http.projectCombox();
+                if (code == 0) {
+                    this.formConfigs[4].children = data.list;
+                }
+            },
+            async getMenuList(projectId) {
+                const {code, data} = await this.$http.getMenuListChild({pageSize: 300, projectId});
+                if (code == 0) {
+                    this.formConfigs[5].children = data.list;
+                }
+            },
+            // btn
+            async submitForm() {
 
-            this.btnLoading = true;
-             this.$http.ucenterFunctionEdit({...ruleFormBox.data}).then(res => {
-                 if (res.code == 0) {
-                    this.$showSuccess(res.message);
-                    this.goBack(this.$route, true)
-                 }
-                 this.btnLoading = false;
-             })
-              .catch((err) => {
+                const ruleFormBox = await this.$refs.ruleFormBox.getFormAndValidate();
+                if(!ruleFormBox.status) return;
+
+                this.btnLoading = true;
+                this.$http.ucenterFunctionEdit({id:this.id, ...ruleFormBox.data}).then(res => {
+                    if (res.code == 0) {
+                        this.$showSuccess(res.message);
+                        this.goBack(this.$route, true)
+                    }
+                    this.btnLoading = false;
+                }).catch((err) => {
                     this.btnLoading = false;
                 });
+            }
         }
     }
-})
 </script>

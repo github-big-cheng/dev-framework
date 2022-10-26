@@ -9,7 +9,7 @@
                             v-model="imgPath"
                             :actionUrl="actionUrl"
                             ctionType=".jpg,.png,.JPG,.PNG"
-                            type="10001"
+                            type="10068-70"
                             @upLoadImgFullInfo="handleGetUploadImg"
                     ></upload-image>
                     <div class="tip-text">支持jpg、png（大小不超过5MB）</div>

@@ -66,7 +66,7 @@
                                 }"
                                 ><img
                                     class="tuser-avatar"
-                                    :src="url + '/file' + item.imgPath"
+                                    :src="loadImg(item.imgPath)"
                             /></span>
                             <span
                                 v-if="renderPerson && !item.imgPath"
@@ -110,7 +110,8 @@
 import Api from "@/api/api";
 import foldTree from "@/components/fold-tree";
 import lodash from 'lodash'
-const URL = window.location.origin;
+import {staticFilePathFormat} from "../../../../filters";
+
 export default {
     components: {
         foldTree,
@@ -237,6 +238,9 @@ export default {
         },
     },
     methods: {
+        loadImg(imgPath) {
+            return staticFilePathFormat(imgPath);
+        },
         selectedZzClick(opt) {
             this.selectedPerson = opt;
             this.$emit("dbSelected", { key: [this.type], value: opt });

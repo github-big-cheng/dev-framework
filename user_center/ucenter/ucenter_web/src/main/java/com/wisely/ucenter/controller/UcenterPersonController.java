@@ -42,19 +42,13 @@ public class UcenterPersonController {
     }
 
 
-    @RequestMapping(value = {"/combox", "/combox/api"})
-    @Converter(path = "person/combox")
-    public Model combox(UcenterPerson ucenterPerson) {
-        return ResponseBuilder.buildSuccess(ucenterPersonService.findList(ucenterPerson));
-    }
-
     /**
      * 新增人员
      *
      * @param record UcenterPersonV
      * @return Model
      */
-    @RequestMapping(value = {"/add", "/add/api"})
+    @RequestMapping(value = {"/add"})
     @Converter(path = "person/add")
     public Model add(UcenterPerson record) {
         return ResponseBuilder.buildSuccess(ucenterPersonService.save(record));
@@ -66,20 +60,20 @@ public class UcenterPersonController {
      * @param ucenterPerson UcenterPerson
      * @return Model
      */
-    @RequestMapping(value = {"/save", "/save/api"})
+    @RequestMapping(value = {"/save"})
     @Converter(path = "person/edit")
     public Model edit(UcenterPerson ucenterPerson) {
         return ResponseBuilder.buildSuccess(ucenterPersonService.save(ucenterPerson));
     }
 
-    
+
     /**
      * 删除
      *
      * @param idQueryIn 多个personId 逗号分隔
      * @return Model
      */
-    @RequestMapping(value = {"/delete", "/delete/api"})
+    @RequestMapping(value = {"/delete"})
     @Converter(path = "person/delete")
     public Model delete(String idQueryIn) {
         ucenterPersonService.delete(idQueryIn);
@@ -105,7 +99,7 @@ public class UcenterPersonController {
      * @param account 人员账号
      * @return Model
      */
-    @RequestMapping(value = {"/resetPwd", "/resetPwd/api"})
+    @RequestMapping(value = {"/resetPwd"})
     @Converter(path = "person/resetpwd")
     public Model resetPwd(String account) {
         ucenterPersonService.resetPwd(account);
@@ -118,7 +112,7 @@ public class UcenterPersonController {
      * @param accounts 多个人员账号 逗号分隔
      * @return Model
      */
-    @RequestMapping(value = {"/lock", "/lock/api"})
+    @RequestMapping(value = {"/lock"})
     @Converter(path = "person/lock")
     public Model lock(String accounts) {
         ucenterPersonService.accountOperation(accounts, 2);
@@ -131,7 +125,7 @@ public class UcenterPersonController {
      * @param accounts 多个人员账号 逗号分隔
      * @return Model
      */
-    @RequestMapping(value = {"/unlock", "/unlock/api"})
+    @RequestMapping(value = {"/unlock"})
     @Converter(path = "person/unlock")
     public Model unlock(String accounts) {
         ucenterPersonService.accountOperation(accounts, 1);
@@ -144,7 +138,7 @@ public class UcenterPersonController {
      * @param accounts 多个人员账号 逗号分隔
      * @return Model
      */
-    @RequestMapping(value = {"/destroy", "/destroy/api"})
+    @RequestMapping(value = {"/destroy"})
     @Converter(path = "person/destroy")
     public Model destroy(String accounts) {
         ucenterPersonService.accountOperation(accounts, 3);
@@ -157,9 +151,9 @@ public class UcenterPersonController {
      * @return
      */
     @RequestMapping(value = {"/loadPersonBySelective/api"})
-    public Model loadPersonBySelective() {
-        return ResponseBuilder.buildSuccess(ucenterPersonService.
-                loadPersonBySelective(RequestHelper.getInput()));
+    @Converter(path = "person/selective")
+    public Model loadPersonBySelective(UcenterPerson query) {
+        return ResponseBuilder.buildSuccess(ucenterPersonService.loadPersonBySelective(query));
     }
 
 }

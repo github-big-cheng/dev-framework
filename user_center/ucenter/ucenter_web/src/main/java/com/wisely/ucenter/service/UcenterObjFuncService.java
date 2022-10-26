@@ -5,7 +5,7 @@ import com.wisely.ucenter.entity.UcenterObjFunc;
 /**
  * ObjFuncService
  *
- * @author ruijie.hu
+ * @author system
  * @since 2021-06-01 13:42:02
  */
 public interface UcenterObjFuncService {

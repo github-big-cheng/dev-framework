@@ -3,7 +3,48 @@
 <trans name="user/check" desc="登录验证" group="登录" groupCode="user">
     <send>
         <item name="osType" desc="操作系統类型" notes="不传默认PC,手机传ANDROID" default="PC"/>
+        <item name="_sgk" desc="令牌" required="true"/>
     </send>
     <rcv>
+        <item name="ticket" desc="ticket"/>
+        <item name="id" desc="账号ID" type="Integer"/>
+        <item name="personId" desc="人员ID" type="Integer"/>
+        <item name="personName" desc="人员名称"/>
+        <item name="idNo" desc="身份证号"/>
+        <item name="jobNo" desc="身份证号"/>
+        <item name="sex" desc="性别"/>
+        <item name="birthday" desc="生日"/>
+        <item name="mobile" desc="手机号"/>
+        <item name="imgPath" desc="头像路径"/>
+        <item name="firstLogin" desc="是否首次登录" notes="1-是 0-否" type="Integer"/>
+        <item name="account" desc="账号"/>
+
+        <item name="orgId" desc="机构ID"/>
+        <item name="orgName" desc="机构名称"/>
+        <item name="organizations" desc="兼职机构"/>
+        <item name="mainDeptId" desc="主要部门"/>
+        <item name="mainDeptName" desc="主要部门"/>
+        <item name="departments" desc="所在部门" notes="多个','分割"/>
+
+        <item-map name="extendedProperties" desc="人员扩展信息" put-all="true">
+            <item name="political" desc="政治面貌"/>
+            <item name="politicalName" desc="政治面貌" target="political" mapper="CODE_HASH"/>
+        </item-map>
+
+        <item-list name="deptIno" desc="部门信息列表">
+            <item name="orgId" desc="机构id" type="Integer" target="rootOrgId"/>
+            <item name="orgName" desc="机构名称" mapper="ORG_HASH" target="rootOrgId"/>
+            <item name="type" desc="类型" notes="1：人员机构中间表，0：人员部门中间表" type="Integer"/>
+            <item name="deptId" desc="部门Id" type="Integer"/>
+            <item name="deptName" desc="部门名称" target="deptId" mapper="ORG_HASH"/>
+            <item name="posId" desc="职位ID" type="Integer"/>
+            <item name="posName" desc="职位名称" target="posId" mapper="POS_HASH"/>
+            <item name="isMain" desc="主机构" notes="1-是" type="Integer"/>
+            <item name="isMainPerson" desc="主要负责人" notes="1:是  0:否" type="Integer"/>
+            <item name="orderNo" desc="顺序号" type="Integer"/>
+        </item-list>
+
+        <item-list name="roleCodes" desc="角色代码" put-all="true"/>
+        <item-list name="authCodes" desc="权限代码" put-all="true"/>
     </rcv>
 </trans>

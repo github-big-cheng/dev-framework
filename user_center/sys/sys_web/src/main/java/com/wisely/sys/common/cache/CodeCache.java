@@ -1,5 +1,6 @@
 package com.wisely.sys.common.cache;
 
+import com.google.common.collect.Lists;
 import com.wisely.framework.entity.BaseEntityCache;
 import com.wisely.framework.entity.Model;
 import com.wisely.framework.helper.ProtoBufHelper;
@@ -13,13 +14,16 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.function.BiConsumer;
 
+/**
+ * 系统代码
+ */
 @Slf4j
 public class CodeCache extends BaseEntityCache<SysCode> implements SysConstants {
 
     @Resource
     SysCodeMapper sysCodeMapper;
-
 
     @Override
     public String getName() {
@@ -27,23 +31,17 @@ public class CodeCache extends BaseEntityCache<SysCode> implements SysConstants 
     }
 
     @Override
-    protected String getKey() {
-        return CODE_CACHE_KEY;
-    }
+    protected List<CacheLoader<SysCode>> cacheLoaders() {
 
-    @Override
-    protected byte[] loadField(SysCode item) {
-        if (ValidHelper.isEmpty(item) || StringHelper.isBlank(item.getValue())) {
-            return new byte[0];
+        List<CacheLoader<SysCode>> list = Lists.newArrayList();
+
+        List<String> locales = sysCodeMapper.selectLocales();
+        if (ValidHelper.isEmpty(locales)) {
+            return list;
         }
-        return item.getValue().getBytes();
-    }
 
-    @Override
-    protected void setItem(Model<byte[], byte[]> model, SysCode item) {
-        SysCodeVo codeVo =
-                (SysCodeVo) Model.parseObject(item).convertTo(SysCodeVo.class);
-        model.set(item.getValue().getBytes(), ProtoBufHelper.serializer(codeVo));
+        locales.forEach(locale -> list.add(new CodeByValueCacheLoader(locale)));
+        return list;
     }
 
     @Override
@@ -51,5 +49,61 @@ public class CodeCache extends BaseEntityCache<SysCode> implements SysConstants 
         SysCode query = new SysCode();
         query.setIsDeleted(0);
         return sysCodeMapper.selectListBySelective(query);
+    }
+
+    /**
+     * SysCodeVo.value -> SysCodeVo
+     */
+    class CodeByValueCacheLoader extends CacheLoader<SysCode> {
+
+        public CodeByValueCacheLoader(String locale) {
+            this.locale = locale;
+            this.key = CODE_CACHE_KEY + locale;
+        }
+
+        String key;
+
+        String locale;
+
+        @Override
+        public String key() {
+            return key;
+        }
+
+        private boolean validation(SysCode item) {
+            if (ValidHelper.isEmpty(item) || StringHelper.isBlank(item.getValue())) {
+                return false;
+            }
+
+            if (!StringHelper.equals(item.getLocale(), this.locale)) {
+                // 非当前处理记录行
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public BiConsumer<Model<byte[], byte[]>, SysCode> addConsumer() {
+            return (cacheModel, item) -> {
+                if (!this.validation(item)) {
+                    return;
+                }
+
+                SysCodeVo cache = (SysCodeVo) Model.parseObject(item).convertTo(SysCodeVo.class);
+                cacheModel.set(item.getValue().getBytes(), ProtoBufHelper.serializer(cache));
+            };
+        }
+
+        @Override
+        public BiConsumer<List<byte[]>, SysCode> delConsumer() {
+            return (list, item) -> {
+                if (!this.validation(item)) {
+                    return;
+                }
+
+                list.add(item.getValue().getBytes());
+            };
+        }
     }
 }

@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.wisely.framework.entity.BaseEntityCache;
 import com.wisely.framework.entity.Model;
 import com.wisely.framework.helper.ProtoBufHelper;
-import com.wisely.framework.helper.RedisHelper;
 import com.wisely.framework.helper.StringHelper;
 import com.wisely.framework.helper.ValidHelper;
 import com.wisely.sso.client.SsoConstants;
@@ -16,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.function.BiConsumer;
 
 @Slf4j
 public class FunctionCache extends BaseEntityCache<SysFunction> implements SysConstants, SsoConstants {
@@ -32,23 +31,8 @@ public class FunctionCache extends BaseEntityCache<SysFunction> implements SysCo
 
 
     @Override
-    protected String getKey() {
-        return FUNCTION_KEY;
-    }
-
-    @Override
-    protected byte[] loadField(SysFunction function) {
-        return new byte[0];
-    }
-
-    @Override
-    protected void setItem(Model<byte[], byte[]> model, SysFunction item) {
-        // 单权限多接口支持
-        List<String> actions = StringHelper.splitToList(item.getAction(), "|");
-
-        SsoFunction functionVo =
-                (SsoFunction) Model.parseObject(item).convertTo(SsoFunction.class);
-        actions.forEach(action -> model.set(action.getBytes(), ProtoBufHelper.serializer(functionVo)));
+    protected List<CacheLoader<SysFunction>> cacheLoaders() {
+        return Lists.newArrayList(new FunctionByActionCacheLoader());
     }
 
     @Override
@@ -58,21 +42,42 @@ public class FunctionCache extends BaseEntityCache<SysFunction> implements SysCo
         return sysFunctionMapper.selectListBySelective(query);
     }
 
-    public void invalidate(SysFunction... objs) {
-        if (ValidHelper.isEmpty(objs)) {
-            return;
+    /**
+     * SysFunctionVo.action -> SysFunctionVo
+     */
+    class FunctionByActionCacheLoader extends CacheLoader<SysFunction> {
+
+        @Override
+        public String key() {
+            return FUNCTION_KEY;
         }
 
-        List<byte[]> list = Lists.newArrayList();
-        Stream.of(objs).forEach(item -> {
-            List<String> actions = StringHelper.splitToList(item.getAction(), "|");
-            actions.forEach(action -> list.add(action.getBytes()));
-        });
+        @Override
+        public BiConsumer<Model<byte[], byte[]>, SysFunction> addConsumer() {
+            return (cacheModel, item) -> {
+                if (ValidHelper.isEmpty(item) || StringHelper.isBlank(item.getAction())) {
+                    return;
+                }
 
-        byte[][] fields = new byte[list.size()][];
-        Stream.iterate(0, (i) -> i + 1)
-                .limit(fields.length)
-                .forEach((inx) -> fields[inx] = list.get(inx));
-        RedisHelper.hdel(this.getKey().getBytes(), fields);
+                // 单权限多接口支持
+                List<String> actions = StringHelper.splitToList(item.getAction(), "|");
+
+                SsoFunction functionVo =
+                        (SsoFunction) Model.parseObject(item).convertTo(SsoFunction.class);
+                actions.forEach(action -> cacheModel.set(action.getBytes(), ProtoBufHelper.serializer(functionVo)));
+            };
+        }
+
+        @Override
+        public BiConsumer<List<byte[]>, SysFunction> delConsumer() {
+            return (list, item) -> {
+                if (ValidHelper.isEmpty(item) || StringHelper.isBlank(item.getAction())) {
+                    return;
+                }
+
+                List<String> actions = StringHelper.splitToList(item.getAction(), "|");
+                actions.forEach(action -> list.add(action.getBytes()));
+            };
+        }
     }
 }

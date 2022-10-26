@@ -122,7 +122,7 @@ export default {
     data() {
         let year = moment().format("YYYY");
         return {
-            copyRight: "©COPYRIGHT" + year + "，SHNWZFZD ALL RIGHTS RESERVED.",
+            copyRight: "©COPYRIGHT" + year + "， ALL RIGHTS RESERVED.",
             qrCode: "",
             qrCodeImage: "",
             isQrCodeValid: false,
@@ -146,13 +146,8 @@ export default {
             },
             countdown: 120,
             describes: [
-               // { id: 1, iconClass: "el-icon-aliplan", text: "依法行政　勤勉务实" },
-               // { id: 2, iconClass: "el-icon-alimonitor", text: "在线办公　信息共享 " },
-               // { id: 3, iconClass: "el-icon-aliread", text: "公文快速批阅" },
-               // { id: 4, iconClass: "el-icon-aliiclockin", text: "移动考勤　方便快捷" },
             ],
             bannerBg: [bannerPic, bannerPic1, bannerPic2],
-            // bannerText:['欢 迎 OA 系 统 上 线', '全 新 OA 省 时 高 效','协 同 办 公 方 便 快 捷'],
             curText: "",
             timer: null
         };
@@ -170,6 +165,7 @@ export default {
             location.reload();
         }
 
+        return;
         let curIndex = this.bannerBgChange();
         this.timer = setInterval(() => {
             curIndex = this.bannerBgChange(curIndex);

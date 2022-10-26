@@ -117,6 +117,7 @@
                 // direction: 'rtl',
                 isAsideCollapse: true,
                 searchForm: {
+                    compTypeQueryIn: '10027-10,10027-30',
                     pageNo: 1,
                     pageSize: 10,
                     orderBy: "",
@@ -159,7 +160,7 @@
             },
             // foldtree
             async getDeptTree() {
-                let res = await this.$http.getUcenterOrgTree();
+                let res = await this.$http.getUcenterOrgTree({compTypeQueryIn: '10027-10,10027-30'});
                 if (res.code == 0) {
                     let organizationList = this.$formatTree(
                         res.data,

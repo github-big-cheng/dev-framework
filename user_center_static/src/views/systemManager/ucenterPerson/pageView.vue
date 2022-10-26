@@ -7,14 +7,46 @@
  * @FilePath: \fe_framework_template\src\views\systemManager\ucenterPerson\pageView.vue
 -->
 <template>
-
     <div class="main-content-wrap inner-maincon">
         <page-title title="基本信息" :isFirst="true" :isTitleBg="true"></page-title>
         <view-com columnNum="row-col2" :viewConfigs="viewConfigsFirst" :isImgShow="true" :imgPath="imgPath">
         </view-com>
 
-        <page-title title="岗位信息" :isFirst="true" :isTitleBg="true"></page-title>
-        <view-com :viewConfigs="viewConfigsSecond">
+        <page-title title="组织信息" :isFirst="true" :isTitleBg="true"></page-title>
+        <el-table
+                :data="viewConfigsOrgs"
+                style="width: 100%">
+            <el-table-column
+                    prop="deptName"
+                    label="组织名称"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="isMain"
+                    label="主部门">
+                <template slot-scope="scope">
+                    {{ scope.row.isMain == 1 ? '是' : '否' }}
+                </template>
+            </el-table-column>
+            <el-table-column
+                    prop="isMainPerson"
+                    label="主要负责人">
+                <template slot-scope="scope">
+                    {{ scope.row.isMainPerson == 1 ? '是' : '否' }}
+                </template>
+            </el-table-column>
+            <el-table-column
+                    prop="posName"
+                    label="职务">
+            </el-table-column>
+            <el-table-column
+                    prop="posLevName"
+                    label="职级">
+            </el-table-column>
+        </el-table>
+
+        <page-title title="角色信息" :isFirst="true" :isTitleBg="true"></page-title>
+        <view-com :viewConfigs="viewConfigsRoles">
         </view-com>
 
         <page-title title="其他信息" :isFirst="true" :isTitleBg="true"></page-title>
@@ -27,7 +59,7 @@
     import pageTitle from '@/components/page-title'
     import viewCom from '@/components/view-com'
 
-    export default ({
+    export default {
         name: "deptView",
         components: {
             pageTitle,
@@ -38,7 +70,8 @@
                 imgPath: "",
                 viewCon: {},
                 viewConfigsFirst: [],
-                viewConfigsSecond: [],
+                viewConfigsOrgs: [],
+                viewConfigsRoles: [],
                 viewConfigsThird: [],
             }
         },
@@ -99,14 +132,6 @@
                         content: this.viewCon.email,
                     },
                     {
-                        label: "职位",
-                        content: this.viewCon.posName,
-                    },
-                    {
-                        label: "职级",
-                        content: this.viewCon.posLevelName,
-                    },
-                    {
                         label: "政治面貌",
                         content: this.viewCon.politicalName,
                     },
@@ -116,10 +141,11 @@
                         class: "single item-remark"
                     }
                 ];
-                this.viewConfigsSecond = [
+                this.viewConfigsOrgs = this.viewCon.ucenterPersonOrgs;
+                this.viewConfigsRoles = [
                     {
-                        label: "所属单位",
-                        content: this.viewCon.companyName,
+                        label: "已分配角色",
+                        content: this.viewCon.roleNames,
                         class: "single"
                     },
                 ];
@@ -197,7 +223,7 @@
                 ];
             },
         }
-    })
+    }
 </script>
 
 <style lang="scss" scoped>

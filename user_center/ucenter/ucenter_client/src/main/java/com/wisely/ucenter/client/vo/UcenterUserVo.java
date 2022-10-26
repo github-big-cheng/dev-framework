@@ -33,14 +33,6 @@ public class UcenterUserVo extends BaseEntity implements Serializable, EntityCac
      */
     private String account;
     /**
-     * 登录密码 采用MD5加密
-     */
-    private String password;
-    /**
-     * 盐
-     */
-    private String salt;
-    /**
      * 错误次数
      */
     private Integer isErrorTime;
@@ -48,29 +40,5 @@ public class UcenterUserVo extends BaseEntity implements Serializable, EntityCac
      * 账号状态 1- 正常   2-冻结(锁定)   3-注销
      */
     private Integer status;
-    /**
-     * 操作状态
-     */
-    private Integer opState;
-    /**
-     * 录入人
-     */
-    private Integer createBy;
-    /**
-     * 录入时间
-     */
-    private String createTime;
-    /**
-     * 更新人
-     */
-    private Integer updateBy;
-    /**
-     * 更新时间
-     */
-    private String updateTime;
-    /**
-     * 删除标记
-     */
-    private Integer isDeleted;
 
 }

@@ -17,13 +17,13 @@ const sysParameter = {
     //代码管理列表
     getUcenterCodeList: (params) => Ajax.get('/sys/sysCode//list', params),
     //添加
-    getUcenterCodeAdd: (params) => Ajax.post('/sys/sysCode//add', params),
+    getUcenterCodeAdd: (params) => Ajax.post('/sys/sysCode/add', params),
     //编辑
-    getUcenterCodeEdit: (params) => Ajax.post('/sys/sysCode//save', params),
+    getUcenterCodeEdit: (params) => Ajax.post('/sys/sysCode/save', params),
     //查看
-    getUcenterCodeView: (params) => Ajax.getWithLoading('/sys/sysCode//view', params),
+    getUcenterCodeView: (params) => Ajax.getWithLoading('/sys/sysCode/view', params),
     //删除
-    getUcenterCodeDelete: (params) => Ajax.post('/sys/sysCode//delete', params),
+    getUcenterCodeDelete: (params) => Ajax.post('/sys/sysCode/delete', params),
 
 
     //日志管理
@@ -33,15 +33,15 @@ const sysParameter = {
 
 
     //应用管理列表
-    getUcenterProjectList: (params) => Ajax.get('/ucenter/ucenterProject/list', params),
+    getUcenterProjectList: (params) => Ajax.get('/sys/sysProject/list', params),
     //新增
-    getUcenterProjectAdd: (params) => Ajax.post('/ucenter/ucenterProject/add', params),
+    getUcenterProjectAdd: (params) => Ajax.post('/sys/sysProject/add', params),
     //编辑
-    getUcenterProjectEdit: (params) => Ajax.post('/ucenter/ucenterProject/save', params),
+    getUcenterProjectEdit: (params) => Ajax.post('/sys/sysProject/save', params),
     //查看
-    getUcenterProjectView: (params) => Ajax.getWithLoading('/ucenter/ucenterProject/view', params),
+    getUcenterProjectView: (params) => Ajax.getWithLoading('/sys/sysProject/view', params),
     //删除
-    getUcenterProjectDelete: (params) => Ajax.post('/ucenter/ucenterProject/delete', params),
+    getUcenterProjectDelete: (params) => Ajax.post('/sys/sysProject/delete', params),
 
     //流程管理-列表
     getFlowModelList: (params) => Ajax.getWithLoading('/activiti/model/list', params),

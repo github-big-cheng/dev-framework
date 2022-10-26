@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 功能(SysFunction)表服务接口
  *
- * @author ruijie.hu
+ * @author system
  * @since 2021-05-28 17:42:02
  */
 public interface SysFunctionService {
@@ -49,4 +49,12 @@ public interface SysFunctionService {
      * @return
      */
     int delete(String ids);
+
+    /**
+     * 含project的菜单树结构
+     *
+     * @param query
+     * @return
+     */
+    List<Model> listTree(SysFunction query);
 }

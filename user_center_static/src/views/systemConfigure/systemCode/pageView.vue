@@ -33,8 +33,8 @@ export default({
     },
     methods: {
         async getData() {
-            let value = this.$route.params.value;
-            let res = await this.$http.getUcenterCodeView({value});
+            let id = this.$route.params.id;
+            let res = await this.$http.getUcenterCodeView({id});
             if (res.code == 0) {
                 this.viewCon = res.data;
                 this.initViewConfig();

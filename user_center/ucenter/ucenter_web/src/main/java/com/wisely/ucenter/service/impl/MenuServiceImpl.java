@@ -8,13 +8,19 @@ import com.wisely.framework.helper.ValidHelper;
 import com.wisely.sso.client.SsoConstants;
 import com.wisely.sso.client.helper.UserHelper;
 import com.wisely.sys.api.SysNetApi;
+import com.wisely.ucenter.client.handler.UcDictHelper;
+import com.wisely.ucenter.client.vo.UcenterRoleVo;
+import com.wisely.ucenter.entity.UcenterPersonRole;
 import com.wisely.ucenter.mapper.UcenterObjFuncMapper;
+import com.wisely.ucenter.mapper.UcenterPersonRoleMapper;
 import com.wisely.ucenter.service.MenuService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @since 2021-05-28 17:42:03
@@ -24,6 +30,8 @@ public class MenuServiceImpl implements MenuService, SsoConstants {
 
     @Resource
     UcenterObjFuncMapper ucenterObjFuncMapper;
+    @Resource
+    UcenterPersonRoleMapper ucenterPersonRoleMapper;
 
     @Resource
     SysNetApi sysNetApi;
@@ -43,44 +51,15 @@ public class MenuServiceImpl implements MenuService, SsoConstants {
         // 处理菜单结构
         functions.forEach(func -> {
             // 获取
-            Integer parentId = func.getInt("parentId", -1);
             if (func.isEmpty("parentId")) {
                 projectModel.getList(func.getInt("projectId"), true).add(func);
             }
 
-            modelMenu.getList(parentId, true).add(func);
+            modelMenu.getList(func.getInt("parentId"), true).add(func);
             func.set("subFunction", modelMenu.getList(func.getInt("id"), true));
         });
         return projectModel;
     }
-
-
-    /**
-     * 获取包含应用的菜单树
-     *
-     * @param input
-     * @return
-     */
-    @Override
-    public List<Model> authFunctionTree(Model input) {
-
-        Model projectQuery = Model.builder();
-        List<Model> projectList = sysNetApi.projectList(projectQuery);
-        if (ValidHelper.isEmpty(projectList)) {
-            return Lists.newArrayList();
-        }
-
-        List<Model> functions = this.loadFunctionByAuth(UserHelper.getPersonId());
-        Model<Integer, List<Model>> treeMenu = this.tree(functions);
-
-        List<Model> list = Lists.newArrayList();
-        projectList.forEach(project -> {
-            list.add(project.set("subFunction", treeMenu.getList(project.getInt("id"), true)));
-
-        });
-        return list;
-    }
-
 
     /**
      * 获取该当前用户的菜单
@@ -115,12 +94,30 @@ public class MenuServiceImpl implements MenuService, SsoConstants {
     @Override
     public List<Model> loadFunctionByAuth(Integer personId) {
         Model functionQuery = Model.builder();
-        if (ValidHelper.isEmpty(UserHelper.getUser()) || !UserHelper.hasRole(ROLE_SUPER_ADMIN)) {
+
+
+        // 存在Api接口调用，不能从会话信息中获取角色
+        Optional<UcenterPersonRole> roleAdmin = Optional.empty();
+        UcenterPersonRole personRoleQuery = new UcenterPersonRole();
+        personRoleQuery.setIsDeleted(0);
+        personRoleQuery.setPersonId(personId);
+        List<UcenterPersonRole> personRoleList =
+                ucenterPersonRoleMapper.selectListBySelective(personRoleQuery);
+        if (ValidHelper.isNotEmpty(personRoleList)) {
+            roleAdmin =
+                personRoleList.stream()
+                        .filter(personRole -> {
+                            UcenterRoleVo roleVo = UcDictHelper.loadRoleVo(personRole.getRoleId());
+                            return ValidHelper.isNotEmpty(roleVo) && StringHelper.equals(roleVo.getCode(), ROLE_SUPER_ADMIN);
+                        }).findFirst();
+        }
+
+        if (!roleAdmin.isPresent()) {
             Set<Integer> funcIdSet = Sets.newHashSet(-1);
             List<Integer> objFuncIdList =
                     ucenterObjFuncMapper.selectFuncIdsByPersonId(Model.builder().set("personId", personId));
             funcIdSet.addAll(objFuncIdList);
-            functionQuery.set("idQueryIn", StringHelper.join(funcIdSet));
+            functionQuery.set("idQueryIn", StringHelper.join(funcIdSet, ","));
         }
 
         return sysNetApi.functionList(functionQuery);

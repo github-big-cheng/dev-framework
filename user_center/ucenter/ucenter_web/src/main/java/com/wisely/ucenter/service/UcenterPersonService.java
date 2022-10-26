@@ -1,12 +1,10 @@
 package com.wisely.ucenter.service;
 
 
-import com.github.pagehelper.PageInfo;
 import com.wisely.framework.entity.Model;
 import com.wisely.framework.entity.PageVo;
 import com.wisely.ucenter.entity.UcenterPerson;
 import com.wisely.ucenter.entity.UcenterUser;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,22 +17,22 @@ import java.util.List;
 public interface UcenterPersonService {
 
     /**
-     * 条件列表查询
-     *
-     * @param query query
-     * @return List<UcenterPerson>
-     */
-    List<UcenterPerson> findList(UcenterPerson query);
-
-    /**
      * 分页列表查询
      *
      * @param query  UcenterPerson
      * @param pageVo PageVo
      * @return PageInfo
      */
-    PageInfo findByPage(UcenterPerson query, PageVo pageVo);
+    Model findByPage(UcenterPerson query, PageVo pageVo);
 
+
+    /**
+     * 人员详细信息查询
+     *
+     * @param dataList
+     * @return
+     */
+    List<Model> selectPersonWithDetail(List<UcenterPerson> dataList);
 
     /**
      * 保存
@@ -70,7 +68,7 @@ public interface UcenterPersonService {
 
     /**
      * 账号操作
-     *  锁定/解锁
+     * 锁定/解锁
      *
      * @param accounts
      * @param accountStatus
@@ -87,10 +85,10 @@ public interface UcenterPersonService {
     /**
      * 获取指定角色的人员(部门可选)
      *
-     * @param model
+     * @param query
      * @return
      */
-    List<Model> loadPersonBySelective(Model model);
+    List<Model> loadPersonBySelective(UcenterPerson query);
 
     /**
      * 修改密码

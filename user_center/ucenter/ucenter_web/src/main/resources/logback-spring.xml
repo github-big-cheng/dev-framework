@@ -85,7 +85,7 @@
     <!-- 日志输出级别 -->
     <root level="INFO">
         <appender-ref ref="console"/>
-        <appender-ref ref="siftInfo"/>
+<!--        <appender-ref ref="siftInfo"/>-->
         <appender-ref ref="info"/>
         <appender-ref ref="error"/>
     </root>

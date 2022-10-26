@@ -1,26 +1,29 @@
 package com.wisely.ucenter.client.handler;
 
+import com.wisely.framework.common.ConverterConstants;
 import com.wisely.framework.handler.dictionary.ConverterDictionary;
+import com.wisely.framework.handler.entity.ConverterItemEntity;
+import com.wisely.framework.helper.DataHelper;
+import com.wisely.framework.helper.StringHelper;
 import com.wisely.framework.helper.ValidHelper;
 import com.wisely.ucenter.client.eum.UcenterCacheEnum;
 
 
-public class UcenterConverterDictionary implements ConverterDictionary {
+public class UcenterConverterDictionary implements ConverterDictionary<String>, ConverterConstants {
 
     @Override
-    public boolean accept(String bizType) {
-        return ValidHelper.isNotEmpty(UcenterCacheEnum.loadByMapper(bizType));
+    public boolean accept(ConverterItemEntity itemEntity) {
+        return ValidHelper.isNotEmpty(UcenterCacheEnum.loadByMapper(itemEntity.getMapper()));
     }
 
     @Override
-    public String loadValue(String bizKey, String valueKey, String defaultValue) {
+    public String loadValue(ConverterItemEntity itemEntity, Object value) {
 
-        if (ValidHelper.isNotEmpty(bizKey) && ValidHelper.isNotEmpty(valueKey)) {
-            String result = UcenterDictionaryHelper.loadEntityCacheManager(bizKey, valueKey);
-            if (ValidHelper.isNotEmpty(result)) {
-                return result;
-            }
+        String result = DataHelper.getString(value);
+        if (StringHelper.isBlank(result)) {
+            return result;
         }
-        return defaultValue;
+
+        return UcDictHelper.loadValue(itemEntity.getMapper(), result);
     }
 }

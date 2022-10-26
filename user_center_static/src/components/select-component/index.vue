@@ -266,30 +266,26 @@ export default {
                 _this.keyLike1 = "cname";
                 _this.keyLike2 = "linker";
                 _this.keyName = "cNameOrCodeOrSnameOrLinkerQueryLike";
-
                 _this.renderPerson = false;
             }
-
             function setCommonAttr2(_this) {
                 _this.baseUrl = "getUcenterOrgListOrPerson";
                 _this.keyName = "nameQueryLike";
                 _this.keyLike1 = "name";
                 _this.keyLike2 = "orgName";
             }
-
             function setCommonAttr3(_this) {
-                _this.baseUrl = "partyOrgCombox";
-                _this.keyLike1 = "cname";
-                _this.keyLike2 = "linker";
+                _this.baseUrl = "getMenuListChild";
                 _this.keyName = "nameQueryLike";
-
-                _this.renderPerson = false;
+                _this.keyLike1 = "name";
+                _this.keyLike2 = "code";
             }
+
             switch (this.tabList[0]) {
                 case "deptPerson":
                     setCommonAttr2(this);
                     break;
-                case "party":
+                case "menu":
                     setCommonAttr3(this);
                     break;
                 default:

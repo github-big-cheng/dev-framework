@@ -235,8 +235,8 @@
             and t.is_deleted = #{isDeleted}
         </if>
         <!-- 说明模糊查询 -->
-        <if test="descriptQueryLike != null and descriptQueryLike != ''">
-            and t.descript like concat('%', #{descriptQueryLike}, '%')
+        <if test="descriptionQueryLike != null and descriptionQueryLike != ''">
+            and t.descript like concat('%', #{descriptionQueryLike}, '%')
         </if>
         <!-- key模糊查询 -->
         <if test="keiesQueryLike != null and keiesQueryLike != ''">
@@ -388,6 +388,10 @@
                 order by t.id
             </otherwise>
         </choose>
+    </select>
+
+    <select id="selectOrgIds" resultType="java.lang.Integer">
+        select distinct org_id from t_sys_parameter where is_deleted = 0
     </select>
 
 </mapper>

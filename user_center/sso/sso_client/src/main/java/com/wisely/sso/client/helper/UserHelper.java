@@ -1,9 +1,15 @@
 package com.wisely.sso.client.helper;
 
 import com.google.common.collect.Sets;
+import com.wisely.framework.helper.JsonHelper;
+import com.wisely.framework.helper.RedisHelper;
+import com.wisely.framework.helper.StringHelper;
 import com.wisely.sso.client.entity.SsoUser;
 
 import java.util.Set;
+
+import static com.wisely.sso.client.SsoConstants.OS_PC;
+import static com.wisely.sso.client.SsoConstants.TICKET_PREFIX;
 
 public class UserHelper {
 
@@ -139,5 +145,29 @@ public class UserHelper {
     public static boolean hasRole(String... roleCodes) {
         Set<String> roleCodeSet = getUser() == null ? Sets.newHashSet() : getUser().getRoleCodes();
         return Sets.difference(Sets.newHashSet(roleCodes), roleCodeSet).size() == 0;
+    }
+
+
+    /**
+     * 根据票据获取用户
+     *
+     * @param osType
+     * @param ticket
+     * @return
+     */
+    public static SsoUser loadByTicket(String osType, String ticket) {
+        String userJson = RedisHelper.get(TICKET_PREFIX + osType + ticket);
+        return StringHelper.isBlank(userJson) ? null : JsonHelper.json2Obj(userJson, SsoUser.class);
+    }
+
+
+    /**
+     * 根据票据获取用户
+     * load by default os type PC
+     * @param ticket
+     * @return
+     */
+    public static SsoUser loadByTicket(String ticket) {
+        return loadByTicket(OS_PC, ticket);
     }
 }

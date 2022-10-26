@@ -252,6 +252,18 @@
                 <version>${springcloud.version}</version>
             </dependency>
 
+            <!-- 服务监控 -->
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-server</artifactId>
+                <version>${springboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-client</artifactId>
+                <version>${springboot.version}</version>
+            </dependency>
+
             <!-- 工具类 -->
             <dependency>
                 <groupId>org.projectlombok</groupId>

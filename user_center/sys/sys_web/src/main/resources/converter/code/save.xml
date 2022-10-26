@@ -2,14 +2,13 @@
 <!DOCTYPE trans SYSTEM "converter.dtd">
 <trans name="code/save" desc="系统代码-保存" group="代码管理" groupCode="code">
     <send>
+        <item name="id" desc="id" type="Integer" required="true"/>
         <item name="type" desc="类别" required="true"/>
         <item name="code" desc="代码" required="true"/>
         <item name="locale" desc="国际化" required="true" default="zh_CN"/>
         <item name="name" desc="名称" required="true"/>
         <item name="value" desc="代码值" required="true"/>
         <item name="pathValue" desc="PATH"/>
-        <item name="sname" desc="简称"/>
-        <item name="ename" desc="英文名称"/>
         <item name="orderNo" desc="排序字段" type="Integer"/>
         <item name="parent" desc="父级"/>
         <item name="isSys" desc="系统/用户" notes="1-系统 0-用户" scope="0,1" type="Integer" required="true"/>

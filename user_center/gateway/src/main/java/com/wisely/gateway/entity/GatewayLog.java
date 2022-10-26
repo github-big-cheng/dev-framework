@@ -28,7 +28,7 @@ public class GatewayLog {
     /**
      * 操作系统类型
      */
-    private String osType = "pc";
+    private String osType = "PC";
     /**
      * 令牌
      */

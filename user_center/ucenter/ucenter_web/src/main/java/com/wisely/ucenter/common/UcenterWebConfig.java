@@ -9,7 +9,6 @@ import com.wisely.framework.plugins.net.RestTemplateNetTools;
 import com.wisely.sso.client.handler.Base64DataConverterImpl;
 import com.wisely.sys.api.SysNetApi;
 import com.wisely.sys.handler.SysConverterDictionary;
-import com.wisely.ucenter.caches.*;
 import com.wisely.ucenter.client.handler.UcenterConverterDictionary;
 import com.wisely.ucenter.service.UcenterCacheService;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,14 +37,8 @@ public class UcenterWebConfig {
     }
 
     @Bean
-    public RestTemplateNetTools restTemplateNetTools(RestTemplate restTemplate) {
-        return new RestTemplateNetTools(sysUrl, restTemplate);
-    }
-
-
-    @Bean
-    public SysNetApi sysNetApi(RestTemplateNetTools restTemplateNetTools) {
-        return new SysNetApi(restTemplateNetTools);
+    public SysNetApi sysNetApi(RestTemplate restTemplate) {
+        return new SysNetApi(new RestTemplateNetTools(sysUrl, restTemplate));
     }
 
     @Bean
@@ -62,32 +55,6 @@ public class UcenterWebConfig {
     public ConverterDictionary sysDictionary() {
         return new SysConverterDictionary();
     }
-
-    @Bean
-    public PersonCache personCache() {
-        return new PersonCache();
-    }
-
-    @Bean
-    public UserCache userCache() {
-        return new UserCache();
-    }
-
-    @Bean
-    public OrgCache orgCache() {
-        return new OrgCache();
-    }
-
-    @Bean
-    public RoleCache roleCache() {
-        return new RoleCache();
-    }
-
-    @Bean
-    public PositionCache positionCache() {
-        return new PositionCache();
-    }
-
 
     /**
      * Spring容器加载完毕，初始化相关缓存数据

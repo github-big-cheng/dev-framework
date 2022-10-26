@@ -31,7 +31,7 @@
         |notIn      |多条件查询  |idQueryNotIn       |id not in(1,2,3)|
         |like       |模糊查询    |nameQueryLike      |name like concat('%', #{nameQueryLike}, '%')|
         |notLike    |模糊查询    |nameQueryNotLike   |name not like concat('%', #{nameQueryNotLike}, '%')|
-        |likeLeft   |左模糊查询  |nameQueryLikeLeft  |name like concat('%', #{nameQueryLikeLeft})|
+        |likeLeft   |左模糊查询  |nameQueryLeftLike  |name like concat('%', #{nameQueryLikeLeft})|
         |likeRight  |右模糊查询  |nameQueryRightLike |name like concat(#{nameQueryRightLike}, '%')|
         |isNull     |为NULL     |statusQueryIsNull  |status is null|
         |isNotNull  |不为NULL   |statusQueryIsNotNull  |status is not null|

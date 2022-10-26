@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 资源文件(SysFile)表服务接口
  *
- * @author ruijie.hu
+ * @author system
  * @since 2021-06-011 17:56:46
  */
 public interface SysFileService {

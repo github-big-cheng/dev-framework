@@ -103,19 +103,13 @@ const user = {
                 api.getUserMenuList()
                     .then(response => {
                         if (response && response.data) {
-                            // response.data = response.data[1].menus;
-                            // let routers = createRouter(response.data || []);
-                            // let newData = lodash.cloneDeep(response.data);
-                            // let menuList = getMenuList(newData || []);
-                            // router.addRoutes(routers);
-                            // commit("SET_ROUTERS", routers);
-                            // setLocalStorage("menuList", menuList || []);
-                            // commit("SET_MENULIST", menuList);
-                            // setLocalStorage("menuData", response.data || []);
-                            commit("SET_ALLMENU", response.data)
-                            setLocalStorage("allMenu", response.data)
-                            resolve(response);
 
+                            const list = response.data.filter(menu => menu.code == 'ucenter');
+                            response.data = list;
+
+                            commit("SET_ALLMENU", list)
+                            setLocalStorage("allMenu", list)
+                            resolve(response);
                         } else {
                             reject("您没有当前系统操作权限。");
                         }
@@ -175,6 +169,7 @@ const user = {
                         commit('SET_MENULIST_MAP', menuMap || new Map())
                         let routers = createRouter(allMenu || []);
                         resetRouter()
+
                         routers.length && router.addRoutes(routers);
                         commit("SET_ROUTERS", routers);
 

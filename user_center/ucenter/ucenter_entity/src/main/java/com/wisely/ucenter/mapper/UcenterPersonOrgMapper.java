@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 部门/机构人员中间表(UcenterPersonOrg)表数据库访问层
  *
- * @author ruijie.hu
+ * @author system
  * @since 2021-05-28 17:36:08
  */
 public interface UcenterPersonOrgMapper extends BaseMapper<UcenterPersonOrg> {

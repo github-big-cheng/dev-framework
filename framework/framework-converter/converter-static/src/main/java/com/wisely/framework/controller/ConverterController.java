@@ -1,11 +1,11 @@
 package com.wisely.framework.controller;
 
+import com.google.common.collect.Lists;
 import com.wisely.framework.entity.Model;
 import com.wisely.framework.handler.annotation.Converter;
 import com.wisely.framework.handler.entity.ConverterEntity;
 import com.wisely.framework.handler.parser.ConverterDefineParser;
 import com.wisely.framework.helper.*;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +28,8 @@ public class ConverterController {
 
         List<ConverterEntity> list = Lists.newArrayList();
 
-        RequestMappingHandlerMapping requestMappingHandlerMapping = SpringHelper.getBean(RequestMappingHandlerMapping.class);
+        RequestMappingHandlerMapping requestMappingHandlerMapping =
+                (RequestMappingHandlerMapping) SpringHelper.getBean("requestMappingHandlerMapping");
         requestMappingHandlerMapping.getHandlerMethods().forEach((requestMappingInfo, handlerMethod) -> {
             Converter converter = handlerMethod.getMethodAnnotation(Converter.class);
             if (ValidHelper.isNull(converter)) {

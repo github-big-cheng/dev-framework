@@ -129,23 +129,9 @@ const createConfig = (tabName, apiUrl, params) => {
 /**
  * 总控制表映射关系
  */
-// CONTROL.set('partyPerson', createConfig('党支部人员', 'getUcenterOrgTreePerson', { type: '12001-20' }));
 CONTROL.set('deptPerson', createConfig('部门人员', 'getUcenterOrgTreePerson'));
-// CONTROL.set('party', createConfig('党支部', 'getListDeptTree', { type: '12001-20' }));
 CONTROL.set('dept', createConfig('部门', 'getUcenterOrgTree'));
 
-CONTROL.set('party', createConfig('党组织', 'partyOrgTree'));
-// CONTROL.set(
-//   'docUnit',
-//   createConfig('来文单位', 'getUcenterOrgTree', {
-//     type: '12001-30',
-//     subType: '12009-10',
-//   })
-// );
-CONTROL.set(
-  'insureUnit',
-  createConfig('保险公司', 'getUcenterOrgTree')
-);
 import Dialog from '@/components/dialog/index';
 import choice from './component/choice';
 import publicCom from './component/choice/public';
@@ -174,9 +160,9 @@ export default {
       default: () => [],
     },
     params: {
-            type: Object,
-            default: () => {}
-        }
+      type: Object,
+      default: () => {}
+    }
   },
   components: {
     Dialog,

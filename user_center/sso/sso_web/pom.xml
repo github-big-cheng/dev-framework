@@ -32,7 +32,6 @@
             <artifactId>framework-cloud-all</artifactId>
         </dependency>
 
-
         <!-- entity -->
         <dependency>
             <groupId>com.wisely</groupId>
@@ -58,19 +57,6 @@
             <artifactId>sys_client</artifactId>
             <version>${sys.version}</version>
         </dependency>
-
-        <!--spring-web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
 
         <!-- spring-jdbc -->
         <dependency>
@@ -127,6 +113,12 @@
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <!-- Springboot Admin -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
 
     </dependencies>

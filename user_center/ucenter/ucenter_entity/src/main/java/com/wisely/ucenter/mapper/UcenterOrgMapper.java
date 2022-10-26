@@ -6,7 +6,7 @@ import com.wisely.ucenter.entity.UcenterOrg;
 /**
  * 机构/部门信息(UcenterOrg)表数据库访问层
  *
- * @author ruijie.hu
+ * @author system
  * @since 2021-05-28 17:35:59
  */
 public interface UcenterOrgMapper extends BaseMapper<UcenterOrg> {

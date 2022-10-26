@@ -47,7 +47,7 @@ public class SysFile extends BaseEntity implements Serializable {
     /**
     * 业务id
     */
-    private Integer sourceId;
+    private String sourceId;
     /**
     * 文件名称
     */

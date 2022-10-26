@@ -9,11 +9,11 @@
 import Ajax from '@/utils/request';
 
 const menu = {
-    getMenuList: (params) => Ajax.get('/ucenter/menu/auth/tree', params),
+    getMenuList: (params) => Ajax.get('/sys/function/list/tree', params),
 
     getUserMenuList: (params) => Ajax.get('/ucenter/menu/user/tree', params),
 
-    getUserMenuView: (params) => Ajax.get('/sys/sysFunction/view', params),
+    getMenuView: (params) => Ajax.get('/sys/sysFunction/view', params),
 
     getMenuListChild: (params) => Ajax.get('/sys/sysFunction/list', params),
 

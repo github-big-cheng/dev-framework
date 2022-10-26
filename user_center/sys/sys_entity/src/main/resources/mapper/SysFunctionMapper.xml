@@ -267,6 +267,12 @@
         <if test="nameQueryLike != null">
             and t.name like concat('%',#{nameQueryLike},'%')
         </if>
+        <if test="idQueryIn != null and idQueryIn !=''">
+            and t.id in
+            <foreach collection="idQueryIn.split(',')" item="iq" open="(" close=")" separator=",">
+                #{iq}
+            </foreach>
+        </if>
     </sql>
 
     <!--查询单个-->

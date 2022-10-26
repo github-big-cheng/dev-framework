@@ -9,7 +9,7 @@ import com.wisely.framework.entity.PageVo;
 import com.wisely.framework.helper.*;
 import com.wisely.sso.client.helper.UserHelper;
 import com.wisely.ucenter.caches.OrgCache;
-import com.wisely.ucenter.client.handler.UcenterDictionaryHelper;
+import com.wisely.ucenter.client.handler.UcDictHelper;
 import com.wisely.ucenter.client.vo.UcenterPositionVo;
 import com.wisely.ucenter.entity.UcenterOrg;
 import com.wisely.ucenter.entity.UcenterPerson;
@@ -86,7 +86,7 @@ public class UcenterOrgServiceImpl implements UcenterOrgService {
 
         List<UcenterOrg> orgList = ucenterOrgMapper.selectListBySelective(query);
         if (ValidHelper.isEmpty(orgList)) {
-            return new PageInfo(orgList);
+            return new PageInfo();
         }
 
         List<Model> list = Lists.newArrayList();
@@ -108,14 +108,17 @@ public class UcenterOrgServiceImpl implements UcenterOrgService {
 
             //校验上级部门是否是部门本身，如果是则抛出异常
             if (ValidHelper.isNotEmpty(record.getParentId())) {
-                AssertHelper.EX_VALIDATION.isNotEquals(record.getParentId(), record.getId(), "ucenter_org_save.invalid_parent_org");
+                AssertHelper.EX_VALIDATION.isNotEquals(
+                        record.getParentId(),
+                        record.getId(),
+                        "ucenter_org_save.invalid_parent_org");
 
                 // 生成路径,用于级联查询
                 com.wisely.ucenter.client.vo.UcenterOrgVo orgVo =
-                        UcenterDictionaryHelper.loadOrgVo(record.getParentId());
+                        UcDictHelper.loadOrgVo(record.getParentId());
                 if (ValidHelper.isNotEmpty(orgVo)) {
-                    record.setPathIds(StringHelper.join(orgVo.getPathIds(), "/", record.getCode(), "/"));
-                    record.setPathNames(StringHelper.join(orgVo.getPathNames(), "/", record.getCname(), "/"));
+                    record.setPathIds(StringHelper.join(orgVo.getPathIds(), record.getCode(), "/"));
+                    record.setPathNames(StringHelper.join(orgVo.getPathNames(), record.getCname(), "/"));
                 }
                 // 设置所属机关单位
                 record.setOrgId(orgVo.getId());
@@ -144,7 +147,7 @@ public class UcenterOrgServiceImpl implements UcenterOrgService {
                     AssertHelper.EX_BUSINESS.isNotEmpty(entity, "common.entity_not_found.id_{0}", record.getId());
 
                     ucenterOrgList.forEach(item ->
-                            AssertHelper.EX_BUSINESS.isNotEquals(
+                            AssertHelper.EX_BUSINESS.isEquals(
                                     item.getId(),
                                     entity.getId(),
                                     "ucenter_org_save.repeat_code_found.{0}",
@@ -160,9 +163,11 @@ public class UcenterOrgServiceImpl implements UcenterOrgService {
             Model input = RequestHelper.getInput();
             ucenterOrgInfoService.save(record, input.getModel("info"));
         } finally {
-            UcenterOrg cache = ucenterOrgMapper.selectByPrimaryKey(record.getId());
-            if (ValidHelper.isNotEmpty(cache)) {
-                orgCache.syncCache(record);
+            UcenterOrg cacheQuery = new UcenterOrg();
+            cacheQuery.setId(record.getId());
+            List<Model> cacheList = this.findList(cacheQuery);
+            if (ValidHelper.isNotEmpty(cacheList)) {
+                orgCache.syncCache(cacheList.get(0));
             }
         }
 
@@ -281,7 +286,14 @@ public class UcenterOrgServiceImpl implements UcenterOrgService {
                 if (ValidHelper.isEmpty(person)) {
                     return;
                 }
-                person.set("deptId", deptPerson.getDeptId());
+
+                // 设置相关信息
+                person
+                    .set("orgId", deptPerson.getRootOrgId())
+                    .set("deptId", deptPerson.getDeptId())
+                    .set("posId", deptPerson.getPosId())
+                    .set("posLev", deptPerson.getPosLevel())
+                ;
                 personOrgModel.getList(deptPerson.getDeptId(), true).add(person);
             });
         }
@@ -346,7 +358,7 @@ public class UcenterOrgServiceImpl implements UcenterOrgService {
                 deptPositionSet.add(key);
 
                 UcenterPositionVo positionVo =
-                        UcenterDictionaryHelper.loadPositionVo(deptPerson.getPosId());
+                        UcDictHelper.loadPositionVo(deptPerson.getPosId());
                 if (ValidHelper.isEmpty(positionVo)) {
                     return;
                 }

@@ -234,9 +234,7 @@ export default {
             selectTreeIds: [],
             URL,
             choiceLoading: true,
-            renderPerson:
-                this.renderType == "partyPerson" ||
-                this.renderType == "deptPerson",
+            renderPerson: this.renderType == "deptPerson",
         };
     },
     watch: {

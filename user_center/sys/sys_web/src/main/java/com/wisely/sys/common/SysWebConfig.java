@@ -3,20 +3,16 @@ package com.wisely.sys.common;
 import com.wisely.framework.handler.dictionary.ConverterDictionary;
 import com.wisely.framework.helper.ConfigHelper;
 import com.wisely.framework.helper.SpringHelper;
-import com.wisely.sys.entity.SysParameter;
-import com.wisely.sys.handler.SysConverterDictionary;
-import com.wisely.sys.service.SysCacheService;
-import com.wisely.sys.service.SysParameterService;
 import com.wisely.sys.common.cache.CodeCache;
 import com.wisely.sys.common.cache.FunctionCache;
 import com.wisely.sys.common.cache.ParameterCache;
+import com.wisely.sys.handler.SysConverterDictionary;
+import com.wisely.sys.service.SysCacheService;
 import com.wisely.ucenter.client.handler.UcenterConverterDictionary;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ContextRefreshedEvent;
-
-import javax.swing.*;
 
 @Configuration
 public class SysWebConfig {

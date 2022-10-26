@@ -70,26 +70,6 @@ public class UcenterPerson extends BaseEntity implements Serializable {
      */
     private String nation;
     /**
-     * 家乡-省
-     */
-    private String homeProvince;
-    /**
-     * 家乡-市
-     */
-    private String homeCity;
-    /**
-     * 家乡-区县
-     */
-    private String homeCounty;
-    /**
-     * 家乡-地址
-     */
-    private String homeAddress;
-    /**
-     * 邮编
-     */
-    private String zipcode;
-    /**
      * 员工状态
      */
     private String status;
@@ -157,17 +137,25 @@ public class UcenterPerson extends BaseEntity implements Serializable {
     /**
      * 部门id精确查询
      */
-    private Integer deptIdQuery;
+    private Integer deptIdQueryEq;
+    /**
+     * 机构下部门查询
+     */
+    private String deptIdQueryIn;
     /**
      * 角色id精确查询
      */
-    private Integer roleIdQuery;
+    private Integer roleIdQueryEq;
+    /**
+     * 角色代码精确查询
+     */
+    private String roleCodeQueryEq;
     /**
      * 姓名或者账号模糊查询
      */
     private String nameOrAccountQueryLike;
     /**
-     * 机构下部门查询
+     * 账号精确查找
      */
-    private String deptIdQueryIn;
+    private String accountQueryEq;
 }

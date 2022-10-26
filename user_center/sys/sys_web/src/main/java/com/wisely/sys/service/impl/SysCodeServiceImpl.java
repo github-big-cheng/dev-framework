@@ -9,10 +9,10 @@ import com.wisely.framework.helper.AssertHelper;
 import com.wisely.framework.helper.DateHelper;
 import com.wisely.framework.helper.ValidHelper;
 import com.wisely.sso.client.helper.UserHelper;
+import com.wisely.sys.common.cache.CodeCache;
 import com.wisely.sys.entity.SysCode;
 import com.wisely.sys.mapper.SysCodeMapper;
 import com.wisely.sys.service.SysCodeService;
-import com.wisely.sys.common.cache.CodeCache;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,8 +65,8 @@ public class SysCodeServiceImpl implements SysCodeService {
         query.setValue(record.getValue());
         List<SysCode> codes = sysCodeMapper.selectListBySelective(query);
         codes.forEach(code ->
-            AssertHelper.EX_BUSINESS.isNotEquals(code.getIsSys(), 1,
-                    "sysCode.value_is_system.{0}", code.getValue()));
+                AssertHelper.EX_BUSINESS.isNotEquals(code.getIsSys(), 1,
+                        "sysCode.value_is_system.{0}", code.getValue()));
 
         //将updateByPrimaryKey方法中的创建人删除
         record.setUpdateBy(UserHelper.getUserId());
@@ -80,7 +80,7 @@ public class SysCodeServiceImpl implements SysCodeService {
     }
 
     @Override
-    public SysCode load(String value) {
+    public SysCode load(Integer value) {
         return sysCodeMapper.selectByPrimaryKey(value);
     }
 

@@ -1,13 +1,16 @@
 package com.wisely.ucenter.service.impl;
 
+import com.google.common.collect.Lists;
 import com.wisely.framework.entity.Model;
-import com.wisely.framework.helper.*;
+import com.wisely.framework.helper.DataHelper;
+import com.wisely.framework.helper.DateHelper;
+import com.wisely.framework.helper.RequestHelper;
+import com.wisely.framework.helper.ValidHelper;
 import com.wisely.sso.client.helper.UserHelper;
+import com.wisely.sys.api.SysNetApi;
 import com.wisely.ucenter.entity.UcenterObjFunc;
 import com.wisely.ucenter.mapper.UcenterObjFuncMapper;
-import com.wisely.ucenter.service.MenuService;
 import com.wisely.ucenter.service.UcenterObjFuncService;
-import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +26,7 @@ public class UcenterObjFuncServiceImpl implements UcenterObjFuncService {
     UcenterObjFuncMapper ucenterObjFuncMapper;
 
     @Resource
-    MenuService menuService;
+    SysNetApi sysNetApi;
 
     /**
      * 获取权限树（有权限的选中）
@@ -33,30 +36,63 @@ public class UcenterObjFuncServiceImpl implements UcenterObjFuncService {
      */
     @Override
     public Object list(UcenterObjFunc query) {
+
         Model input = RequestHelper.getInput();
-        //所有的权限
-        return menuService.authFunctionTree(input);
+
+        Model params = Model.builder();
+        params.putByPickUp(input, "projectId");
+        List<Model> functionList = sysNetApi.functionList(params);
+        if (ValidHelper.isEmpty(functionList)) {
+            return Lists.newArrayList();
+        }
+
+        // 当前查询条件有权限的菜单
+        query.setIsDeleted(0);
+        List<UcenterObjFunc> objFuncList = ucenterObjFuncMapper.selectListBySelective(query);
+        Set<Integer> functionIdSet = objFuncList.stream().map(UcenterObjFunc::getFuncId).collect(Collectors.toSet());
+
+        // 构造成树结构
+        return this.tree(functionList, functionIdSet);
     }
 
+
+    private List<Model> tree(List<Model> functionList, Set<Integer> functionIdSet) {
+
+        List<Model> resultList = Lists.newArrayList();
+        if (ValidHelper.isEmpty(functionList)) {
+            return resultList;
+        }
+
+        Model menuModel = Model.builder();
+        functionList.forEach(function -> {
+            if (function.isEmpty("parentId")) {
+                resultList.add(function);
+            }
+
+            if (functionIdSet.contains(function.getInt("id"))) {
+                function.set("isSelected", 1);
+            }
+
+            menuModel.getList(function.getInt("parentId"), true).add(function);
+            function.set("subFunction", menuModel.getList(function.getInt("id"), true));
+
+        });
+
+        return resultList;
+    }
 
     /**
      * 修改权限
      *
      * @return
      */
-    @Override
     @Transactional
+    @Override
     public int save(UcenterObjFunc record) {
 
         Model input = RequestHelper.getInput();
-        AssertHelper.EX_VALIDATION.isNotBlank(record.getObjType(), "common.parameter_required.objType");
-        AssertHelper.EX_VALIDATION.isNotEmpty(record.getObjId(), "common.parameter_required.objId");
 
-        //获取传入的应用对应所有权限的ID
-        List<Model> functions = menuService.authFunctionTree(input);
-        String functionIds = functions.stream().map(function -> DataHelper.getString(function.getInt("id"))).collect(Collectors.joining(","));
-        // 删除该应用对应的所有权限
-        record.setFuncIdQueryIn(functionIds);
+        // 按条件清空原记录
         ucenterObjFuncMapper.deleteBySelective(record);
 
         // 添加

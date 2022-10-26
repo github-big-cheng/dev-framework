@@ -2,7 +2,7 @@
 <!DOCTYPE trans SYSTEM "converter.dtd">
 <trans name="code/add" desc="系统代码-新增" group="代码管理" groupCode="code" >
     <send>
-        <item name="type" desc="类别" required="true"/>
+        <item name="type" desc="类别"/>
         <item name="code" desc="代码" required="true"/>
         <item name="locale" desc="国际化" required="true" default="zh_CN"/>
         <item name="name" desc="名称" required="true"/>

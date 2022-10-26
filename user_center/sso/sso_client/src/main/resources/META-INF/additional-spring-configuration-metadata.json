@@ -7,7 +7,7 @@
       "description": "是否开启登录认证."
     },
     {
-      "name": "plugins.filter.sso.urlPatterns",
+      "name": "plugins.filter.sso.url-patterns",
       "type": "java.lang.String",
       "defaultValue": "/*",
       "description": "请求过滤路径."
@@ -19,16 +19,16 @@
       "description": "认证模式."
     },
     {
-      "name": "plugins.filter.sso.checkLoginUrl",
+      "name": "plugins.filter.sso.check-login-url",
       "type": "java.lang.String",
       "defaultValue": "",
       "description": "远程认证时的验证地址."
     },
     {
-      "name": "plugins.filter.sso.redirectUrl",
+      "name": "plugins.filter.sso.redirect-url",
       "type": "java.lang.String",
-      "defaultValue": "认证地址.",
-      "description": "远程认证时的验证地址,如：login.html."
+      "defaultValue": "",
+      "description": "跳转地址,如：login.html."
     },
     {
       "name": "plugins.filter.sso.order",
@@ -37,19 +37,19 @@
       "description": "过滤器优先级."
     },
     {
-      "name": "plugins.filter.sso.expiredTime",
+      "name": "plugins.filter.sso.expired-time",
       "type": "java.lang.Integer",
       "defaultValue": 60000,
       "description": "过期时间."
     },
     {
-      "name": "plugins.filter.sso.initParameters.excludes",
+      "name": "plugins.filter.sso.init-parameters.excludes",
       "type": "java.lang.String",
       "defaultValue": "",
       "description": "登录认证排除接口."
     },
     {
-      "name": "plugins.filter.sso.initParameters.excludedAuth",
+      "name": "plugins.filter.sso.init-parameters.excluded-auth",
       "type": "java.lang.String",
       "defaultValue": "",
       "description": "权限认证排除接口."

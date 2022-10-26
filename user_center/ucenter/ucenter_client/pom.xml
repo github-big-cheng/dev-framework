@@ -26,20 +26,15 @@
 
         <dependency>
             <groupId>com.wisely</groupId>
-            <artifactId>framework-all</artifactId>
-            <optional>true</optional>
+            <artifactId>framework-jdbc</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <optional>true</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>com.wisely</groupId>
+            <artifactId>framework-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.wisely</groupId>
+            <artifactId>converter-core</artifactId>
         </dependency>
     </dependencies>
 

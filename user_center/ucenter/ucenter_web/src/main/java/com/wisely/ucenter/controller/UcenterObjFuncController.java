@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 /**
  * 菜单(TUcenterFunction)表控制层
  *
- * @author ruijie.hu
+ * @author system
  * @since 2021-05-28 17:42:04
  */
 @RestController
@@ -24,11 +24,11 @@ public class UcenterObjFuncController {
     UcenterObjFuncService ucenterObjFuncService;
 
     /**
-     * 分页列表
+     * 菜单权限树
      * <p>
-     * 参数 objType ---> 权限类型 T_UCENTER_CODE.value
+     * 参数 projectId ---> 应用ID
+     * 参数 objType ---> 权限类型 T_SYS_CODE.value 部门10079-10 职位10079-20 、用户10079-30、角色 10079-40
      * 参数 objId   ---> ID
-     * 部门10079-10 职位10079-20 、用户10079-30、角色 10079-40
      *
      * @return
      */

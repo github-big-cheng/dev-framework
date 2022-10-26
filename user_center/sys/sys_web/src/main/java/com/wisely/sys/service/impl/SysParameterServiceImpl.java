@@ -1,6 +1,5 @@
 package com.wisely.sys.service.impl;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wisely.framework.entity.Model;
@@ -8,13 +7,13 @@ import com.wisely.framework.entity.PageVo;
 import com.wisely.framework.helper.*;
 import com.wisely.sso.client.helper.UserHelper;
 import com.wisely.sys.common.SysConstants;
+import com.wisely.sys.common.cache.ParameterCache;
 import com.wisely.sys.entity.SysParameter;
 import com.wisely.sys.mapper.SysParameterMapper;
 import com.wisely.sys.service.SysParameterService;
-import com.wisely.sys.common.cache.ParameterCache;
 import com.wisely.sys.vo.SysParameterVo;
 import com.wisely.ucenter.client.eum.UcenterCacheEnum;
-import com.wisely.ucenter.client.handler.UcenterDictionaryHelper;
+import com.wisely.ucenter.client.handler.UcDictHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -87,12 +86,13 @@ public class SysParameterServiceImpl implements SysParameterService, SysConstant
         // 插入新数据
         Integer orgId = input.getInt("orgId");
         String orgName =
-                UcenterDictionaryHelper.loadValue(UcenterCacheEnum.ORG_NAME.getMapper(), DataHelper.getString(orgId));
-        List<SysParameter> parameters =
-                JsonHelper.json2Obj(input.getString("parameters"), new TypeReference<List<SysParameter>>() {
-                });
+                UcDictHelper.loadValue(UcenterCacheEnum.ORG_NAME.getMapper(), DataHelper.getString(orgId));
+        List<Model> parameters = input.getModelList("parameters");
         if (ValidHelper.isNotEmpty(parameters)) {
-            parameters.forEach(d -> {
+            parameters.forEach(item -> {
+
+                SysParameter d = (SysParameter) item.convertTo(SysParameter.class);
+
                 d.setOrgId(orgId);
                 d.setOrgName(orgName);
                 if (ValidHelper.isEmpty(d.getId())) {

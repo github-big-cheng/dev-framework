@@ -9,4 +9,9 @@ public interface SysProjectService {
 
     PageInfo list(SysProject query, PageVo pageVo);
 
+    int save(SysProject record);
+
+    SysProject load(Integer id);
+
+    int delete(String idQueryIn);
 }

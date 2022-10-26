@@ -33,10 +33,8 @@ public class SysFileServiceImpl implements SysFileService {
 
         Integer orgId = input.getInt("orgId"); // 机构ID
         String orgName = input.getString("orgName"); // 机构名称
-        String type = input.getString("type"); // 所属应用
         String sourceType = input.getString("sourceType"); // 业务类型
-        Integer sourceId = input.getInt("sourceId"); // 源id
-        Integer personId = input.getInt("personId"); // 上传人
+        String sourceId = input.getString("sourceId"); // 源id
         String uploadTime = input.getString("uploadTime"); // 上传时间
 
         // 删除原文件信息

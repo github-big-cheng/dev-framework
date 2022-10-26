@@ -24,7 +24,6 @@
                     type="text"
                     v-model="code"
                     placeholder=""
-                    disabled
                     clearable
                 />
             </template>
@@ -36,7 +35,7 @@
 import formCom from "@/components/form-com";
 import vPinyin from "@/utils/v-py.js";
 
-export default({
+export default {
     name:"codeEdit",
     components: {
         formCom
@@ -56,8 +55,13 @@ export default({
                         require: true
                     },
                     slotName: 'rName',
-                    class: 'single',
-                    // changeCB: this.computerCodeValue,
+                    // class: 'single'
+                },
+                {
+                    type: "input",
+                    label: "国际化",
+                    prop: "locale",
+                    value: "zh_CN"
                 },
                 {
                     type: "select",
@@ -65,10 +69,6 @@ export default({
                     prop: "type",
                     value: "",
                     children:[],
-                    disabled: true,
-                    rules: {
-                        require: true
-                    },
                     class: 'single'
                 },
                 {
@@ -87,20 +87,15 @@ export default({
                     label: '代码值',
                     prop: "value",
                     value: '',
-                    disabled: true,
+                    rules: {
+                        require: true
+                    },
                     class: 'single'
                 },
                 {
                     type: "input",
-                    label: "简称",
-                    prop: "sname",
-                    value: "",
-                    class: 'single'
-                },
-                {
-                    type: "input",
-                    label: "英文名称",
-                    prop: "ename",
+                    label: "路径名称",
+                    prop: "pathValue",
                     value: "",
                     class: 'single'
                 },
@@ -173,13 +168,13 @@ export default({
             this[handlerType](args)
         },
         setFormConfigs(index, data, attr="children"){
-            this.formConfigs[index][attr].push(...data);
+            this.formConfigs[index][attr] = data;
         },
         getComboxList() {
-            this.$http.getUcenterCodeCombox({type: '10001'}).then((res) => {
+            this.$http.getUcenterCodeCombox({typeQueryIsNull: '1'}).then((res) => {
                 const {code, data} = res;
                 if (code == 0) {
-                    this.setFormConfigs(1, data);
+                    this.setFormConfigs(2, data);
                 }
             });
         },
@@ -189,8 +184,8 @@ export default({
         },
         //回显
         getFormData() {
-            let value = this.$route.params.value;
-            this.$http.getUcenterCodeView({ value }).then((res) => {
+            let id = this.$route.params.id;
+            this.$http.getUcenterCodeView({ id }).then((res) => {
                 this.closeLoading(this.$route);
                 if (res.code == 0) {
                     let {data} = res;
@@ -231,5 +226,5 @@ export default({
             });
         }
     }
-})
+}
 </script>

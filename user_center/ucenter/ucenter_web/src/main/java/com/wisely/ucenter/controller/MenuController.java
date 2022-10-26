@@ -3,7 +3,6 @@ package com.wisely.ucenter.controller;
 
 import com.wisely.framework.entity.Model;
 import com.wisely.framework.handler.annotation.Converter;
-import com.wisely.framework.helper.RequestHelper;
 import com.wisely.framework.helper.ResponseBuilder;
 import com.wisely.ucenter.service.MenuService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,20 +22,6 @@ public class MenuController {
 
     @Resource
     MenuService menuService;
-
-
-    /**
-     * 权限分配菜单
-     * 根据项目id获取所有菜单
-     *
-     * @return
-     */
-    @RequestMapping("/auth/tree")
-    @Converter(path = "menu/authtree")
-    public Object loadMenuByProject() {
-        Model input = RequestHelper.getInput();
-        return ResponseBuilder.buildSuccess(menuService.authFunctionTree(input));
-    }
 
     /**
      * 用户菜单树

@@ -204,7 +204,7 @@ const CommonFunc = {
         for (let i in list) {
             if (list.hasOwnProperty(i)) {
                 if (
-                    list[i].isSelect == 1 && (!list[i].children || !list[i].children.length)
+                    list[i].isSelected == 1 && (!list[i].children || !list[i].children.length)
                     // (list[i].isSelect == 1 && list[i].type == 4) ||
                     // (list[i].isSelect == 1 &&
                     //     list[i].type == 2 &&
@@ -212,7 +212,7 @@ const CommonFunc = {
                 ) {
                     treeIds.push(list[i].id);
                 }
-                if (list[i].isSelect == 1) {
+                if (list[i].isSelected == 1) {
                     allIds.push(list[i].id);
                 }
                 if (list[i].children && list[i].children.length > 0) {
@@ -715,7 +715,6 @@ const CommonFunc = {
         that.$store.commit('SET_MENULIST_MAP', menuMap)
         
         let routers = createRouter(menuLists || []);
-        
         routers.length && router.addRoutes(routers);
         that.$store.commit("SET_ROUTERS", routers);
         that.$store.commit("SET_MENULIST", menuMap.get(curMenuId) || []);

@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * 用户(UcenterUser)实体类
  *
- * @author ruijie.hu
+ * @author system
  * @since 2021-06-01 16:44:49
  */
 @Setter

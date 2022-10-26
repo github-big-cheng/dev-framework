@@ -2,9 +2,9 @@ package com.wisely.framework.handler.operation.def;
 
 import com.wisely.framework.common.ConverterConstants;
 import com.wisely.framework.entity.Model;
+import com.wisely.framework.handler.data.DataConverter;
 import com.wisely.framework.handler.entity.ConverterEntity;
 import com.wisely.framework.handler.entity.ConverterItemEntity;
-import com.wisely.framework.handler.operation.DefaultConverterOperation;
 import com.wisely.framework.helper.ValidHelper;
 
 import java.util.List;
@@ -12,11 +12,29 @@ import java.util.List;
 
 public class DefaultRequestValidationOperation implements ConverterConstants {
 
-    public DefaultRequestValidationOperation(DefaultConverterOperation converterOperation) {
-        this.converterOperation = converterOperation;
+    public DefaultRequestValidationOperation(List<DataConverter> converterList) {
+        this.converterList = converterList;
     }
 
-    private DefaultConverterOperation converterOperation;
+    /**
+     * 处理处理器集合
+     *
+     * @return
+     */
+    private List<DataConverter> converterList;
+
+
+    public Object validation(ConverterItemEntity itemEntity, Object value) {
+
+        for (int i = 0; i < this.converterList.size(); i++) {
+            DataConverter converter = this.converterList.get(i);
+            if (converter.requestAccept(itemEntity)) {
+                value = converter.validation(itemEntity, value);
+            }
+        }
+        return value;
+    }
+
 
     public void request(ConverterEntity entity, Model request) {
 
@@ -25,12 +43,7 @@ public class DefaultRequestValidationOperation implements ConverterConstants {
         }
 
         // 执行校验
-        this.validRequest(entity.getSend(), request);
-    }
-
-    protected void validRequest(List<ConverterItemEntity> itemEntityList, Model request) {
-
-        if (ValidHelper.isEmpty(itemEntityList)) {
+        if (ValidHelper.isEmpty(entity.getSend())) {
             return;
         }
         if (ValidHelper.isNull(request)) {
@@ -38,8 +51,8 @@ public class DefaultRequestValidationOperation implements ConverterConstants {
         }
 
         Model finalRequest = request;
-        itemEntityList.forEach(item -> {
-            Object data = converterOperation.validation(item, finalRequest.get(item.getKey()));
+        entity.getSend().forEach(item -> {
+            Object data = this.validation(item, finalRequest.get(item.getKey()));
             finalRequest.set(item.getName(), data);
         });
     }

@@ -10,7 +10,7 @@
         <result property="attachSize" column="attach_size" jdbcType="INTEGER"/>
         <result property="sourceType" column="source_type" jdbcType="VARCHAR"/>
         <result property="subType" column="sub_type" jdbcType="VARCHAR"/>
-        <result property="sourceId" column="source_id" jdbcType="INTEGER"/>
+        <result property="sourceId" column="source_id" jdbcType="VARCHAR"/>
         <result property="filename" column="filename" jdbcType="VARCHAR"/>
         <result property="realPath" column="real_path" jdbcType="VARCHAR"/>
         <result property="extension" column="extension" jdbcType="VARCHAR"/>
@@ -62,7 +62,7 @@
         <if test="subType != null and subType != ''"> 
             sub_type, 
         </if>
-        <if test="sourceId != null"> 
+        <if test="sourceId != null and sourceId != ''">
             source_id, 
         </if>
         <if test="filename != null and filename != ''"> 
@@ -114,7 +114,7 @@
         <if test="subType != null and subType != ''">
             #{subType},
         </if>
-        <if test="sourceId != null">
+        <if test="sourceId != null and sourceId != ''">
             #{sourceId},
         </if>
         <if test="filename != null and filename != ''">
@@ -166,7 +166,7 @@
         <if test="subType != null">
             sub_type = #{subType},
         </if>
-        <if test="sourceId != null">
+        <if test="sourceId != null and sourceId != ''">
             source_id = #{sourceId},
         </if>
         <if test="filename != null">
@@ -218,7 +218,7 @@
         <if test="subType != null and subType != ''">
             and t.sub_type = #{subType}
         </if>
-        <if test="sourceId != null">
+        <if test="sourceId != null and sourceId != ''">
             and t.source_id = #{sourceId}
         </if>
         <if test="filename != null and filename != ''">
@@ -247,6 +247,13 @@
         </if>
         <if test="isDeleted != null">
             and t.is_deleted = #{isDeleted}
+        </if>
+
+        <if test="sourceIdQueryIn != null and sourceIdQueryIn != ''">
+            and t.source_id in
+            <foreach collection="sourceIdQueryIn.split(',')" separator="," open="(" close=")" item="sId" index="">
+                #{sId}
+            </foreach>
         </if>
     </sql>
 
@@ -384,7 +391,7 @@
     </select>
 
     <delete id="deleteBySelective" parameterType="com.wisely.sys.entity.SysFile">
-        delete from t_sys_file t
+        delete t from t_sys_file t
         <trim prefix="where" prefixOverrides="AND | OR">
             <choose>
                 <when test="sourceType != null and sourceType != '' and sourceIdQueryIn != null and sourceIdQueryIn != ''">

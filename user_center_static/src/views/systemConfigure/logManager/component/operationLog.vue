@@ -5,11 +5,11 @@
                 <el-form :inline="true" :model="searchForm" @submit.native.prevent>
                     <el-form-item label="" v-show="isCollapse">
                         <el-input
-                            v-model="searchForm.classNameQueryLike"
+                            v-model="searchForm.targetServerQueryLike"
                             clearable
                             :focus="true"
                             class="input-search"
-                            placeholder="请输入类名"
+                            placeholder="请输入服务实例名称"
                             @keyup.enter.native="reloadTableList"
                         >
                             <el-button
@@ -51,6 +51,9 @@
             @setTableClick="showChangeTable = true"
             @sortClick="handleSetSort"
         >
+            <template slot="operationSlot" slot-scope="{scope}">
+                <el-button @click="showDetail(scope.row)" type="text" size="small">查看</el-button>
+            </template>
         </table-com>
 
         <Pagination
@@ -68,6 +71,17 @@
             @trueClick="handleTrueClick"
             @defaultClick="handleDefaultClick"
         ></changeTable>
+
+        <dialog-com
+                title="操作详情"
+                iconfont="el-icon-alinote-tit"
+                :dialogVisible="dialogVisible"
+                @trueClick="dialogHandleTrueClick"
+                @cancelClick="dialogHandleTrueClick"
+                :showCancelBtn="false"
+            >
+            <view-com :viewConfigs="detailConfigs" :showBack="false"></view-com>
+        </dialog-com>
     </div>
 </template>
 
@@ -77,15 +91,20 @@ import Pagination from "@/components/pagination";
 import changeTable from "@/components/change-table";
 import searchForm from '@/components/search-form'
 import operationCom from '@/components/operation'
+import DialogCom from "@/components/dialog/index";
+import viewCom from '@/components/view-com';
+import {jsonHighlight} from '@/filters/index';
 
 export default {
     name: "operationLogList",
     components: {
+        DialogCom,
         tableCom,
         Pagination,
         changeTable,
         searchForm,
-        operationCom
+        operationCom,
+        viewCom
     },
     data() {
         return {
@@ -93,21 +112,21 @@ export default {
             showChangeTable: false,
             isShowAscurrVal: false,
             searchForm: {
-                classNameQueryLike: "",
+                targetServerQueryLike: "",
                 pageNo: 1,
                 pageSize: 10,
                 orderBy: "",
             },
             searchFormConfig:[
                 {
-                    type: 'customTime',
-                    label: '时间',
-                    attr: ['timeQueryGe', 'timeQueryLe']
+                    type: 'input',
+                    label: '实例名称',
+                    prop: 'targetServerQueryLike',
                 },
                 {
-                    type: 'input',
-                    label: '账号',
-                    prop: 'nameQueryLike',
+                    type: 'customTime',
+                    label: '时间',
+                    attr: ['requestTimeQueryGe', 'requestTimeQueryLe']
                 },
                 {
                     type: 'slot',
@@ -126,76 +145,61 @@ export default {
             tableTit: [],
             titList: [
                 {
-                    colKey: "className",
-                    prop: "className",
-                    label: "类名",
-                    orderBy: "className",
-                    asc: "",
+                    colKey: "targetServer",
+                    prop: "targetServer",
+                    label: "访问实例",
+                    width: 200,
+                },
+                {
+                    colKey: "requestPath",
+                    prop: "requestPath",
+                    label: "访问资源",
                     width: null,
                 },
                 {
-                    colKey: "columnName",
-                    prop: "columnName",
-                    label: "字段名",
-                    width: null,
+                    colKey: "ip",
+                    prop: "ip",
+                    label: "IP地址",
+                    width: 180,
                 },
                 {
-                    colKey: "oldValue",
-                    prop: "oldValue",
-                    label: "修改前",
-                    width: null,
+                    colKey: "userName",
+                    prop: "userName",
+                    label: "操作人",
+                    width: 100,
                 },
                 {
-                    colKey: "newValue",
-                    prop: "newValue",
-                    label: "修改后",
-                    width: null,
+                    colKey: "opTime",
+                    prop: "requestTime",
+                    label: "操作时间",
+                    width: 180,
                 },
                 {
-                    colKey: "updateByName",
-                    prop: "updateBy",
-                    label: "修改人",
-                    minWidth: "60",
-                    orderBy: "updateBy",
-                    asc: "",
-                },
-                {
-                    colKey: "updateTime",
-                    prop: "updateTime",
-                    label: "修改时间",
-                    minWidth: "60",
-                },
-                {
-                    colKey: "billNo",
-                    prop: "billNo",
-                    label: "业务单据号",
-                    minWidth: "60",
-                },
-                {
-                    colKey: "bizId",
-                    prop: "bizId",
-                    label: "业务单据ID",
-                    minWidth: "60",
-                },
-                {
-                    colKey: 'orgName',
-                    prop: 'orgName',
-                    label: '机关（单位）',
-                    width: null,
-                },
+                    colKey: "operation",
+                    label: "操作",
+                    align: 'center',
+                    type: "isSlot",
+                    slotName: "operationSlot",
+                    width: 80,
+                }
             ],
             tableData: [],
             seTableList: [],
             total: null,
             tbLoading: true,
             isCollapse: true,
+
+            // 查看详情
+            detailConfigs: [],
+            dialogVisible: false,
+            row: {},
         };
     },
     watch: {
         isCollapse() {
             this.getTbHeight();
         },
-        "searchForm.classNameQueryLike"(val) {
+        "searchForm.targetServerQueryLike"(val) {
             if (val.trim() === "") {
                 this.reloadTableList();
             }
@@ -288,6 +292,52 @@ export default {
             this.getConfigList();
             this.showChangeTable = false;
         },
+
+        initViewConfig() {
+            this.detailConfigs = [
+                {
+                    label:"协议类型",
+                    content: this.row.schema,
+                },
+                {
+                    label:"请求方式",
+                    content: this.row.requestMethod,
+                },
+                {
+                    label:"请求时间",
+                    content: this.row.requestTime,
+                },
+                {
+                    label:"请求内容",
+                    content: this.row.requestBody,
+                },
+                {
+                    label:"响应时间",
+                    content: this.row.responseTime,
+                },
+                {
+                    label:"响应内容",
+                    content: this.row.responseData,
+                },
+                {
+                    label:"耗时（ms）",
+                    content: this.row.executeTime,
+                },
+                {
+                    label:"令牌",
+                    content: this.row.token,
+                }
+            ]
+        },
+        showDetail(row) {
+            this.row = row || {};
+            this.dialogVisible = true;
+            this.initViewConfig();
+        },
+        dialogHandleTrueClick() {
+            this.row = {};
+            this.dialogVisible = false;
+        }
     },
 };
 </script>

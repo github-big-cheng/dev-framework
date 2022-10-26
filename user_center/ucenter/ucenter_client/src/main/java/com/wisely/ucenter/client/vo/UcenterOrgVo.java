@@ -1,6 +1,7 @@
 package com.wisely.ucenter.client.vo;
 
 import com.wisely.framework.entity.BaseEntity;
+import com.wisely.framework.entity.Model;
 import com.wisely.framework.handler.cache.EntityCacheManager;
 import lombok.Getter;
 import lombok.Setter;
@@ -91,27 +92,7 @@ public class UcenterOrgVo extends BaseEntity implements Serializable, EntityCach
      */
     private String remark;
     /**
-     * 操作状态
+     * 扩展信息
      */
-    private Integer opState;
-    /**
-     * 录入人
-     */
-    private Integer createBy;
-    /**
-     * 录入时间
-     */
-    private String createTime;
-    /**
-     * 更新人
-     */
-    private Integer updateBy;
-    /**
-     * 更新时间
-     */
-    private String updateTime;
-    /**
-     * 删除标记
-     */
-    private Integer isDeleted;
+    private Model info = Model.builder();
 }

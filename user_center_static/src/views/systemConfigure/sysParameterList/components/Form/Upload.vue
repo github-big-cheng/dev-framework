@@ -28,7 +28,7 @@
 
 <script>
 import { getToken } from "@/utils/auth";
-import { stringify } from "qs";
+import {staticFilePathFormat} from "../../../../../filters";
 
 export default {
   data() {
@@ -97,7 +97,7 @@ export default {
     },
     handleAvatarSuccess(res, file) {
       if (res.code == 0) {
-        let filePath = this.url + "/file" + res.data[0].filePath;
+        let filePath = staticFilePathFormat(res.data[0].filePath);
         this.imagePath = filePath;
         this.$emit("upLoadImg", res.data[0].filePath);
         this.$emit("input", res.data[0].filePath);

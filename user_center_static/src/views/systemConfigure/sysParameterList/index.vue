@@ -42,14 +42,13 @@
 <script>
 import packages from "./packages";
 import FoldTree from "@/components/fold-tree";
-import { getLocalStorage } from "@/utils/auth";
 import { sysParameterListHash, setTypeHash } from "./config";
 
 export default {
     name: "sysParameterList",
     data() {
         return {
-            orgId: getLocalStorage("userInfo").orgId,
+            orgId: null,
             saveLoading: false,
             treeLoding: false,
             activeName: "SystemParameters",
@@ -99,6 +98,12 @@ export default {
             this.treeLoding = false;
         },
         async onSave() {
+
+            if (!this.orgId) {
+                this.$message.error('请先选择机构！');
+                return;
+            }
+
             this.saveLoading = true;
             try {
                 const { activeName } = this;
@@ -121,10 +126,10 @@ export default {
                     this.$message.error(message);
                 }
             } catch (error) {
-                this.$message.error(message);
                 console.error(error);
+            } finally {
+                this.saveLoading = false;
             }
-            this.saveLoading = false;
         },
     },
 };

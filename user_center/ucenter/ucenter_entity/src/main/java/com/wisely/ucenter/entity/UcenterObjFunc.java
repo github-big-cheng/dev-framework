@@ -38,6 +38,10 @@ public class UcenterObjFunc extends BaseEntity implements Serializable {
      */
     private Integer objId;
     /**
+     * 应用ID
+     */
+    private Integer projectId;
+    /**
      * 功能 FUNC_ID
      */
     private Integer funcId;
@@ -66,7 +70,10 @@ public class UcenterObjFunc extends BaseEntity implements Serializable {
      */
     private Integer isDeleted;
 
-    //扩展字段
-    //功能 FUNC_ID 集合，逗号分割
+
+    // 扩展字段
+    /**
+     * 功能 FUNC_ID 集合，逗号分割
+     */
     private String funcIdQueryIn;
 }

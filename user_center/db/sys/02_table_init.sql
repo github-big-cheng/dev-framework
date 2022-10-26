@@ -1,5 +1,5 @@
-drop table if exists `sys`.`t_sys_code`;
-create table `sys`.`t_sys_code`
+drop table if exists `system`.`t_sys_code`;
+create table `system`.`t_sys_code`
 (
     id          int(10) primary key auto_increment not null comment 'id',
     value       varchar(64) comment 'id',
@@ -20,12 +20,12 @@ create table `sys`.`t_sys_code`
 ) comment = '系统代码表';
 
 -- 添加唯一索引
-ALTER TABLE `sys`.`t_sys_code`
+ALTER TABLE `system`.`t_sys_code`
     ADD UNIQUE (`value`, `locale`);
 
 
-drop table if exists `sys`.`t_sys_project`;
-create table `sys`.`t_sys_project`
+drop table if exists `system`.`t_sys_project`;
+create table `system`.`t_sys_project`
 (
     id          int(10) primary key auto_increment not null comment 'id',
     name        varchar(64) comment '模块名称',
@@ -42,10 +42,10 @@ create table `sys`.`t_sys_project`
 ) comment = '模块表';
 
 
-drop table if exists `sys`.`t_sys_function`;
-create table `sys`.`t_sys_function`
+drop table if exists `system`.`t_sys_function`;
+create table `system`.`t_sys_function`
 (
-    id          int(10) primary key not null comment 'id',
+    id          int(10) primary key auto_increment not null comment 'id',
     name        varchar(64) comment '菜单名称',
     action      varchar(512) comment '资源路径',
     parent_id   int(10) comment '父级id',
@@ -65,8 +65,8 @@ create table `sys`.`t_sys_function`
     is_deleted  int(1) comment '是否删除 0-否 1-是'
 ) comment = '功能菜单表';
 
-drop table if exists `sys`.`t_sys_parameter`;
-create table `sys`.`t_sys_parameter`
+drop table if exists `system`.`t_sys_parameter`;
+create table `system`.`t_sys_parameter`
 (
     id          int(10) primary key auto_increment not null comment 'id',
     org_id      int(10) comment '机构id',
@@ -86,8 +86,8 @@ create table `sys`.`t_sys_parameter`
     is_deleted  int(1) comment '是否删除 0-否 1-是'
 ) comment = '系统参数表';
 
-drop table if exists `sys`.t_sys_column_config;
-create table `sys`.t_sys_column_config
+drop table if exists `system`.t_sys_column_config;
+create table `system`.t_sys_column_config
 (
     id          int(10) primary key auto_increment not null comment 'id',
     user_id     int(10) comment '用户id',
@@ -107,8 +107,8 @@ create table `sys`.t_sys_column_config
     is_deleted  int(1) comment '是否删除 0-否 1-是'
 ) comment = '自定义列表配置表';
 
-drop table if exists `sys`.t_sys_file;
-create table `sys`.`t_sys_file`
+drop table if exists `system`.t_sys_file;
+create table `system`.`t_sys_file`
 (
     id          int(10) primary key auto_increment not null comment 'id',
     org_id      int(10) comment '机构id',
@@ -117,7 +117,7 @@ create table `sys`.`t_sys_file`
     attach_size bigint(20) comment '附件大小（字节）',
     source_type varchar(32) comment '业务类型',
     sub_type    varchar(32) comment '业务子类型',
-    source_id   int(10) comment '业务id',
+    source_id   varchar(64) comment '业务id',
     filename    varchar(128) comment '文件名称',
     path        varchar(256) comment '保存路径',
     real_path   varchar(128) comment '实际名称',
@@ -130,21 +130,28 @@ create table `sys`.`t_sys_file`
     is_deleted  int(1) comment '是否删除 0-否 1-是'
 ) comment = '附件表';
 
-drop table if exists `sys`.t_sys_operate_log;
-create table `sys`.`t_sys_operate_log`
+
+drop table if exists `system`.t_sys_operate_log;
+create table `system`.`t_sys_operate_log`
 (
-    id           int(10) primary key auto_increment not null comment 'id',
-    `name`       varchar(64) comment '操作人',
-    ip           varchar(32) comment 'IP地址',
-    machine_name varchar(128) comment '机器名称',
-    user_id      int(10) comment '用户id',
-    op_time      varchar(20) comment '操作时间',
-    request_msg  text comment '请求内容',
-    response_msg text comment '相应内容',
-    op_state     int(10) comment '操作状态',
-    create_by    int(10) comment '创建人',
-    create_time  varchar(20) comment '创建时间',
-    update_by    int(10) comment '修改人',
-    update_time  varchar(20) comment '修改时间',
-    is_deleted   int(1) comment '是否删除 0-否 1-是'
+    id             int(10) primary key auto_increment not null comment 'id',
+    target_server  varchar(64) comment '访问实例',
+    request_path   text comment '请求路径',
+    ip             varchar(32) comment '请求ip',
+    user_id        int(10) comment '用户id',
+    token          varchar(64) comment '令牌',
+    request_method varchar(64) comment '请求方法',
+    `schema`       varchar(64) comment '协议',
+    os_type        varchar(64) comment '操作系统类型',
+    request_body   text comment '请求体',
+    response_data  text comment '响应体',
+    request_time   varchar(32) comment '请求时间',
+    response_time  varchar(32) comment '响应时间',
+    execute_time   int(10) comment '执行时间',
+    op_state       int(10) comment '操作状态',
+    create_by      int(10) comment '创建人',
+    create_time    varchar(20) comment '创建时间',
+    update_by      int(10) comment '修改人',
+    update_time    varchar(20) comment '修改时间',
+    is_deleted     int(1) comment '是否删除 0-否 1-是'
 ) comment = '操作日志表';

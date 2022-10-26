@@ -325,12 +325,12 @@
         <if test="nameQueryLike != null and nameQueryLike != ''">
             and t.name like concat ('%',#{nameQueryLike},'%')
         </if>
-        <if test="deptIdQuery != null">
+        <if test="deptIdQueryEq != null">
             and exists (
                 select 1 from t_ucenter_person_org t3
                 where t3.person_id = T.ID
                 and t3.is_deleted = 0
-                and t3.dept_id in #{deptIdQuery}
+                and t3.dept_id = #{deptIdQueryEq}
             )
         </if>
         <if test="deptIdQueryIn != null and deptIdQueryIn != ''">
@@ -339,17 +339,27 @@
                 where t3.person_id = t.id
                   and t3.is_deleted = 0
                   and t3.dept_id IN
-                <foreach collection="deptIdQueryIn.split(',')" separator="," index="" open="(" close=")" item="deptIdQuery">
-                    #{deptIdQuery}
+                <foreach collection="deptIdQueryIn.split(',')" separator="," index="" open="(" close=")" item="di">
+                    #{di}
                 </foreach>
             )
         </if>
-        <if test="roleIdQuery != null and roleIdQuery != ''">
+        <if test="roleIdQueryEq != null and roleIdQueryEq != ''">
             and exists (
                 select 1 from t_ucenter_person_role t4
                 where t4.person_id = t.id
                   and t4.is_deleted = 0
-                  and t4.role_id = #{roleIdQuery}
+                  and t4.role_id = #{roleIdQueryEq}
+            )
+        </if>
+        <if test="roleCodeQueryEq != null and roleCodeQueryEq != ''">
+            and exists (
+                select 1 from t_ucenter_person_role t4
+                    inner join t_ucenter_role t5 on t4.role_id = t5.id
+                      and t5.code = #{roleCodeQueryEq}
+                      and t5.is_deleted = 0
+                where t4.person_id = t.id
+                  and t4.is_deleted = 0
             )
         </if>
         <if test="nameOrAccountQueryLike != null and nameOrAccountQueryLike != ''">
@@ -368,6 +378,20 @@
             <foreach collection="orgIdQueryIn.split(',')" separator="," index="" open="(" close=")" item="orgIdQuery">
                 #{orgIdQuery}
             </foreach>
+        </if>
+        <if test="idQueryIn != null and idQueryIn != ''">
+            and t.id in
+            <foreach collection="idQueryIn.split(',')" separator="," index="" open="(" close=")" item="idQuery">
+                #{idQuery}
+            </foreach>
+        </if>
+        <if test="accountQueryEq != null and accountQueryEq != ''">
+            and exists (
+                select 1 from t_ucenter_user u
+                where u.is_deleted = 0
+                  and u.person_id = t.id
+                  and u.account = #{accountQueryEq}
+            )
         </if>
     </sql>
 
@@ -523,49 +547,31 @@
     </select>
 
 
-
-    <resultMap id="BaseExtendedResultMap" type="com.wisely.ucenter.entity.UcenterPerson" extends="BaseResultMap">
-        <result property="userId" column="USER_ID" jdbcType="INTEGER"/>
-        <result property="account" column="ACCOUNT" jdbcType="VARCHAR"/>
-        <result property="accountStatus" column="ACCOUNT_STATUS" jdbcType="VARCHAR"/>
-    </resultMap>
-
-    <select id="selectExtendedListBySelective" resultMap="BaseExtendedResultMap">
-        select
-            tuu.id user_id,
-            tuu.account,
-            tuu.status as account_status,
-        <include refid="BaseColumn"/>
-        from t_ucenter_person t
-            left join t_ucenter_user as tuu on tuu.person_id = t.id and tuu.is_deleted = 0
-        <trim prefix="where " prefixOverrides="AND | OR">
-            <include refid="DynamicWhere"/>
-        </trim>
-        <choose>
-            <when test="orderBy != null and orderBy != ''">
-                order by ${orderBy}
-            </when>
-            <otherwise>
-                order by ifnull(t.order_no, 999999), t.id
-            </otherwise>
-        </choose>
-    </select>
-
     <select id="loadPersonBySelective" parameterType="com.wisely.framework.entity.Model"
             resultType="com.wisely.framework.entity.Model">
         select
-            t.id as person_id,
-            t.name,
-        <if test="orgIdQueryIn != null and orgIdQueryIn != ''">
-            dp.dept_id as org_id,
-            org.cname as org_name,
-            dp.order_no,
-        </if>
-        <if test="roleCodeQueryIn != null and roleCodeQueryIn != ''">
-            role.code as role_code,
-            role.name as role_name,
-        </if>
-            tuu.account
+              distinct
+                      t.id as person_id
+<!--               <choose>-->
+<!--                   <when test="orgIdQueryIn != null and orgIdQueryIn != '' and roleCodeQueryIn != null and roleCodeQueryIn != ''">-->
+<!--                       t.id as person_id,-->
+<!--                       t.name,-->
+<!--                   </when>-->
+<!--               <otherwise>-->
+<!--                   distinct t.id as person_id, t.name,-->
+<!--               </otherwise>-->
+<!--               </choose>-->
+
+<!--        <if test="orgIdQueryIn != null and orgIdQueryIn != ''">-->
+<!--            dp.dept_id as org_id,-->
+<!--            org.cname as org_name,-->
+<!--            dp.order_no,-->
+<!--        </if>-->
+<!--        <if test="roleCodeQueryIn != null and roleCodeQueryIn != ''">-->
+<!--            role.code as role_code,-->
+<!--            role.name as role_name,-->
+<!--        </if>-->
+<!--            tuu.account-->
         from t_ucenter_person t
         <if test="orgIdQueryIn != null and orgIdQueryIn != ''">
             inner join t_ucenter_person_org dp on dp.is_deleted = 0 and dp.person_id = t.id
@@ -588,6 +594,12 @@
         </if>
             inner join t_ucenter_user tuu on tuu.person_id = t.id and tuu.is_deleted = 0
         where t.is_deleted = 0
+        <if test="idQueryIn != null">
+            and t.id in
+            <foreach collection="idQueryIn.split(',')" item="idItem" index="" separator="," open="(" close=")">
+                #{idItem}
+            </foreach>
+        </if>
         order by ifnull(t.order_no, 999999), t.id
     </select>
 

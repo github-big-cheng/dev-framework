@@ -2,18 +2,18 @@
 <!DOCTYPE trans SYSTEM "converter.dtd">
 <trans name="function/view" desc="菜单管理-查看" group="菜单管理" groupCode="function">
     <send>
-        <item name="id" desc="菜单ID" />
+        <item name="id" desc="菜单ID" type="Integer"/>
     </send>
     <rcv>
-        <item name="name" desc="菜单名称"  />
-        <item name="code" desc="代码" />
-        <item name="action" desc="请求地址" />
-        <item name="parentId" desc="父级菜单" type="Integer" />
-        <item name="parentName" desc="父级菜单" />
-        <item name="projectId" desc="应用ID" type="Integer"/>
-        <item name="imgPath" desc="图标路径" />
-        <item name="orderNo" desc="排序号" />
+        <item name="name" desc="菜单名称"/>
         <item name="type" type="Integer" desc="类型" notes="1-菜单 2-子菜单 3-tab页签 4-按钮"/>
+        <item name="code" desc="代码"/>
+        <item name="action" desc="请求地址"/>
+        <item name="parentId" desc="父级菜单" type="Integer"/>
+        <item name="parentName" desc="父级菜单"/>
+        <item name="projectId" desc="应用ID" type="Integer"/>
+        <item name="imgPath" desc="图标路径"/>
+        <item name="orderNo" desc="排序号" type="Integer"/>
     </rcv>
 </trans>
 

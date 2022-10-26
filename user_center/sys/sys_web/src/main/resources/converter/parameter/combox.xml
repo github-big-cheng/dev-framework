@@ -2,24 +2,21 @@
 <!DOCTYPE trans SYSTEM "converter.dtd">
 <trans name="sysParameter/combox" desc="下拉框" group="系统参数" groupCode="sysParameter">
     <send>
-        <item name="orgId" desc="机构ID" />
-        <item name="setType" desc="类型"  scope="1,2,3" notes="1-系统运行参数、2-管理属性、3-系统显示设置"/>
-        <item name="keies" desc="KEY" />
+        <item name="orgId" desc="机构ID"/>
+        <item name="setType" desc="类型" scope="1,2,3" notes="1-系统运行参数、2-管理属性、3-系统显示设置"/>
+        <item name="keies" desc="KEY"/>
     </send>
     <rcv>
         <item-list name="list" desc="列表" ignore-key="true">
             <item name="id" desc="id" type="Integer" notes="修改时需上传"/>
-            <item name="orgId" desc="机构ID" type="Integer" />
-            <item name="setType" desc="类型" type="Integer"/>
-            <item name="keies" desc="key" />
+            <item name="orgId" desc="机构ID" type="Integer"/>
+            <item name="orgName" desc="机构名称"/>
+            <item name="keies" desc="key"/>
             <item name="descript" desc="描述"/>
-            <item name="value" desc="值" />
-            <item name="outValue" desc="外网地址"/>
-            <item name="dataBase" desc="数据库"/>
-            <item name="customAttr" desc="自定义属性" notes="当disType为7的时候，自定义的单选按钮的名字需要放这里,如0:一对一;1:一对多"/>
-            <item name="altValue" desc="备选项"/>
-            <item name="disType" desc="显示方式" notes="1-文本输入框、2-下拉框、3-复选框、4-单选、5-附件图片"/>
-            <item name="orderBy" desc="排序" type="Integer"/>
+            <item name="value" desc="值"/>
+            <item name="type" desc="类型"/>
+            <item name="subType" desc="子类型"/>
+            <item name="orderNo" desc="排序" type="Integer"/>
             <item name="remark" desc="备注"/>
         </item-list>
     </rcv>
