@@ -68,9 +68,9 @@ public class SysFileServiceImpl implements SysFileService {
                 itemRecord.setSubType(input.getString("subType"));
             }
             itemRecord.setSourceId(sourceId);
-            itemRecord.setUploaderId(uploaderId);
-            itemRecord.setUploader(uploader);
-            itemRecord.setUploadTime(uploadTime); // 上传时间
+            itemRecord.setUploaderId(item.getString("uploaderId", uploaderId)); // 上传人ID 明细有取明细
+            itemRecord.setUploader(item.getString("uploader", uploader)); // 上传人 明细有取明细
+            itemRecord.setUploadTime(item.getString("uploadTime", uploadTime)); // 上传时间 明细有取明细
 
             // 文件信息
             itemRecord.setFilename(item.getString("fileName"));

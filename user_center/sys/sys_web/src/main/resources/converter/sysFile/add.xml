@@ -19,6 +19,9 @@
             <item name="fileSize" desc="文件大小(字节)" required="true" type="Integer"/>
             <item name="filePath" desc="文件路径" required="true"/>
             <item name="fileType" desc="文件扩展名" notes="doc,docx,ppt,pptx,pdf等" required="true"/>
+            <item name="uploaderId" desc="上传人ID"/>
+            <item name="uploader" desc="上传人"/>
+            <item name="uploadTime" desc="上传时间" type="DateString" fromPattern="yyyy-MM-dd HH:mm:ss"/>
         </item-json>
     </send>
     <rcv>
