@@ -331,7 +331,8 @@
                 let params = {
                     ...this.searchForm,
                     projectId: this.projectList[this.activeIndex].id,
-                    parentId: id
+                    // parentId: id,
+                    idWithChildrenQueryEq: id
                 };
                 const {code, data} = await this.$http.getMenuListChild(params);
                 if (code == 0) {
