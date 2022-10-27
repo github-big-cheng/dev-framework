@@ -7,9 +7,9 @@
         <item name="sourceType" desc="业务类型" required="true"/>
         <item name="subType" desc="子类型"/>
         <item name="sourceId" desc="业务ID" required="true"/>
-        <item name="uploaderId" desc="上传人ID"/>
-        <item name="uploader" desc="上传人"/>
-        <item name="uploadTime" desc="上传时间" type="DateString" fromPattern="yyyy-MM-dd HH:mm:ss"/>
+        <item name="uploaderId" desc="上传人ID" notes="明细存在时以明细为主"/>
+        <item name="uploader" desc="上传人" notes="明细存在时以明细为主"/>
+        <item name="uploadTime" desc="上传时间" type="DateString" fromPattern="yyyy-MM-dd HH:mm:ss" notes="明细存在时以明细为主"/>
 
         <item name="isAppend" desc="是否添加附件" type="Boolean" default="false" notes="默认删除原附件，isAppend为true时不删除原附件"/>
 
