@@ -194,7 +194,7 @@ public class UcenterPersonOrgServiceImpl implements UcenterPersonOrgService {
 
             UcenterPerson personRecord = new UcenterPerson();
             personRecord.setId(ucenterPerson.getId());
-            personRecord.setOrgId(dept.getOrgId());
+            personRecord.setOrgId(ValidHelper.isNotEmpty(dept.getOrgId()) ? dept.getOrgId() : dept.getId());
             personRecord.setOrgName(dept.getOrgName());
             personRecord.setUpdateBy(userId);
             personRecord.setUpdateTime(now);
