@@ -273,6 +273,9 @@
                 #{iq}
             </foreach>
         </if>
+        <if test="idWithChildrenQueryEq != null">
+            and (t.id = #{idWithChildrenQueryEq} or t.parent_id = #{parentId})
+        </if>
     </sql>
 
     <!--查询单个-->
