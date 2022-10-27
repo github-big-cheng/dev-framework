@@ -106,24 +106,8 @@ public class UcenterOrgServiceImpl implements UcenterOrgService {
             record.setPathIds(StringHelper.join("/", record.getCode(), "/"));
             record.setPathNames(StringHelper.join("/", record.getCname(), "/"));
 
-            //校验上级部门是否是部门本身，如果是则抛出异常
-            if (ValidHelper.isNotEmpty(record.getParentId())) {
-                AssertHelper.EX_VALIDATION.isNotEquals(
-                        record.getParentId(),
-                        record.getId(),
-                        "ucenter_org_save.invalid_parent_org");
-
-                // 生成路径,用于级联查询
-                com.wisely.ucenter.client.vo.UcenterOrgVo orgVo =
-                        UcDictHelper.loadOrgVo(record.getParentId());
-                if (ValidHelper.isNotEmpty(orgVo)) {
-                    record.setPathIds(StringHelper.join(orgVo.getPathIds(), record.getCode(), "/"));
-                    record.setPathNames(StringHelper.join(orgVo.getPathNames(), record.getCname(), "/"));
-                }
-                // 设置所属机关单位
-                record.setOrgId(orgVo.getId());
-                record.setOrgName(orgVo.getCname());
-            }
+            // 设置组织ID
+            this.orgIdSet(record);
 
             //重复code校验
             UcenterOrg query = new UcenterOrg();
@@ -173,6 +157,34 @@ public class UcenterOrgServiceImpl implements UcenterOrgService {
 
         return record.getId();
     }
+
+
+    /**
+     * 根据部门/组织设置ORG_ID
+     *
+     * @param record
+     */
+    private void orgIdSet(UcenterOrg record) {
+        //校验上级部门是否是部门本身，如果是则抛出异常
+        if (ValidHelper.isNotEmpty(record.getParentId())) {
+            AssertHelper.EX_VALIDATION.isNotEquals(
+                    record.getParentId(),
+                    record.getId(),
+                    "ucenter_org_save.invalid_parent_org");
+
+            // 生成路径,用于级联查询
+            com.wisely.ucenter.client.vo.UcenterOrgVo orgVo =
+                    UcDictHelper.loadOrgVo(record.getParentId());
+            if (ValidHelper.isNotEmpty(orgVo)) {
+                record.setPathIds(StringHelper.join(orgVo.getPathIds(), record.getCode(), "/"));
+                record.setPathNames(StringHelper.join(orgVo.getPathNames(), record.getCname(), "/"));
+            }
+            // 设置所属机关单位
+            record.setOrgId(orgVo.getId());
+            record.setOrgName(orgVo.getCname());
+        }
+    }
+
 
     @Override
     public Model load(Integer id) {

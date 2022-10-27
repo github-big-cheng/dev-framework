@@ -168,7 +168,6 @@ public class UcenterPersonOrgServiceImpl implements UcenterPersonOrgService {
 
         // 将ucenterPersonOrgs [{"deptId":部门id,"isMain":是否主组织 1-是 0-否,"isMainPerson": 1-是  0-否}] 保存到T_UCENTER_PERSON中
         // 如果是主组织，则需要将这个部门的最顶级的父部门id赋值给T_UCENTER_PERSON的ORG_ID字段
-        // 并且需要将主组织的所管辖的行政区块代码赋值给UcenterPerson的
         if (ValidHelper.isEmpty(deptInfoList)) {
             return;
         }
