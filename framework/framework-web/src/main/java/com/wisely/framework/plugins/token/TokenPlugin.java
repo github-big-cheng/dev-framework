@@ -2,8 +2,8 @@ package com.wisely.framework.plugins.token;
 
 import com.wisely.framework.controller.TokenController;
 import com.wisely.framework.handler.TokenHandler;
-import com.wisely.framework.helper.lock.DoUnionLockFactory;
 import com.wisely.framework.helper.lock.LocalLock;
+import com.wisely.framework.helper.lock.WiselyLockFactory;
 import com.wisely.framework.plugins.AbstractPlugin;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -34,18 +34,18 @@ public class TokenPlugin extends AbstractPlugin {
     }
 
     @Bean
-    public DoUnionLockFactory lockFactory() {
-        return new DoUnionLockFactory();
+    public WiselyLockFactory lockFactory() {
+        return new WiselyLockFactory();
     }
 
     @Bean
-    public TokenHandler tokenHandler(DoUnionLockFactory doUnionLockFactory, TokenProperties tokenProperties) {
-        return new TokenHandler(doUnionLockFactory, tokenProperties);
+    public TokenHandler tokenHandler(WiselyLockFactory wiselyLockFactory, TokenProperties tokenProperties) {
+        return new TokenHandler(wiselyLockFactory, tokenProperties);
     }
 
     @Bean
-    public TokenController tokenController(DoUnionLockFactory doUnionLockFactory, TokenProperties tokenProperties) {
-        return new TokenController(doUnionLockFactory, tokenProperties);
+    public TokenController tokenController(WiselyLockFactory wiselyLockFactory, TokenProperties tokenProperties) {
+        return new TokenController(wiselyLockFactory, tokenProperties);
     }
 
 }
