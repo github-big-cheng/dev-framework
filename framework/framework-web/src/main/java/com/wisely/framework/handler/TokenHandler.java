@@ -1,11 +1,10 @@
 package com.wisely.framework.handler;
 
-import com.wisely.framework.entity.Model;
 import com.wisely.framework.handler.annotation.Token;
 import com.wisely.framework.helper.AssertHelper;
 import com.wisely.framework.helper.RequestHelper;
-import com.wisely.framework.helper.lock.DoUnionLock;
-import com.wisely.framework.helper.lock.DoUnionLockFactory;
+import com.wisely.framework.helper.lock.WiselyLock;
+import com.wisely.framework.helper.lock.WiselyLockFactory;
 import com.wisely.framework.plugins.token.TokenProperties;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -20,12 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class TokenHandler {
 
     @Autowired
-    public TokenHandler(DoUnionLockFactory doUnionLockFactory, TokenProperties tokenProperties) {
-        this.doUnionLock = doUnionLockFactory.build(tokenProperties.getModel(), tokenProperties.getExpiredTime());
+    public TokenHandler(WiselyLockFactory wiselyLockFactory, TokenProperties tokenProperties) {
+        this.wiselyLock = wiselyLockFactory.build(tokenProperties.getModel(), tokenProperties.getExpiredTime());
         this.tokenProperties = tokenProperties;
     }
 
-    DoUnionLock doUnionLock;
+    WiselyLock wiselyLock;
 
     TokenProperties tokenProperties;
 
@@ -42,7 +41,7 @@ public class TokenHandler {
 
         Object result = joinPoint.proceed();
 
-        doUnionLock.unlock(key);
+        wiselyLock.unlock(key);
 
         return result;
     }
@@ -57,7 +56,7 @@ public class TokenHandler {
      */
     private boolean checkRepeat(String requestToken, String key) {
         AssertHelper.EX_VALIDATION.isNotBlank(requestToken, "common.parameter_required.token");
-        String serviceToken = doUnionLock.getValue(key);
+        String serviceToken = wiselyLock.getValue(key);
         AssertHelper.EX_VALIDATION.isNotBlank(serviceToken, "token.do_token_request_first");
         AssertHelper.EX_VALIDATION.isEquals(serviceToken, requestToken, "token.repeat_request");
         return true;
