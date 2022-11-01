@@ -2,7 +2,6 @@ package com.wisely.sys.service.impl;
 
 import com.wisely.framework.entity.Model;
 import com.wisely.framework.helper.DateHelper;
-import com.wisely.framework.helper.ValidHelper;
 import com.wisely.sso.client.helper.UserHelper;
 import com.wisely.sys.entity.SysMessageReceive;
 import com.wisely.sys.mapper.SysMessageReceiveMapper;
@@ -17,53 +16,46 @@ public class SysMsgReceiverServiceImpl implements SysMsgReceiverService {
     SysMessageReceiveMapper sysMessageReceiveMapper;
 
     @Override
-    public void markAsRead(Integer id) {
-        SysMessageReceive record = new SysMessageReceive();
-        record.setId(id);
-        record.setReceiveStatus(1);
-        sysMessageReceiveMapper.updateByPrimaryKeySelective(record);
-    }
-
-    @Override
-    public void markAsUnread(Integer id) {
-        SysMessageReceive record = new SysMessageReceive();
-        record.setId(id);
-        record.setReceiveStatus(0);
-        sysMessageReceiveMapper.updateByPrimaryKeySelective(record);
-    }
-
-
-    @Override
     public void markSelectedAsRead(String idQueryIn) {
-        sysMessageReceiveMapper.batchUpdateAsRead(idQueryIn);
+        SysMessageReceive record = new SysMessageReceive();
+        record.setReceiveStatus(1);
+        record.setIdQueryIn(idQueryIn);
+        sysMessageReceiveMapper.updateBySelective(record);
     }
 
     @Override
     public void markSelectedAsUnread(String idQueryIn) {
-        sysMessageReceiveMapper.batchUpdateAsUnread(idQueryIn);
+        SysMessageReceive record = new SysMessageReceive();
+        record.setReceiveStatus(0);
+        record.setIdQueryIn(idQueryIn);
+        sysMessageReceiveMapper.updateBySelective(record);
     }
 
     @Override
-    public int save(Model model) {
-        SysMessageReceive record = this.modelToMsgReceive(model);
-        return sysMessageReceiveMapper.insertSelective(record);
+    public void markAllAsRead() {
+        SysMessageReceive record = new SysMessageReceive();
+        record.setReceiveStatus(1);
+        sysMessageReceiveMapper.batchUpdate(record);
     }
 
     @Override
-    public int update(Model model) {
-        SysMessageReceive record = this.modelToMsgReceive(model);
-        return sysMessageReceiveMapper.updateByPrimaryKeySelective(record);
+    public void markAllAsUnread() {
+        SysMessageReceive record = new SysMessageReceive();
+        record.setReceiveStatus(0);
+        sysMessageReceiveMapper.batchUpdate(record);
     }
 
     @Override
     public int delete(String idQueryIn) {
-        return sysMessageReceiveMapper.batchDelete(idQueryIn);
+        SysMessageReceive query = new SysMessageReceive();
+        query.setIdQueryIn(idQueryIn);
+        query.setIsDeleted(1);
+        query.setUpdateBy(UserHelper.getUserId());
+        query.setUpdateTime(DateHelper.formatNow());
+        return sysMessageReceiveMapper.updateBySelective(query);
     }
 
-    @Override
-    public SysMessageReceive load(Integer id) {
-        return sysMessageReceiveMapper.selectByPrimaryKey(id);
-    }
+
 
     @Override
     public List<SysMessageReceive> list(String idQueryIn) {
@@ -72,12 +64,8 @@ public class SysMsgReceiverServiceImpl implements SysMsgReceiverService {
         return sysMessageReceiveMapper.selectListBySelective(query);
     }
 
-    private SysMessageReceive modelToMsgReceive(Model model) {
+    public SysMessageReceive modelToMsgReceive(Model model) {
         SysMessageReceive record = (SysMessageReceive)model.convertTo(SysMessageReceive.class);
-        record.setCreateBy(ValidHelper.isEmpty(model.getInt("create_by")) ? UserHelper.getUserId() : model.getInt("create_by"));
-        record.setCreateTime(ValidHelper.isBlank(model.getString("create_time")) ? DateHelper.formatNow() : model.getString("create_time"));
-        record.setUpdateBy(UserHelper.getUserId());
-        record.setUpdateTime(DateHelper.formatNow());
         return record;
     }
 }

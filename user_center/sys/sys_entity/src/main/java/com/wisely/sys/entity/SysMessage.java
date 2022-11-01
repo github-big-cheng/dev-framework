@@ -113,4 +113,7 @@ public class SysMessage extends BaseEntity implements Serializable {
 
     private String senderIdQueryNotIn;
 
+    private String startDtQueryIn;
+
+    private String endDtQueryIn;
 }

@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wisely.framework.entity.Model;
 import com.wisely.framework.entity.PageVo;
+import com.wisely.framework.helper.AssertHelper;
 import com.wisely.framework.helper.DateHelper;
 import com.wisely.framework.helper.ValidHelper;
 import com.wisely.sso.client.helper.UserHelper;
@@ -20,15 +21,33 @@ public class SysMsgTemplateServiceImpl implements SysMsgTemplateService {
     SysMessageTemplateMapper sysMessageTemplateMapper;
 
     @Override
-    public int save(Model model) {
-        SysMessageTemplate record = this.modelToTemplate(model);
+    public int save(SysMessageTemplate record) {
         SysMessageTemplate query = new SysMessageTemplate();
         query.setCode(record.getCode());
+        query.setIsDeleted(0);
         List<SysMessageTemplate> queryRes = sysMessageTemplateMapper.selectListBySelective(query);
-        if (ValidHelper.isNotEmpty(queryRes)) {
-            return -1;
+        if (ValidHelper.isEmpty(record.getId())) {
+            // 新增前声明无相同code记录
+            AssertHelper.EX_BUSINESS.isEmpty(queryRes, "sys_msg_template.repeat_code_found.{0}", record.getCode());
+            record.setCreateBy(UserHelper.getUserId());
+            record.setCreateTime(DateHelper.formatNow());
+            record.setIsDeleted(0);
+            sysMessageTemplateMapper.insertSelective(record);
+        } else {
+            // 更新前声明唯一记录id与更新数据id相同
+            if (ValidHelper.isNotEmpty(queryRes)) {
+                queryRes.forEach(template ->
+                                AssertHelper.EX_BUSINESS.isEquals(
+                                        record.getId(),
+                                        template.getId(),
+                                        "sys_msg_template.inconsistent_record_found.{0}", template.getId()
+                                ));
+            }
+            record.setUpdateBy(UserHelper.getUserId());
+            record.setUpdateTime(DateHelper.formatNow());
+            sysMessageTemplateMapper.updateByPrimaryKeySelective(record);
         }
-        return sysMessageTemplateMapper.insertSelective(record);
+        return record.getId();
     }
 
     @Override
@@ -38,19 +57,7 @@ public class SysMsgTemplateServiceImpl implements SysMsgTemplateService {
         record.setIsDeleted(1);
         record.setUpdateBy(UserHelper.getUserId());
         record.setUpdateTime(DateHelper.formatNow());
-        return 1;
-    }
-
-    @Override
-    public int update(Model model) {
-        SysMessageTemplate record = this.modelToTemplate(model);
-        SysMessageTemplate query = new SysMessageTemplate();
-        query.setCode(record.getCode());
-        List<SysMessageTemplate> queryRes = sysMessageTemplateMapper.selectListBySelective(query);
-        if (ValidHelper.isNotEmpty(queryRes)) {
-            return -1;
-        }
-        return sysMessageTemplateMapper.updateByPrimaryKeySelective(record);
+        return sysMessageTemplateMapper.updateBySelective(record);
     }
 
     @Override
@@ -71,12 +78,8 @@ public class SysMsgTemplateServiceImpl implements SysMsgTemplateService {
         return sysMessageTemplateMapper.selectListBySelective(query);
     }
 
-    private SysMessageTemplate modelToTemplate(Model model) {
+    public SysMessageTemplate modelToTemplate(Model model) {
         SysMessageTemplate record = (SysMessageTemplate) model.convertTo(SysMessageTemplate.class);
-        record.setCreateBy(ValidHelper.isEmpty(model.getInt("create_by")) ? UserHelper.getUserId() : model.getInt("create_by"));
-        record.setCreateTime(ValidHelper.isBlank(model.getString("create_time")) ? DateHelper.formatNow() : model.getString("create_time"));
-        record.setUpdateBy(UserHelper.getUserId());
-        record.setUpdateTime(DateHelper.formatNow());
         return record;
     }
 }

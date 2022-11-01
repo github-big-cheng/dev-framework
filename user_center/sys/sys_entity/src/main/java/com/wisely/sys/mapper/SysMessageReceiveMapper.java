@@ -11,10 +11,7 @@ import com.wisely.sys.entity.SysMessageReceive;
  */
 public interface SysMessageReceiveMapper extends BaseMapper<SysMessageReceive> {
 
-    void batchUpdateAsUnread(String idQueryIn);
+    void batchUpdate(SysMessageReceive record);
 
-    void batchUpdateAsRead(String idQueryIn);
-
-    int batchDelete(String idQueryIn);
 
 }

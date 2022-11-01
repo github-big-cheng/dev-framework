@@ -260,38 +260,16 @@
         where id = #{id}
     </update>
 
-    <!-- 通过主键批量修改已读状态 -->
-    <update id="batchUpdateAsRead" parameterType="com.wisely.sys.entity.SysMessageReceive">
+    <update id="batchUpdate" parameterType="com.wisely.sys.entity.SysMessageReceive">
         update t_sys_message_receive t
         <trim prefix="set" suffixOverrides=",">
-          t.receive_status = 1
+           <include refid="DynamicSet" />
         </trim>
         <trim prefix="where" prefixOverrides="AND | OR">
-                <if test="idQueryIn != null and idQueryIn != ''">
-                    and t.id in
-                    <foreach collection="idQueryIn.split(',')" item="idItem" open="(" close=")" separator=",">
-                        #{idItem}
-                    </foreach>
-                </if>
+           <include refid="DynamicWhere" />
         </trim>
     </update>
 
-
-    <update id="batchUpdateAsUnread" parameterType="com.wisely.sys.entity.SysMessageReceive">
-        update t_sys_message_receive t
-        <trim prefix="set" suffixOverrides=",">
-            t.receive_status = 0
-        </trim>
-        <trim prefix="where" prefixOverrides="AND | OR">
-            <if test="idQueryIn != null and idQueryIn != ''">
-                and t.id in
-                <foreach collection="idQueryIn.split(',')" item="idItem" open="(" close=")" separator=",">
-                    #{idItem}
-                </foreach>
-            </if>
-        </trim>
-    </update>
-    
     
     <!-- 根据条件动态修改数据 -->
     <update id="updateBySelective" parameterType="com.wisely.sys.entity.SysMessageReceive">
@@ -301,6 +279,12 @@
         </trim>
         <trim prefix="where" prefixOverrides="AND | OR" >
             <choose>
+                <when test="idQueryIn != null and idQueryIn != ''">
+                    and t.id in
+            <foreach collection="idQueryIn.split(',')" item="idItem" open="(" close=")" separator=",">
+                #{idItem}
+            </foreach>
+                </when>
                 <!-- 为避免全表更新，至少有一个查询条件 -->
                 <otherwise>
                    and id = #{id}
@@ -315,23 +299,7 @@
         delete from  t_sys_message_receive        
         where id = #{id}
     </delete>
-    <!-- 批量删除 -->
-    <update id="batchDelete" parameterType="com.wisely.sys.entity.SysMessageReceive">
-        update t_sys_message_receive t
-        <trim prefix="set" suffixOverrides=",">
-           t.isDeleted = 1
-        </trim>
-        <trim prefix="where" prefixOverrides="AND | OR">
-            t.id in
-            <if test="idQueryIn != null and idQueryIn != ''">
-                <foreach collection="idQueryIn.split(',')" item="idItem" open="(" close=")" separator=",">
-                    #{idItem}
-                </foreach>
-            </if>
-        </trim>
-    </update>
-    
-    
+
     <!--通过实体作为筛选条件查询-->
     <select id="selectListBySelective" parameterType="com.wisely.sys.entity.SysMessageReceive" resultMap="BaseResultMap">
         select <include refid="BaseColumn" />

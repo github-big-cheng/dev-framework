@@ -314,6 +314,12 @@
         </trim>
         <trim prefix="where" prefixOverrides="AND | OR" >
             <choose>
+            <when test="idQueryIn != null and idQueryIn != ''">
+                and t.id in
+            <foreach collection="idQueryIn.split(',')" item="idItem" open="(" close=")" separator=",">
+                #{idItem}
+            </foreach>
+            </when>
                 <!-- 为避免全表更新，至少有一个查询条件 -->
                 <otherwise>
                    and id = #{id}

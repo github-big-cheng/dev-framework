@@ -336,6 +336,17 @@
                 #{senderId}
             </foreach>
         </if>
+        <choose>
+            <when test="startDtQueryIn != null and startDtQueryIn != '' and endDtQueryIn != null and endDtQueryIn != ''">
+                and t.send_time between #{startDtQueryIn} and #{endDtQueryIn}
+            </when>
+            <when test="startDtQueryIn != null and startDtQueryIn != '' and (endDtQueryIn == null or endDtQueryIn == '')">
+                and t.send_time &gt;= #{startDtQueryIn}
+            </when>
+            <when test="(startDtQueryIn == null or startDtQueryIn == '') and endDtQueryIn != null and endDtQueryIn != ''">
+                and t.send_time &lt;= #{endDtQueryIn}
+            </when>
+        </choose>
     </sql>
 
     <!--查询单个-->
@@ -444,22 +455,17 @@
         </trim>
         <trim prefix="where" prefixOverrides="AND | OR" >
             <choose>
+            <when test="idQueryIn != null and idQueryIn != ''">
+                and t.id in
+                <foreach collection="idQueryIn.split(',')" item="idItem" open="(" close=")" separator=",">
+                    #{idItem}
+                </foreach>
+            </when>
                 <!-- 为避免全表更新，至少有一个查询条件 -->
                 <otherwise>
                    and id = #{id}
                 </otherwise>
             </choose>
-        </trim>
-    </update>
-
-    <!-- 批量删除 -->
-    <update id="batchDelete" parameterType="com.wisely.sys.entity.SysMessage">
-        update t_sys_message t
-        <trim prefix="set" prefixOverrides=",">
-            <include refid="DynamicSet" />
-        </trim>
-        <trim prefix="where" prefixOverrides="AND | OR">
-            <include refid="DynamicWhere"/>
         </trim>
     </update>
 
