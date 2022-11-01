@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wisely.sys.mapper.SysMessageMapper">
+
+    <resultMap type="com.wisely.sys.entity.SysMessage" id="BaseResultMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="orgId" column="org_id" jdbcType="INTEGER"/>
+        <result property="orgName" column="org_name" jdbcType="VARCHAR"/>
+        <result property="biztype" column="bizType" jdbcType="VARCHAR"/>
+        <result property="msgType" column="msg_type" jdbcType="VARCHAR"/>
+        <result property="templateId" column="template_id" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="params" column="params" jdbcType="VARCHAR"/>
+        <result property="senderid" column="senderId" jdbcType="VARCHAR"/>
+        <result property="sender" column="sender" jdbcType="VARCHAR"/>
+        <result property="sendStatus" column="send_status" jdbcType="INTEGER"/>
+        <result property="sendTime" column="send_time" jdbcType="VARCHAR"/>
+        <result property="opState" column="op_state" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="BaseColumn">
+        t.id,        
+        t.org_id,        
+        t.org_name,        
+        t.bizType,        
+        t.msg_type,        
+        t.template_id,        
+        t.title,        
+        t.content,        
+        t.params,        
+        t.senderId,        
+        t.sender,        
+        t.send_status,        
+        t.send_time,        
+        t.op_state,        
+        t.create_by,        
+        t.create_time,        
+        t.update_by,        
+        t.update_time,        
+        t.is_deleted        
+    </sql>
+    
+    <!-- 动态字段 -->
+    <sql id="DynamicColumn">
+        <if test="orgId != null"> 
+            org_id, 
+        </if>
+        <if test="orgName != null and orgName != ''"> 
+            org_name, 
+        </if>
+        <if test="biztype != null and biztype != ''"> 
+            bizType, 
+        </if>
+        <if test="msgType != null and msgType != ''"> 
+            msg_type, 
+        </if>
+        <if test="templateId != null"> 
+            template_id, 
+        </if>
+        <if test="title != null and title != ''"> 
+            title, 
+        </if>
+        <if test="content != null and content != ''"> 
+            content, 
+        </if>
+        <if test="params != null and params != ''"> 
+            params, 
+        </if>
+        <if test="senderid != null and senderid != ''"> 
+            senderId, 
+        </if>
+        <if test="sender != null and sender != ''"> 
+            sender, 
+        </if>
+        <if test="sendStatus != null"> 
+            send_status, 
+        </if>
+        <if test="sendTime != null and sendTime != ''"> 
+            send_time, 
+        </if>
+        <if test="opState != null"> 
+            op_state, 
+        </if>
+        <if test="createBy != null"> 
+            create_by, 
+        </if>
+        <if test="createTime != null and createTime != ''"> 
+            create_time, 
+        </if>
+        <if test="updateBy != null"> 
+            update_by, 
+        </if>
+        <if test="updateTime != null and updateTime != ''"> 
+            update_time, 
+        </if>
+        <if test="isDeleted != null"> 
+            is_deleted, 
+        </if>
+    </sql>
+    
+    <!-- 动态值 -->
+    <sql id="DynamicValue">
+        <if test="orgId != null">
+            #{orgId},
+        </if>
+        <if test="orgName != null and orgName != ''">
+            #{orgName},
+        </if>
+        <if test="biztype != null and biztype != ''">
+            #{biztype},
+        </if>
+        <if test="msgType != null and msgType != ''">
+            #{msgType},
+        </if>
+        <if test="templateId != null">
+            #{templateId},
+        </if>
+        <if test="title != null and title != ''">
+            #{title},
+        </if>
+        <if test="content != null and content != ''">
+            #{content},
+        </if>
+        <if test="params != null and params != ''">
+            #{params},
+        </if>
+        <if test="senderid != null and senderid != ''">
+            #{senderid},
+        </if>
+        <if test="sender != null and sender != ''">
+            #{sender},
+        </if>
+        <if test="sendStatus != null">
+            #{sendStatus},
+        </if>
+        <if test="sendTime != null and sendTime != ''">
+            #{sendTime},
+        </if>
+        <if test="opState != null">
+            #{opState},
+        </if>
+        <if test="createBy != null">
+            #{createBy},
+        </if>
+        <if test="createTime != null and createTime != ''">
+            #{createTime},
+        </if>
+        <if test="updateBy != null">
+            #{updateBy},
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            #{updateTime},
+        </if>
+        <if test="isDeleted != null">
+            #{isDeleted},
+        </if>
+    </sql>
+    
+    <!-- 动态赋值 -->
+    <sql id="DynamicSet">
+        <if test="orgId != null">
+            org_id = #{orgId},
+        </if>
+        <if test="orgName != null">
+            org_name = #{orgName},
+        </if>
+        <if test="biztype != null">
+            bizType = #{biztype},
+        </if>
+        <if test="msgType != null">
+            msg_type = #{msgType},
+        </if>
+        <if test="templateId != null">
+            template_id = #{templateId},
+        </if>
+        <if test="title != null">
+            title = #{title},
+        </if>
+        <if test="content != null">
+            content = #{content},
+        </if>
+        <if test="params != null">
+            params = #{params},
+        </if>
+        <if test="senderid != null">
+            senderId = #{senderid},
+        </if>
+        <if test="sender != null">
+            sender = #{sender},
+        </if>
+        <if test="sendStatus != null">
+            send_status = #{sendStatus},
+        </if>
+        <if test="sendTime != null">
+            send_time = #{sendTime},
+        </if>
+        <if test="opState != null">
+            op_state = #{opState},
+        </if>
+        <if test="createBy != null">
+            create_by = #{createBy},
+        </if>
+        <if test="createTime != null">
+            create_time = #{createTime},
+        </if>
+        <if test="updateBy != null">
+            update_by = #{updateBy},
+        </if>
+        <if test="updateTime != null">
+            update_time = #{updateTime},
+        </if>
+        <if test="isDeleted != null">
+            is_deleted = #{isDeleted},
+        </if>
+    </sql>
+    
+    <!-- 动态条件 -->
+    <sql id="DynamicWhere">
+        <if test="orgId != null">
+            and t.org_id = #{orgId}
+        </if>
+        <if test="orgName != null and orgName != ''">
+            and t.org_name = #{orgName}
+        </if>
+        <if test="biztype != null and biztype != ''">
+            and t.bizType = #{biztype}
+        </if>
+        <if test="msgType != null and msgType != ''">
+            and t.msg_type = #{msgType}
+        </if>
+        <if test="templateId != null">
+            and t.template_id = #{templateId}
+        </if>
+        <if test="title != null and title != ''">
+            and t.title = #{title}
+        </if>
+        <if test="content != null and content != ''">
+            and t.content = #{content}
+        </if>
+        <if test="params != null and params != ''">
+            and t.params = #{params}
+        </if>
+        <if test="senderid != null and senderid != ''">
+            and t.senderId = #{senderid}
+        </if>
+        <if test="sender != null and sender != ''">
+            and t.sender = #{sender}
+        </if>
+        <if test="sendStatus != null">
+            and t.send_status = #{sendStatus}
+        </if>
+        <if test="sendTime != null and sendTime != ''">
+            and t.send_time = #{sendTime}
+        </if>
+        <if test="opState != null">
+            and t.op_state = #{opState}
+        </if>
+        <if test="createBy != null">
+            and t.create_by = #{createBy}
+        </if>
+        <if test="createTime != null and createTime != ''">
+            and t.create_time = #{createTime}
+        </if>
+        <if test="updateBy != null">
+            and t.update_by = #{updateBy}
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            and t.update_time = #{updateTime}
+        </if>
+        <if test="isDeleted != null">
+            and t.is_deleted = #{isDeleted}
+        </if>
+        <if test="idQueryIn != null and idQueryIn != ''">
+            and t.id in
+            <foreach collection="idQueryIn.split(',')" item="idItem" open="(" close=")" separator=",">
+                #{idItem}
+            </foreach>
+        </if>
+        <if test="idQueryNotIn != null and idQueryNotIn != ''">
+            and t.id not in
+            <foreach collection="idQueryNotIn.split(',')" item="idItem" open="(" close=")" separator=",">
+                #{idItem}
+            </foreach>
+        </if>
+        <if test="bizTypeQueryIn != null and bizTypeQueryIn != ''">
+            and t.bizType in
+            <foreach collection="bizTypeQueryIn.split(',')" item="bizType" open="(" close=")" separator=",">
+                #{bizType}
+            </foreach>
+        </if>
+        <if test="bizTypeQueryNotIn != null and bizTypeQueryNotIn != ''">
+            and t.bizType not in
+            <foreach collection="bizTypeQueryNotIn.split(',')" item="bizType" open="(" close=")" separator=",">
+                #{bizType}
+            </foreach>
+        </if>
+        <if test="msgTypeQueryIn != null and msgTypeQueryIn != ''">
+            and t.msg_type in
+            <foreach collection="msgTypeQueryIn.split(',')" item="msgType" open="(" close=")" separator=",">
+                #{msgType}
+            </foreach>
+        </if>
+        <if test="msgTypeQueryNotIn != null and msgTypeQueryNotIn != ''">
+            and t.msg_type not in
+            <foreach collection="msgTypeQueryNotIn.split(',')" item="msgType" open="(" close=")" separator=",">
+                #{msgType}
+            </foreach>
+        </if>
+        <if test="templateIdQueryIn != null and templateIdQueryIn != ''">
+            and t.template_id in
+            <foreach collection="templateIdQueryIn.split(',')" item="templateId" open="(" close=")" separator=",">
+                #{templateId}
+            </foreach>
+        </if>
+        <if test="templateIdQueryNotIn != null and templateIdQueryNotIn != ''">
+            and t.template_id not in
+            <foreach collection="templateIdQueryNotIn.split(',')" item="templateId" open="(" close=")" separator=",">
+                #{templateId}
+            </foreach>
+        </if>
+        <if test="senderIdQueryIn != null and senderIdQueryIn != ''">
+            and t.sendId in
+            <foreach collection="senderIdQueryIn.split(',')" item="senderId" open="(" close=")" separator=",">
+                #{senderId}
+            </foreach>
+        </if>
+        <if test="senderIdQueryNotIn != null and senderIdQueryNotIn != ''">
+            and t.sendId not in
+            <foreach collection="senderIdQueryNotIn.split(',')" item="senderId" open="(" close=")" separator=",">
+                #{senderId}
+            </foreach>
+        </if>
+    </sql>
+
+    <!--查询单个-->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select <include refid="BaseColumn" />
+        from  t_sys_message t
+        where id = #{id}
+    </select>
+
+
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.wisely.sys.entity.SysMessage">
+        insert into t_sys_message  (
+            org_id,            
+            org_name,            
+            bizType,            
+            msg_type,            
+            template_id,            
+            title,            
+            content,            
+            params,            
+            senderId,            
+            sender,            
+            send_status,            
+            send_time,            
+            op_state,            
+            create_by,            
+            create_time,            
+            update_by,            
+            update_time,            
+            is_deleted            
+        )  values  (
+            #{orgId},            
+            #{orgName},            
+            #{biztype},            
+            #{msgType},            
+            #{templateId},            
+            #{title},            
+            #{content},            
+            #{params},            
+            #{senderid},            
+            #{sender},            
+            #{sendStatus},            
+            #{sendTime},            
+            #{opState},            
+            #{createBy},            
+            #{createTime},            
+            #{updateBy},            
+            #{updateTime},            
+            #{isDeleted}            
+        )
+    </insert>
+    
+    <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.wisely.sys.entity.SysMessage">
+        insert into  t_sys_message        
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <include refid="DynamicColumn" />
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <include refid="DynamicValue" />
+        </trim>
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="updateByPrimaryKey" parameterType="com.wisely.sys.entity.SysMessage">
+        update t_sys_message        
+        <set>
+            org_id = #{orgId},
+            org_name = #{orgName},
+            bizType = #{biztype},
+            msg_type = #{msgType},
+            template_id = #{templateId},
+            title = #{title},
+            content = #{content},
+            params = #{params},
+            senderId = #{senderid},
+            sender = #{sender},
+            send_status = #{sendStatus},
+            send_time = #{sendTime},
+            op_state = #{opState},
+            create_by = #{createBy},
+            create_time = #{createTime},
+            update_by = #{updateBy},
+            update_time = #{updateTime},
+            is_deleted = #{isDeleted},
+        </set>
+        where  id = #{id}
+    </update>
+    
+    <!-- 通过主键动态修改数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.wisely.sys.entity.SysMessage">
+        update t_sys_message        
+        <trim prefix="set" suffixOverrides="," >
+            <include refid="DynamicSet" />
+        </trim>
+        where id = #{id}
+    </update>
+    
+    
+    <!-- 根据条件动态修改数据 -->
+    <update id="updateBySelective" parameterType="com.wisely.sys.entity.SysMessage">
+        update t_sys_message t
+        <trim prefix="set" suffixOverrides="," >
+            <include refid="DynamicSet" />
+        </trim>
+        <trim prefix="where" prefixOverrides="AND | OR" >
+            <choose>
+                <!-- 为避免全表更新，至少有一个查询条件 -->
+                <otherwise>
+                   and id = #{id}
+                </otherwise>
+            </choose>
+        </trim>
+    </update>
+
+    <!-- 批量删除 -->
+    <update id="batchDelete" parameterType="com.wisely.sys.entity.SysMessage">
+        update t_sys_message t
+        <trim prefix="set" prefixOverrides=",">
+            <include refid="DynamicSet" />
+        </trim>
+        <trim prefix="where" prefixOverrides="AND | OR">
+            <include refid="DynamicWhere"/>
+        </trim>
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from  t_sys_message        
+        where id = #{id}
+    </delete>
+    
+    
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectListBySelective" parameterType="com.wisely.sys.entity.SysMessage" resultMap="BaseResultMap">
+        select <include refid="BaseColumn" />
+        from  t_sys_message t
+        <trim prefix="where " prefixOverrides="AND | OR" >
+            <include refid="DynamicWhere" />
+        </trim>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                order by ${orderBy}
+            </when>
+            <otherwise>
+                order by t.id desc
+            </otherwise>
+        </choose>
+    </select>
+
+</mapper>
+

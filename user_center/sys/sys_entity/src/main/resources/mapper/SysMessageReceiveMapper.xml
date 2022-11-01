@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wisely.sys.mapper.SysMessageReceiveMapper">
+
+    <resultMap type="com.wisely.sys.entity.SysMessageReceive" id="BaseResultMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="messageId" column="message_id" jdbcType="INTEGER"/>
+        <result property="receiverid" column="receiverId" jdbcType="VARCHAR"/>
+        <result property="receiver" column="receiver" jdbcType="VARCHAR"/>
+        <result property="receiveStatus" column="receive_status" jdbcType="INTEGER"/>
+        <result property="receiveTime" column="receive_time" jdbcType="VARCHAR"/>
+        <result property="opState" column="op_state" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="BaseColumn">
+        t.id,        
+        t.message_id,        
+        t.receiverId,        
+        t.receiver,        
+        t.receive_status,        
+        t.receive_time,        
+        t.op_state,        
+        t.create_by,        
+        t.create_time,        
+        t.update_by,        
+        t.update_time,        
+        t.is_deleted        
+    </sql>
+    
+    <!-- 动态字段 -->
+    <sql id="DynamicColumn">
+        <if test="messageId != null"> 
+            message_id, 
+        </if>
+        <if test="receiverid != null and receiverid != ''"> 
+            receiverId, 
+        </if>
+        <if test="receiver != null and receiver != ''"> 
+            receiver, 
+        </if>
+        <if test="receiveStatus != null"> 
+            receive_status, 
+        </if>
+        <if test="receiveTime != null and receiveTime != ''"> 
+            receive_time, 
+        </if>
+        <if test="opState != null"> 
+            op_state, 
+        </if>
+        <if test="createBy != null"> 
+            create_by, 
+        </if>
+        <if test="createTime != null and createTime != ''"> 
+            create_time, 
+        </if>
+        <if test="updateBy != null"> 
+            update_by, 
+        </if>
+        <if test="updateTime != null and updateTime != ''"> 
+            update_time, 
+        </if>
+        <if test="isDeleted != null"> 
+            is_deleted, 
+        </if>
+    </sql>
+    
+    <!-- 动态值 -->
+    <sql id="DynamicValue">
+        <if test="messageId != null">
+            #{messageId},
+        </if>
+        <if test="receiverid != null and receiverid != ''">
+            #{receiverid},
+        </if>
+        <if test="receiver != null and receiver != ''">
+            #{receiver},
+        </if>
+        <if test="receiveStatus != null">
+            #{receiveStatus},
+        </if>
+        <if test="receiveTime != null and receiveTime != ''">
+            #{receiveTime},
+        </if>
+        <if test="opState != null">
+            #{opState},
+        </if>
+        <if test="createBy != null">
+            #{createBy},
+        </if>
+        <if test="createTime != null and createTime != ''">
+            #{createTime},
+        </if>
+        <if test="updateBy != null">
+            #{updateBy},
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            #{updateTime},
+        </if>
+        <if test="isDeleted != null">
+            #{isDeleted},
+        </if>
+    </sql>
+    
+    <!-- 动态赋值 -->
+    <sql id="DynamicSet">
+        <if test="messageId != null">
+            message_id = #{messageId},
+        </if>
+        <if test="receiverid != null">
+            receiverId = #{receiverid},
+        </if>
+        <if test="receiver != null">
+            receiver = #{receiver},
+        </if>
+        <if test="receiveStatus != null">
+            receive_status = #{receiveStatus},
+        </if>
+        <if test="receiveTime != null">
+            receive_time = #{receiveTime},
+        </if>
+        <if test="opState != null">
+            op_state = #{opState},
+        </if>
+        <if test="createBy != null">
+            create_by = #{createBy},
+        </if>
+        <if test="createTime != null">
+            create_time = #{createTime},
+        </if>
+        <if test="updateBy != null">
+            update_by = #{updateBy},
+        </if>
+        <if test="updateTime != null">
+            update_time = #{updateTime},
+        </if>
+        <if test="isDeleted != null">
+            is_deleted = #{isDeleted},
+        </if>
+    </sql>
+    
+    <!-- 动态条件 -->
+    <sql id="DynamicWhere">
+        <if test="messageId != null">
+            and t.message_id = #{messageId}
+        </if>
+        <if test="receiverid != null and receiverid != ''">
+            and t.receiverId = #{receiverid}
+        </if>
+        <if test="receiver != null and receiver != ''">
+            and t.receiver = #{receiver}
+        </if>
+        <if test="receiveStatus != null">
+            and t.receive_status = #{receiveStatus}
+        </if>
+        <if test="receiveTime != null and receiveTime != ''">
+            and t.receive_time = #{receiveTime}
+        </if>
+        <if test="opState != null">
+            and t.op_state = #{opState}
+        </if>
+        <if test="createBy != null">
+            and t.create_by = #{createBy}
+        </if>
+        <if test="createTime != null and createTime != ''">
+            and t.create_time = #{createTime}
+        </if>
+        <if test="updateBy != null">
+            and t.update_by = #{updateBy}
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            and t.update_time = #{updateTime}
+        </if>
+        <if test="isDeleted != null">
+            and t.is_deleted = #{isDeleted}
+        </if>
+        <if test="idQueryIn != null and idQueryIn != ''">
+            and t.id in
+            <foreach collection="idQueryIn.split(',')" item="idItem" open="(" close=")" separator=",">
+                #{idItem}
+            </foreach>
+        </if>
+    </sql>
+
+    <!--查询单个-->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select <include refid="BaseColumn" />
+        from  t_sys_message_receive t
+        where id = #{id}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.wisely.sys.entity.SysMessageReceive">
+        insert into t_sys_message_receive  (
+            message_id,            
+            receiverId,            
+            receiver,            
+            receive_status,            
+            receive_time,            
+            op_state,            
+            create_by,            
+            create_time,            
+            update_by,            
+            update_time,            
+            is_deleted            
+        )  values  (
+            #{messageId},            
+            #{receiverid},            
+            #{receiver},            
+            #{receiveStatus},            
+            #{receiveTime},            
+            #{opState},            
+            #{createBy},            
+            #{createTime},            
+            #{updateBy},            
+            #{updateTime},            
+            #{isDeleted}            
+        )
+    </insert>
+    
+    <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.wisely.sys.entity.SysMessageReceive">
+        insert into  t_sys_message_receive        
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <include refid="DynamicColumn" />
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <include refid="DynamicValue" />
+        </trim>
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="updateByPrimaryKey" parameterType="com.wisely.sys.entity.SysMessageReceive">
+        update t_sys_message_receive        
+        <set>
+            message_id = #{messageId},
+            receiverId = #{receiverid},
+            receiver = #{receiver},
+            receive_status = #{receiveStatus},
+            receive_time = #{receiveTime},
+            op_state = #{opState},
+            create_by = #{createBy},
+            create_time = #{createTime},
+            update_by = #{updateBy},
+            update_time = #{updateTime},
+            is_deleted = #{isDeleted},
+        </set>
+        where  id = #{id}
+    </update>
+    
+    <!-- 通过主键动态修改数据 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.wisely.sys.entity.SysMessageReceive">
+        update t_sys_message_receive        
+        <trim prefix="set" suffixOverrides="," >
+            <include refid="DynamicSet" />
+        </trim>
+        where id = #{id}
+    </update>
+
+    <!-- 通过主键批量修改已读状态 -->
+    <update id="batchUpdateAsRead" parameterType="com.wisely.sys.entity.SysMessageReceive">
+        update t_sys_message_receive t
+        <trim prefix="set" suffixOverrides=",">
+          t.receive_status = 1
+        </trim>
+        <trim prefix="where" prefixOverrides="AND | OR">
+                <if test="idQueryIn != null and idQueryIn != ''">
+                    and t.id in
+                    <foreach collection="idQueryIn.split(',')" item="idItem" open="(" close=")" separator=",">
+                        #{idItem}
+                    </foreach>
+                </if>
+        </trim>
+    </update>
+
+
+    <update id="batchUpdateAsUnread" parameterType="com.wisely.sys.entity.SysMessageReceive">
+        update t_sys_message_receive t
+        <trim prefix="set" suffixOverrides=",">
+            t.receive_status = 0
+        </trim>
+        <trim prefix="where" prefixOverrides="AND | OR">
+            <if test="idQueryIn != null and idQueryIn != ''">
+                and t.id in
+                <foreach collection="idQueryIn.split(',')" item="idItem" open="(" close=")" separator=",">
+                    #{idItem}
+                </foreach>
+            </if>
+        </trim>
+    </update>
+    
+    
+    <!-- 根据条件动态修改数据 -->
+    <update id="updateBySelective" parameterType="com.wisely.sys.entity.SysMessageReceive">
+        update t_sys_message_receive t
+        <trim prefix="set" suffixOverrides="," >
+            <include refid="DynamicSet" />
+        </trim>
+        <trim prefix="where" prefixOverrides="AND | OR" >
+            <choose>
+                <!-- 为避免全表更新，至少有一个查询条件 -->
+                <otherwise>
+                   and id = #{id}
+                </otherwise>
+            </choose>
+        </trim>
+    </update>
+    
+
+    <!--通过主键删除-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from  t_sys_message_receive        
+        where id = #{id}
+    </delete>
+    <!-- 批量删除 -->
+    <update id="batchDelete" parameterType="com.wisely.sys.entity.SysMessageReceive">
+        update t_sys_message_receive t
+        <trim prefix="set" suffixOverrides=",">
+           t.isDeleted = 1
+        </trim>
+        <trim prefix="where" prefixOverrides="AND | OR">
+            t.id in
+            <if test="idQueryIn != null and idQueryIn != ''">
+                <foreach collection="idQueryIn.split(',')" item="idItem" open="(" close=")" separator=",">
+                    #{idItem}
+                </foreach>
+            </if>
+        </trim>
+    </update>
+    
+    
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectListBySelective" parameterType="com.wisely.sys.entity.SysMessageReceive" resultMap="BaseResultMap">
+        select <include refid="BaseColumn" />
+        from  t_sys_message_receive t
+        <trim prefix="where " prefixOverrides="AND | OR" >
+            <include refid="DynamicWhere" />
+        </trim>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                order by ${orderBy}
+            </when>
+            <otherwise>
+                order by t.id desc
+            </otherwise>
+        </choose>
+    </select>
+
+</mapper>
+
