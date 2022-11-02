@@ -403,6 +403,11 @@
             </dependency>
 			<dependency>
                 <groupId>com.wisely</groupId>
+                <artifactId>framework-seata</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+			<dependency>
+                <groupId>com.wisely</groupId>
                 <artifactId>framework-web</artifactId>
                 <version>${framework.version}</version>
             </dependency>
